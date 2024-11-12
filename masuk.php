@@ -89,6 +89,7 @@ if (isset($_POST["login-submit"])) {
             align-items: center;
             height: auto;
             min-height: 100vh;
+            padding-top: 60px;
             background-color: #3A2470;
         }
 

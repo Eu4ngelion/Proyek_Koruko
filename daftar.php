@@ -88,6 +88,7 @@ if (isset($_POST['register-submit'])) {
             justify-content: center;
             align-items: center;
             height: auto;
+            padding-top: 60px;
             min-height: 100vh;
             background-color: #3A2470;
         }
