@@ -1,7 +1,27 @@
+
+.container-admin-pengaturan {
+    margin-top: 7%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.container-admin-tentang {
+    margin-top: 7%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.slice-container {
+    justify-content: center;
+    gap: 50px;
+    display: flex;
+    width: 100%;
+
 .container {
     margin-top: 10%;
     margin-left: 10%;
     margin-right: 10%;
+
 
 }
 
@@ -9,8 +29,22 @@
     text-align: center;
 }
 
+
+.page-title-2 {
+    text-align: center;
+    background-color: #703BF7;
+    color: white;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.slice-up-admin-tentang {
+    justify-content: grid;
+    
+
 .slice-up-admin-tentang {
     justify-content: space-between;
+
     display: flex;
 }
 
@@ -34,10 +68,13 @@
     border: 2px solid black;
     border-radius: 10px;
     resize: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .btn-admin-tentang {
     text-align: right;
+    margin-right: 15%;
 }
 
 .btn-simpan-admin {
@@ -66,3 +103,4 @@
     padding: 10px 20px;
     border-radius: 5px;
 }
+
