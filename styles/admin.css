@@ -16,6 +16,7 @@
     gap: 50px;
     display: flex;
     width: 100%;
+}
 
 .container {
     margin-top: 10%;
@@ -40,7 +41,7 @@
 
 .slice-up-admin-tentang {
     justify-content: grid;
-    
+}
 
 .slice-up-admin-tentang {
     justify-content: space-between;
