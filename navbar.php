@@ -78,6 +78,11 @@ if (isset($_SESSION["username"])) {
         .navbar {
             background-color: black;
             padding: 10px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
         }
 
         .navbar-container {

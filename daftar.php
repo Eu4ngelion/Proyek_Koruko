@@ -182,10 +182,17 @@ if (isset($_POST['register-submit'])) {
                 Register
             </div>
             <form class="form-group" action="daftar.php" method="POST">
-                <input type="text" name="full-name" id="full-name" class="form-control" placeholder="Nama Lengkap" minlength="1" maxlength="30" pattern="[A-Za-z\s'-]+" required>
-                <input type="text" name="username" id="username" class="form-control" placeholder="Nama Pengguna" minlength="5" maxlength="20" pattern="[A-Za-z0-9@._]+" required>
-                <input type="email" name="email" id="email" class="form-control" placeholder="Email" minlength="1" maxlength="50" required>
-                <input type="tel" name="no_telp" id="no_telp" class="form-control" placeholder="No. Telepon" minlength="10" maxlength="15" pattern="[0-9]+" required>
+                <input type="text" name="full-name" id="full-name" class="form-control" 
+                placeholder="Nama Lengkap" minlength="1" maxlength="30" pattern="[A-Za-z\s'-]+" required>
+                
+                <input type="text" name="username" id="username" class="form-control" 
+                placeholder="Nama Pengguna" minlength="5" maxlength="20" pattern="[A-Za-z0-9@._]+" required>
+                
+                <input type="email" name="email" id="email" class="form-control" 
+                placeholder="Email" minlength="1" maxlength="50" required>
+                
+                <input type="tel" name="no_telp" id="no_telp" class="form-control" 
+                placeholder="No. Telepon" minlength="10" maxlength="15" pattern="[0-9]+" required>
 
                 <input type="password" name="password" id="password" class="form-control" placeholder="Kata Sandi"
                     minlength="8" maxlength="20"

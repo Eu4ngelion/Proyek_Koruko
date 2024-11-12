@@ -1,3 +1,4 @@
+
 .container-admin-pengaturan {
     margin-top: 7%;
     margin-left: 10%;
@@ -15,11 +16,19 @@
     gap: 50px;
     display: flex;
     width: 100%;
+
+.container {
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+
+
 }
 
 .page-title {
     text-align: center;
 }
+
 
 .page-title-2 {
     text-align: center;
@@ -32,6 +41,10 @@
 .slice-up-admin-tentang {
     justify-content: grid;
     
+
+.slice-up-admin-tentang {
+    justify-content: space-between;
+
     display: flex;
 }
 
@@ -90,6 +103,4 @@
     padding: 10px 20px;
     border-radius: 5px;
 }
-
-
 
