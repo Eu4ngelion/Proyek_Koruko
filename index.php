@@ -32,6 +32,7 @@ $sql = "SELECT nama_admin FROM admin";
             height: auto;
             min-height: 100vh;
             padding-top: 80px;
+            background-color: red;
         }
 
     </style>
