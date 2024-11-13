@@ -23,7 +23,7 @@ require "koneksi.php";
         <?php include "navbar.php"; ?>
     </header>
 
-    <main>
+    <main class="main-admin-pengaturan">
         <div class="container-admin-pengaturan">
             <div class="page-title">
                 <h1>Pengaturan</h1>
@@ -106,7 +106,7 @@ require "koneksi.php";
     </main>
 
     <footer>
-        <?php include "navbar.php"; ?>
+        <?php include "footer.php"; ?>
     </footer>
 
 </body>
