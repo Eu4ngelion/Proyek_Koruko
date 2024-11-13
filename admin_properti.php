@@ -29,8 +29,10 @@ $ruko_result = mysqli_query($conn, $query_ruko);
 </head>
 
 <body>
-    <?php include 'navbar.php'; ?>
-
+    <?php
+    include "navbar.php";
+    ?>
+    <h1>Admin Properti</h1>
     <main class="main-content">
         <h1>Lihat Properti</h1>
 
