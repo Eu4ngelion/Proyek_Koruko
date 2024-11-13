@@ -14,6 +14,7 @@ require "koneksi.php";
     include "navbar.php";
     ?>
     <h1>Admin Properti</h1>
+    <a href="admin_verif.php?id_ruko=1">Verifikasi Properti</a>
     
 </body>
 </html>
