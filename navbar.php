@@ -83,6 +83,7 @@ if (isset($_SESSION["username"])) {
             left: 0;
             width: 100%;
             z-index: 1000;
+            box-shadow: 0 4px 80px #703BF7;
         }
         
         .navbar-container {
