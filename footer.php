@@ -7,10 +7,6 @@
     <style>
         * {
             font-family: "Poppins", sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            
         }
         .footer {
             background-color: #8A4FFF;

@@ -77,7 +77,7 @@ if (isset($_SESSION["username"])) {
     <style>
         .navbar {
             background-color: black;
-            padding: 20px 0;
+            padding: 5px 0;
             position: fixed;
             top: 0;
             left: 0;
@@ -161,6 +161,7 @@ if (isset($_SESSION["username"])) {
             border-radius: 15px;
             padding: 2px 15px;
             transition: all 0.3s;
+            margin: 0 10px;
         }
 
         .navbar-item-current:hover {
@@ -170,6 +171,7 @@ if (isset($_SESSION["username"])) {
             padding: 2px 15px;
             text-shadow: 0 4px 4px black;
             transition: all 0.3s;
+            margin: 0 10px;
         }
 
         .navbar-link {

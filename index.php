@@ -39,7 +39,7 @@ $sql = "SELECT nama_admin FROM admin";
 
 
 <body class="body-index">
-    <header><?php include "navbar.php";?></header>
+    <header><?php include "navbar.php"?></header>
 
     <main class="main-index">
         <h1>Beranda</h1>
