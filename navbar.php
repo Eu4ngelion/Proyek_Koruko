@@ -77,7 +77,7 @@ if (isset($_SESSION["username"])) {
     <style>
         .navbar {
             background-color: black;
-            padding: 10px 0;
+            padding: 20px 0;
             position: fixed;
             top: 0;
             left: 0;

@@ -76,7 +76,10 @@ if (isset($_POST["submit"])) {
         <div class="header-content">
             <div class="title">Verifikasi Ruko</div>
             <div class="action-buttons">
-                <button class="btn btn-kembali">Kembali</button>
+                <a href="admin_properti.php">
+                    <button class="btn btn-kembali">Kembali</button>
+                </a>
+
                 <button class="btn btn-verifikasi">Verifikasi</button>
                 <button class="btn btn-tolak">Tolak</button>
             </div>
