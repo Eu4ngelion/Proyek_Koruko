@@ -88,6 +88,7 @@ if (isset($_POST['register-submit'])) {
             justify-content: center;
             align-items: center;
             height: auto;
+            padding-top: 60px;
             min-height: 100vh;
             background-color: #3A2470;
         }
@@ -182,17 +183,17 @@ if (isset($_POST['register-submit'])) {
                 Register
             </div>
             <form class="form-group" action="daftar.php" method="POST">
-                <input type="text" name="full-name" id="full-name" class="form-control" 
-                placeholder="Nama Lengkap" minlength="1" maxlength="30" pattern="[A-Za-z\s'-]+" required>
-                
-                <input type="text" name="username" id="username" class="form-control" 
-                placeholder="Nama Pengguna" minlength="5" maxlength="20" pattern="[A-Za-z0-9@._]+" required>
-                
-                <input type="email" name="email" id="email" class="form-control" 
-                placeholder="Email" minlength="1" maxlength="50" required>
-                
-                <input type="tel" name="no_telp" id="no_telp" class="form-control" 
-                placeholder="No. Telepon" minlength="10" maxlength="15" pattern="[0-9]+" required>
+                <input type="text" name="full-name" id="full-name" class="form-control"
+                    placeholder="Nama Lengkap" minlength="1" maxlength="30" pattern="[A-Za-z\s'-]+" required>
+
+                <input type="text" name="username" id="username" class="form-control"
+                    placeholder="Nama Pengguna" minlength="5" maxlength="20" pattern="[A-Za-z0-9@._]+" required>
+
+                <input type="email" name="email" id="email" class="form-control"
+                    placeholder="Email" minlength="1" maxlength="50" required>
+
+                <input type="tel" name="no_telp" id="no_telp" class="form-control"
+                    placeholder="No. Telepon" minlength="10" maxlength="15" pattern="[0-9]+" required>
 
                 <input type="password" name="password" id="password" class="form-control" placeholder="Kata Sandi"
                     minlength="8" maxlength="20"
@@ -202,8 +203,8 @@ if (isset($_POST['register-submit'])) {
                 <input type="password" name="password2" id="password2" class="form-control" placeholder="Konfirmasi Kata Sandi"
                     minlength="8" maxlength="20"
                     pattern="^(?=.*[A-Z])([A-Za-z\d!@#\$%\^&\*\(\)]+)"
-                    title="Password harus memiliki minimal 8 karakter dan satu huruf kapital." 
-                    oninput = "checkPasswordMatch()"
+                    title="Password harus memiliki minimal 8 karakter dan satu huruf kapital."
+                    oninput="checkPasswordMatch()"
                     required>
 
                 <span class="error-konfirmasi" id="password-match-message" style="color: red; display: none;">Konfirmasi Gagal. Pastikan kedua kata sandi sama</span>
