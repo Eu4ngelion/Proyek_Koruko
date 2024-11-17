@@ -90,7 +90,7 @@ if (isset($_SESSION["username"])) {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 0 15px;
+            margin: 0 100px;
             padding: 0 20px;
         }
 

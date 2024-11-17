@@ -1,5 +1,18 @@
+<?php
+    require "koneksi.php";
+
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // !!! lanjutkan loh yah
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +21,10 @@
         * {
             font-family: "Poppins", sans-serif;
         }
+
         .footer {
             background-color: #8A4FFF;
             color: white;
-            padding: 30px 5px 0 30px;
             width: 100%;
             margin-top: auto;
             position: relative;
@@ -20,21 +33,22 @@
 
         .footer-content {
             display: flex;
-            justify-content: space-between;
             align-items: flex-start;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding-right: 20%;
+            margin: 0 120px;
+            flex-wrap: nowrap;
         }
 
         .footer-kiri {
-            flex: 1;
-            padding-right: 40px;
+            flex: 0.5;
         }
 
-        .footer-tengah, .footer-kanan {
-            flex: 1;
+        .footer-kanan {
+            flex: 1.5;
+            display: flex;
+            width: 100%;
+            justify-content: center;
         }
+
         .footer-logo {
             font-size: 28px;
             font-weight: bold;
@@ -44,23 +58,22 @@
         .footer-description {
             font-size: 14px;
             line-height: 1.5;
-            max-width: 400px;
         }
 
-        .link-sectiion{
+        .link-sectiion {
             /* set the width to be fit */
             width: fit-content;
         }
 
 
 
-        .footer-title{
+        .footer-title {
             font-size: 18px;
             margin-bottom: 20px;
             font-weight: bold;
             text-align: center;
             padding: 0;
-        
+
         }
 
         .link-list {
@@ -69,9 +82,10 @@
             margin: 0;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px 10px; 
+            gap: 8px 10px;
 
         }
+
         .link-list {
             width: fit-content;
             margin: 0 auto;
@@ -131,7 +145,8 @@
                 </div>
             </div>
 
-            <div class="footer-tengah">
+            <div class="footer-kanan">
+                <!-- Link Cepat -->
                 <div class="link-section">
                     <div class="footer-title">Link Cepat</div>
                     <ul class="link-list">
@@ -143,22 +158,25 @@
                         <li><a href="masuk.php">Masuk</a></li>
                     </ul>
                 </div>
-            </div>
 
-            <div class="footer-kanan">
+                <!-- Kontak Kami -->
                 <div class="link-section">
                     <div class="footer-title">Kontak Kami</div>
                     <div class="contact-info">
                         <p>Telp: +62 8123456790</p>
                         <p>Email: koruko@gmail.com</p>
-                        <div class="social-icons">
-                            <a href="#"><img src="path-to-instagram-icon.png" alt="IG"></a>
-                            <a href="#"><img src="path-to-twitter-icon.png" alt="Twit"></a>
-                            <a href="#"><img src="path-to-facebook-icon.png" alt="FB"></a>
-                            <a href="#"><img src="path-to-youtube-icon.png" alt="YT"></a>
-                        </div>
+                        <p>Alamat: Jl. Raya No. 1, Jakarta</p>
                     </div>
                 </div>
+                
+                <!-- Sosial Media -->
+                <div class="social-icons">
+                    <a href="#"><img src="path-to-instagram-icon.png" alt="IG"></a>
+                    <a href="#"><img src="path-to-twitter-icon.png" alt="Twit"></a>
+                    <a href="#"><img src="path-to-facebook-icon.png" alt="FB"></a>
+                    <a href="#"><img src="path-to-youtube-icon.png" alt="YT"></a>
+                </div>
+                
             </div>
         </div>
         <div class="copyright">
@@ -166,4 +184,5 @@
         </div>
     </footer>
 </body>
+
 </html>
