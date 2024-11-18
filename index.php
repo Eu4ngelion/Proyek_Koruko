@@ -9,10 +9,15 @@ if (!isset($_SESSION["login"])) {
     $_SESSION["login"] = false;
 }
 
-// Mengambil data admin
-$sql = "SELECT nama_admin FROM admin";
+// Mengambil 4 data ruko secara acak untuk rekomendasi
+$sql_rekomendasi = "SELECT * FROM ruko ORDER BY RAND() LIMIT 4";
+$result = mysqli_query($conn, $sql_rekomendasi);
+$ruko_rekomendasi = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-
+// Mengambil 4 data ruko terbaru (ruko dengan tanggal terbaru)
+$sql_terbaru = "SELECT * FROM ruko ORDER BY tanggal DESC LIMIT 4";
+$result = mysqli_query($conn, $sql_terbaru);
+$ruko_terbaru = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -217,8 +222,7 @@ $sql = "SELECT nama_admin FROM admin";
             width: 100px;
         }
 
-        /* Section Rekomendasi */
-
+        /* Section Rekomendasi & Card*/
         .main-section-rekomendasi {
             margin-top: 20px;
             padding: 20px 10%;
@@ -242,6 +246,162 @@ $sql = "SELECT nama_admin FROM admin";
 
         .main-rekomendasi-title-left img {
             vertical-align: middle;
+        }
+
+        .main-rekomendasi-card {
+            display: flex;
+            background-color: white;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 10px;
+            padding: 0;
+            border-radius: 10px;
+            width: 275px;
+            height: 315px;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .main-rekomendasi-card:hover {
+            box-shadow: 0px 0px 30px  #703BF7;
+            transform: translateY(-20px);
+            transition: all 0.3s;
+        }
+
+        .rekomendasi-card-image {
+            display: flex;
+            background-image: url("images/ruko/rukoa.webp");
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 150px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            align-items: flex-end;
+        }
+
+        .card-pop-sewa {
+            background-color: #703BF7;
+            color: white;
+            width: 50px;
+            height: 20px;
+            padding: 3px 12px;
+            margin-left: 5px;
+            margin-bottom: 5px;
+            border-radius: 10px;
+            font-family: "Poppins", sans-serif;
+            font-weight: bold;
+            font-size: 12px;
+            box-shadow: 0px 2px 4px black;
+        }
+
+        .card-pop-jual {
+            background-color: #EFAE2D;
+            color: white;
+            width: 50px;
+            height: 20px;
+            padding: 3px 12px;
+            margin-left: 5px;
+            margin-bottom: 5px;
+            border-radius: 10px;
+            font-family: "Poppins", sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0px 2px 4px black;
+        }
+
+        .rekomendasi-card-bottom {
+            display: flex;
+            flex-direction: column;
+            width: 95%;
+            padding: 1px 0 0 0;
+        }
+
+        .rekomendasi-card-harga {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .rekomendasi-card-harga-kiri {
+            font-size: 14px;
+            font-weight: bold;
+            color: #703BF7;
+        }
+
+        .rekomendasi-card-harga-kanan {
+            font-size: 12px;
+            color: #703BF7;
+        }
+
+        .rekomendasi-card-deskripsi-atas {
+            display: flex;
+            margin: 10px 0 0 0;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .rekomendasi-card-kota {
+            font-size: 16px;
+            font-weight: bold;
+            color: #703BF7;
+            /* align kiri */
+            text-align: left;
+            margin: -5px 0 0 0;
+        }
+
+        .rekomendasi-card-nama {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: left;
+            margin: -5px 0 0 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .rekomendasi-card-alamat {
+            font-size: 12px;
+            font-weight: bold;
+            text-align: left;
+            margin: -5px 0 0 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+        }
+
+        .rekomendasi-card-deskripsi-bawah {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            width: 100%;
+            border-top: 1px solid black;
+        }
+
+        .rekomendasi-card-fasilitas {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .fasilitas-title {
+            font-size: 14px;
+            font-weight: bold;
+            width: 60px;
+            text-align: left;
+        }
+
+        .fasilitas-value {
+            font-size: 14px;
+            font-weight: bold;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .main-link-card {
+            display: block;
+            margin: 0;
+            width: 290px;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -388,25 +548,80 @@ $sql = "SELECT nama_admin FROM admin";
                 </div>
 
                 <div class="main-rekomendasi-content">
-                    <div class="main-rekomendasi-card">
-                        <div class="rekomendasi-card-image">
+                    <?php foreach ($ruko_rekomendasi as $ruko) : ?>
+                        <a class="main-link-card" href="detail.php?id_ruko=<?php echo $ruko['id_ruko']; ?>">
+                            <button class="main-rekomendasi-card">
+                                <div class="rekomendasi-card-image">
+                                    <!-- Jika Disewa -->
+                                    <?php if ($ruko['harga_jual'] == 0 || $ruko['harga_jual'] == NULL) : ?>
+                                        <div class="card-pop-sewa">
+                                            Disewa
+                                        </div>
+                                    <?php endif; ?>
 
-                        <!-- Jika Disewa -->
+                                    <!-- Jika Dijual -->
+                                    <?php if ($ruko['harga_sewa'] == 0 || $ruko['harga_sewa'] == NULL) : ?>
+                                        <div class="card-pop-jual">
+                                            Dijual
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="rekomendasi-card-bottom">
+                                    <div class="rekomendasi-card-harga">
+                                        <!-- Harga Jual, Harga Sewa -->
+                                        <div class="rekomendasi-card-harga-kiri">
+                                            IDR 1,2 Miliar
+                                        </div>
+                                        <div class="rekomendasi-card-harga-kanan">
+                                            IDR 100 Juta/Bulan
+                                        </div>
+                                    </div>
+                                    <!-- deskripsi atas= kota, nama ruko, alamat -->
+                                    <div class="rekomendasi-card-deskripsi-atas">
+                                        <div class="rekomendasi-card-kota">Jakarta</div>
+                                        <div class="rekomendasi-card-nama">Ruko Baru</div>
+                                        <div class="rekomendasi-card-alamat">Jl. Ruko Baru No. 1 </div>
+                                    </div>
 
-                        <!-- Jika Dijual -->
-
-                        </div>
-                        <div class="rekomendasi-card-bottom">
-                            <div class="rekomendasi-card-harga">
-                                <!-- Harga Jual,     Harga Sewa -->
-                            </div>
-                            <!-- deskripsi atas= kota, nama ruko, alamat -->
-
-                            <!-- deskripsi bawah = fasilitas -->
-                        </di>
-
-                    </div>
+                                    <!-- deskripsi bawah (grid 2 x 6)= fasilitas (luas tanah, luas kamar, kamar tidur, kamar mandi, garasi, jumlah lantai) -->
+                                    <div class="rekomendasi-card-deskripsi-bawah">
+                                        <div class="rekomendasi-card-fasilitas">
+                                            <div class="fasilitas-title">LT</div>
+                                            :
+                                            <div class="fasilitas-value">100 m2</div>
+                                        </div>
+                                        <div class="rekomendasi-card-fasilitas">
+                                            <div class="fasilitas-title">LB</div>
+                                            :
+                                            <div class="fasilitas-value">200 m2</div>
+                                        </div>
+                                        <div class="rekomendasi-card-fasilitas">
+                                            <div class="fasilitas-title">Kamar</div>
+                                            :
+                                            <div class="fasilitas-value">3</div>
+                                        </div>
+                                        <div class="rekomendasi-card-fasilitas">
+                                            <div class="fasilitas-title">Toilet</div>
+                                            :
+                                            <div class="fasilitas-value">2</div>
+                                        </div>
+                                        <div class="rekomendasi-card-fasilitas">
+                                            <div class="fasilitas-title">Garasi</div>
+                                            :
+                                            <div class="fasilitas-value">1</div>
+                                        </div>
+                                        <div class="rekomendasi-card-fasilitas">
+                                            <div class="fasilitas-title">Lantai</div>
+                                            :
+                                            <div class="fasilitas-value">2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
+            </div>
 
 
             </div>
@@ -414,7 +629,7 @@ $sql = "SELECT nama_admin FROM admin";
             <div class="main-rekomendasi">
                 <div class="main-rekomendasi-title">
                     <div class="main-rekomendasi-title-left">
-                        Rekomendasi
+                        Ruko Baru
                         <img src="images/assets/purple_star(2).png" alt="star" style="width: 25px; height: auto;">
                         <img src="images/assets/purple_star(2).png" alt="star" style="width: 20px; height: auto;">
                         <img src="images/assets/purple_star(2).png" alt="star" style="width: 15px; height: auto;">
@@ -573,16 +788,6 @@ $sql = "SELECT nama_admin FROM admin";
             hiddenTipe.value = inputTipe;
         });
 
-        terapkanHarga.addEventListener("click", function() {
-            let inputHargaMin = document.querySelector("#main-input-harga-min").value;
-            let inputHargaMax = document.querySelector("#main-input-harga-max").value;
-            subvalueHarga.innerHTML = "Rp " + inputHargaMin + " - Rp " + inputHargaMax;
-            hargaDropdownBox.style.display = "none";
-
-            hiddenMin.value = inputHargaMin;
-            hiddenMax.value = inputHargaMax;
-        });
-
         // Ketika diklik terapkan update hidden input
         let terapkanLokasiHidden = document.querySelector("#terapkan-lokasi");
         let terapkanTipeHidden = document.querySelector("#terapkan-tipe");
@@ -642,7 +847,7 @@ $sql = "SELECT nama_admin FROM admin";
             if (inputHargaMin.value == "" || inputHargaMax.value == "") {
                 subvalueHarga.innerHTML = "Pilih Rentang Harga"
             } else {
-                subvalueHarga.innerHTML = "Rp " + inputHargaMinValue + " - Rp " + inputHargaMaxValue;
+                subvalueHarga.innerHTML = "IDR " + inputHargaMinValue + " - IDR " + inputHargaMaxValue;
                 hiddenMin.value = inputHargaMin.value;
                 hiddenMax.value = inputHargaMax.value;
             }
