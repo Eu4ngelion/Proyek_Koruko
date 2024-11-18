@@ -90,8 +90,8 @@ if (isset($_SESSION["username"])) {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 0 100px;
-            padding: 0 20px;
+            margin: 0 10%;
+            padding: 0;
         }
 
         .navbar-logo {

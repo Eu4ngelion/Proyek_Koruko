@@ -27,6 +27,7 @@ $sql = "SELECT nama_admin FROM admin";
         body {
             margin: 0;
             padding: 0;
+            background-color: black;
         }
 
         .main-index {
@@ -34,9 +35,10 @@ $sql = "SELECT nama_admin FROM admin";
             min-height: 100vh;
             padding-top: 60px;
             font-family: 'Poppins', sans-serif;
+            z-index: -2;
         }
 
-        /* Her */
+        /* Hero */
         .main-hero-image {
             height: 500px;
             width: 100%;
@@ -47,7 +49,7 @@ $sql = "SELECT nama_admin FROM admin";
             position: relative;
         }
 
-        .hero-image{
+        .hero-image {
             width: 102%;
             height: 100%;
             object-fit: cover;
@@ -92,20 +94,59 @@ $sql = "SELECT nama_admin FROM admin";
         .main-dropdown-tipe-box,
         .main-dropdown-harga-box {
             display: none;
+            flex-direction: column;
             position: absolute;
             z-index: 1;
-            background-color: white;
+            background-color: #ffffff;
+            border: 1px solid #703BF7;
             border-radius: 10px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            padding: 12px 16px;
+            box-shadow: 0px 8px 16px 0px #703BF7;
+            padding: 12px 0px;
             margin-top: 5px;
-            min-width: 160px;
+            width: auto;
+            min-width: 200px;
+        }
+
+        .main-dropdown-lokasi-search {
+            padding: 10px 80px 10px 10px;
+            margin: 5px 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+        }
+
+        .main-dropdown-harga-min,
+        .main-dropdown-harga-max {
+            padding: 10px 80px 10px 10px;
+            margin: 5px 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
         }
 
         .main-dropdown-tipe-radio {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: space-around;
+            padding: 10px 20px;
+
         }
+
+        .main-dropdown-tipe-radio label {
+            display: flex;
+            margin-right: 10px;
+            font-family: "Poppins", sans-serif;
+            font-size: 16px;
+        }
+
+        .main-dropdown-tipe-radio input[type="radio"] {
+            margin-right: 5px;
+            width: 20px;
+            height: 16px;
+        }
+
 
         .main-lokasi-search-box,
         .main-tipe-search-box,
@@ -123,21 +164,13 @@ $sql = "SELECT nama_admin FROM admin";
             overflow: hidden;
         }
 
-        .main-lokasi-search-box:hover,
-        .main-tipe-search-box:hover,
-        .main-harga-search-box:hover {
-            background-color: #d1d1d1;
-        }
-
-
-
         .main-lokasi-search-category-title,
         .main-tipe-search-category-title,
         .main-harga-search-category-title {
             font-weight: bold;
         }
 
-        .main-search-submit{
+        .main-search-submit {
             background-color: #703BF7;
             color: white;
             border: none;
@@ -159,6 +192,57 @@ $sql = "SELECT nama_admin FROM admin";
             font-family: 'Poppins', sans-serif;
         }
 
+        .main-dropdown-lokasi-terapkan,
+        .main-dropdown-tipe-terapkan,
+        .main-dropdown-harga-terapkan {
+            display: flex;
+            width: 80%;
+            justify-content: center;
+            border-top: 2px solid #703BF7;
+            margin: 10px auto;
+            padding-top: 10px;
+        }
+
+        .main-dropdown-lokasi-terapkan-button,
+        .main-dropdown-tipe-terapkan-button,
+        .main-dropdown-harga-terapkan-button {
+            background-color: #703BF7;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100px;
+        }
+
+        /* Section Rekomendasi */
+
+        .main-section-rekomendasi {
+            margin-top: 20px;
+            padding: 20px 10%;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .main-rekomendasi-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .main-rekomendasi-title-left {
+            font-size: 40px;
+            font-weight: bold;
+            align-items: center;
+            margin: 20px 0;
+            color: #703BF7;
+        }
+
+        .main-rekomendasi-title-left img {
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -176,7 +260,6 @@ $sql = "SELECT nama_admin FROM admin";
             </div>
 
             <div class="main-hero-search">
-
                 <!-- kategori lokasi -->
                 <div class="main-search-lokasi">
                     <button type="button" class="main-lokasi-search-box">
@@ -281,11 +364,74 @@ $sql = "SELECT nama_admin FROM admin";
                     <input id="hidden_min" type="hidden" name="harga_min" value="">
                     <input id="hidden_max" type="hidden" name="harga_max" value="">
 
-                    <button class="main-search-submit" name="submit-search-block" type="submit">Cari</button>
+                    <button class="main-search-submit" name="submit-search-block" type="submit" value="submitted">Cari</button>
                 </form>
             </div>
         </div>
-        </div>
+
+        <section class="main-section-rekomendasi">
+            <div class="main-rekomendasi">
+                <div class="main-rekomendasi-title">
+                    <div class="main-rekomendasi-title-left">
+                        Rekomendasi
+                        <img src="images/assets/purple_star(2).png" alt="star" style="width: 25px; height: auto;">
+                        <img src="images/assets/purple_star(2).png" alt="star" style="width: 20px; height: auto;">
+                        <img src="images/assets/purple_star(2).png" alt="star" style="width: 15px; height: auto;">
+                    </div>
+                    <div class="main-rekomendasi-title-right">
+                        <a href="pencarian.php">
+                            <button>
+                                Lihat Semua
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="main-rekomendasi-content">
+                    <div class="main-rekomendasi-card">
+                        <div class="rekomendasi-card-image">
+
+                        <!-- Jika Disewa -->
+
+                        <!-- Jika Dijual -->
+
+                        </div>
+                        <div class="rekomendasi-card-bottom">
+                            <div class="rekomendasi-card-harga">
+                                <!-- Harga Jual,     Harga Sewa -->
+                            </div>
+                            <!-- deskripsi atas= kota, nama ruko, alamat -->
+
+                            <!-- deskripsi bawah = fasilitas -->
+                        </di>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="main-rekomendasi">
+                <div class="main-rekomendasi-title">
+                    <div class="main-rekomendasi-title-left">
+                        Rekomendasi
+                        <img src="images/assets/purple_star(2).png" alt="star" style="width: 25px; height: auto;">
+                        <img src="images/assets/purple_star(2).png" alt="star" style="width: 20px; height: auto;">
+                        <img src="images/assets/purple_star(2).png" alt="star" style="width: 15px; height: auto;">
+                    </div>
+
+                    <div class="main-rekomendasi-title-right">
+                        <a href="pencarian.php">
+                            <button>
+                                Lihat Semua
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
     </main>
 
     <footer><?php include "footer.php"; ?></footer>
@@ -307,21 +453,59 @@ $sql = "SELECT nama_admin FROM admin";
         let hargaSearchBox = document.querySelector(".main-harga-search-box");
         let hargaDropdownBox = document.querySelector(".main-dropdown-harga-box");
 
+        // Ketika hover - unhover
+        lokasiSearchBox.addEventListener("mouseover", function() {
+            if (lokasiDropdownBox.style.display != "flex") {
+                lokasiSearchBox.style.backgroundColor = "lightgrey";
+            }
+        });
+        lokasiSearchBox.addEventListener("mouseout", function() {
+            if (lokasiDropdownBox.style.display != "flex") {
+                lokasiSearchBox.style.backgroundColor = "lightgrey";
+            }
+        });
+
+        tipeSearchBox.addEventListener("mouseover", function() {
+            if (tipeDropdownBox.style.display != "flex") {
+                tipeSearchBox.style.backgroundColor = "lightgrey";
+            }
+        });
+        tipeSearchBox.addEventListener("mouseout", function() {
+            if (tipeDropdownBox.style.display != "flex") {
+                tipeSearchBox.style.backgroundColor = "lightgrey";
+            }
+        });
+
+        hargaSearchBox.addEventListener("mouseover", function() {
+            if (hargaDropdownBox.style.display != "flex") {
+                hargaSearchBox.style.backgroundColor = "lightgrey";
+            }
+        });
+        hargaSearchBox.addEventListener("mouseout", function() {
+            if (hargaDropdownBox.style.display != "flex") {
+                hargaSearchBox.style.backgroundColor = "lightgrey";
+            }
+        });
+
 
         // Ketika diklik display dropdown
         lokasiSearchBox.addEventListener("click", function() {
-            lokasiDropdownBox.style.display = "block";
+            lokasiDropdownBox.style.display = "flex";
+            // main lokasi search box clicked berubah warna ungu yang cocok
+            lokasiSearchBox.style.backgroundColor = "#703BF7";
             // rotate arrow
             document.getElementById("lokasi-arrow").style.transform = "rotate(180deg)";
-            
+
         });
         tipeSearchBox.addEventListener("click", function() {
-            tipeDropdownBox.style.display = "block";
+            tipeDropdownBox.style.display = "flex";
+            tipeSearchBox.style.backgroundColor = "#703BF7";
             // rotate arrow
             document.getElementById("tipe-arrow").style.transform = "rotate(180deg)";
         });
         hargaSearchBox.addEventListener("click", function() {
-            hargaDropdownBox.style.display = "block";
+            hargaDropdownBox.style.display = "flex";
+            hargaSearchBox.style.backgroundColor = "#703BF7";
             // rotate arrow
             document.getElementById("harga-arrow").style.transform = "rotate(180deg)";
         });
@@ -331,16 +515,19 @@ $sql = "SELECT nama_admin FROM admin";
         window.addEventListener("click", function(e) {
             if (!lokasiSearchBox.contains(e.target) && !lokasiDropdownBox.contains(e.target)) {
                 lokasiDropdownBox.style.display = "none";
+                lokasiSearchBox.style.backgroundColor = "white";
                 // reset arrow
                 document.getElementById("lokasi-arrow").style.transform = "rotate(0deg)";
             }
             if (!tipeSearchBox.contains(e.target) && !tipeDropdownBox.contains(e.target)) {
                 tipeDropdownBox.style.display = "none";
+                tipeSearchBox.style.backgroundColor = "white";
                 // reset arrow
                 document.getElementById("tipe-arrow").style.transform = "rotate(0deg)";
             }
             if (!hargaSearchBox.contains(e.target) && !hargaDropdownBox.contains(e.target)) {
                 hargaDropdownBox.style.display = "none";
+                hargaSearchBox.style.backgroundColor = "white";
                 // reset arrow
                 document.getElementById("harga-arrow").style.transform = "rotate(0deg)";
             }
@@ -363,8 +550,16 @@ $sql = "SELECT nama_admin FROM admin";
 
         terapkanLokasi.addEventListener("click", function() {
             let inputLokasi = document.querySelector("#main-input-lokasi").value;
-            subvalueLokasi.innerHTML = inputLokasi;
-            lokasiDropdownBox.style.display = "none";
+
+            if (inputLokasi != "") {
+                subvalueLokasi.innerHTML = inputLokasi;
+                lokasiDropdownBox.style.display = "none";
+            } else {
+                subvalueLokasi.innerHTML = "Pilih Lokasi";
+                lokasiDropdownBox.style.display = "none";
+            }
+            lokasiSearchBox.style.backgroundColor = "white";
+
 
             hiddenLokasi.value = inputLokasi;
 
@@ -412,7 +607,7 @@ $sql = "SELECT nama_admin FROM admin";
         });
 
         // Harga Min > Max dan sebaliknya
-        let inputHargaMin = document.querySelector("#main-input-harga-min");    
+        let inputHargaMin = document.querySelector("#main-input-harga-min");
         let inputHargaMax = document.querySelector("#main-input-harga-max");
 
         inputHargaMin.addEventListener("input", function() {
@@ -438,13 +633,20 @@ $sql = "SELECT nama_admin FROM admin";
         });
 
 
-
         // Format subvalue harga ribu, juta, m, dst ketika
         terapkanHarga.addEventListener("click", function() {
             let inputHargaMinValue = formatSubvalueHarga(inputHargaMin.value);
             let inputHargaMaxValue = formatSubvalueHarga(inputHargaMax.value);
-            subvalueHarga.innerHTML = "Rp " + inputHargaMinValue + " - Rp " + inputHargaMaxValue;
-            hargaDropdownBox.style.display = "none";
+
+            // Jika Min = "" OR Max == ""
+            if (inputHargaMin.value == "" || inputHargaMax.value == "") {
+                subvalueHarga.innerHTML = "Pilih Rentang Harga"
+            } else {
+                subvalueHarga.innerHTML = "Rp " + inputHargaMinValue + " - Rp " + inputHargaMaxValue;
+                hiddenMin.value = inputHargaMin.value;
+                hiddenMax.value = inputHargaMax.value;
+            }
+
         });
 
         function formatSubvalueHarga(value) {
@@ -459,13 +661,6 @@ $sql = "SELECT nama_admin FROM admin";
                 return num;
             }
         }
-
-
-
-
-
-
-
     </script>
 </body>
 

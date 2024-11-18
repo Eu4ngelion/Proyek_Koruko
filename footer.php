@@ -23,10 +23,11 @@
         }
 
         .footer {
-            background-color: #8A4FFF;
+            background-color: #703BF7;
             color: white;
             width: 100%;
             margin-top: auto;
+            padding-top: 40px;
             position: relative;
             box-sizing: border-box;
         }
@@ -34,20 +35,26 @@
         .footer-content {
             display: flex;
             align-items: flex-start;
-            margin: 0 120px;
+            margin: 0 10%;
             flex-wrap: nowrap;
         }
 
         .footer-kiri {
-            flex: 0.5;
+            flex: 0.8;
         }
 
         .footer-kanan {
             flex: 1.5;
             display: flex;
             width: 100%;
-            justify-content: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
         }
+
+        .link-section {
+            margin-bottom: 40px;
+        }
+
 
         .footer-logo {
             font-size: 28px;
@@ -60,20 +67,12 @@
             line-height: 1.5;
         }
 
-        .link-sectiion {
-            /* set the width to be fit */
-            width: fit-content;
-        }
-
-
-
         .footer-title {
             font-size: 18px;
             margin-bottom: 20px;
             font-weight: bold;
             text-align: center;
             padding: 0;
-
         }
 
         .link-list {
@@ -82,6 +81,7 @@
             margin: 0;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
+            text-align: center;
             gap: 8px 10px;
 
         }
@@ -107,8 +107,14 @@
             text-align: center;
         }
 
+        .social-icons-container {
+            width: fit-content;
+            margin: 0 auto;
+        }
+
         .social-icons {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
             margin-top: 20px;
             justify-content: center;
@@ -151,7 +157,7 @@
                     <div class="footer-title">Link Cepat</div>
                     <ul class="link-list">
                         <li><a href="index.php">Beranda</a></li>
-                        <li><a href="pencarian.php">Cari</a></li>
+                        <li><a href="pencarian.php">Jelajah</a></li>
                         <li><a href="tentang.php">Tentang</a></li>
                         <li><a href="daftar.php">Daftar</a></li>
                         <li><a href="kelola.php">Kelola</a></li>
@@ -161,7 +167,7 @@
 
                 <!-- Kontak Kami -->
                 <div class="link-section">
-                    <div class="footer-title">Kontak Kami</div>
+                    <div class="footer-title">Kontak</div>
                     <div class="contact-info">
                         <p>Telp: +62 8123456790</p>
                         <p>Email: koruko@gmail.com</p>
@@ -170,11 +176,14 @@
                 </div>
                 
                 <!-- Sosial Media -->
-                <div class="social-icons">
-                    <a href="#"><img src="path-to-instagram-icon.png" alt="IG"></a>
-                    <a href="#"><img src="path-to-twitter-icon.png" alt="Twit"></a>
-                    <a href="#"><img src="path-to-facebook-icon.png" alt="FB"></a>
-                    <a href="#"><img src="path-to-youtube-icon.png" alt="YT"></a>
+                <div class="link-section">
+                    <div class="footer-title">Sosial Media</div>
+                    <div class="social-icons">
+                        <a href="#"><img src="path-to-instagram-icon.png" alt="IG"></a>
+                        <a href="#"><img src="path-to-twitter-icon.png" alt="Twit"></a>
+                        <a href="#"><img src="path-to-facebook-icon.png" alt="FB"></a>
+                        <a href="#"><img src="path-to-youtube-icon.png" alt="YT"></a>
+                        </div>
                 </div>
                 
             </div>
