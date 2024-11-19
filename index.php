@@ -10,14 +10,30 @@ if (!isset($_SESSION["login"])) {
 }
 
 // Mengambil 4 data ruko secara acak untuk rekomendasi
-$sql_rekomendasi = "SELECT * FROM ruko ORDER BY RAND() LIMIT 4";
+$sql_rekomendasi = "SELECT * FROM ruko ORDER BY RAND() LIMIT 10";
 $result = mysqli_query($conn, $sql_rekomendasi);
 $ruko_rekomendasi = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 // Mengambil 4 data ruko terbaru (ruko dengan tanggal terbaru)
-$sql_terbaru = "SELECT * FROM ruko ORDER BY tanggal DESC LIMIT 4";
+$sql_terbaru = "SELECT * FROM ruko ORDER BY tanggal DESC LIMIT 10";
 $result = mysqli_query($conn, $sql_terbaru);
 $ruko_terbaru = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+// Function format subvalue
+function formatSubvalue($value)
+{
+    $num = intval(preg_replace('/[^0-9]/', '', $value));
+    if ($num >= 1000000000) {
+        return number_format($num / 1000000000, 1, ',', '.') . ' miliar';
+    } elseif ($num >= 1000000) {
+        return number_format($num / 1000000, 1, ',', '.') . ' juta';
+    } elseif ($num >= 1000) {
+        return number_format($num / 1000, 0, ',', '.') . ' ribu';
+    } else {
+        return number_format($num, 0, ',', '.');
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -233,14 +249,12 @@ $ruko_terbaru = mysqli_fetch_all($result, MYSQLI_ASSOC);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
         }
 
         .main-rekomendasi-title-left {
             font-size: 40px;
             font-weight: bold;
             align-items: center;
-            margin: 20px 0;
             color: #703BF7;
         }
 
@@ -248,12 +262,23 @@ $ruko_terbaru = mysqli_fetch_all($result, MYSQLI_ASSOC);
             vertical-align: middle;
         }
 
+        .main-rekomendasi-content {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            overflow: hidden;
+            height: 340px;
+            padding-top: 18px;
+        }
+
         .main-rekomendasi-card {
             display: flex;
             background-color: white;
             flex-direction: column;
             align-items: center;
-            margin: 0 10px;
+            margin: 20px 10px;
             padding: 0;
             border-radius: 10px;
             width: 275px;
@@ -263,7 +288,7 @@ $ruko_terbaru = mysqli_fetch_all($result, MYSQLI_ASSOC);
         }
 
         .main-rekomendasi-card:hover {
-            box-shadow: 0px 0px 30px  #703BF7;
+            box-shadow: 0px 0px 30px #703BF7;
             transform: translateY(-20px);
             transition: all 0.3s;
         }
@@ -390,11 +415,21 @@ $ruko_terbaru = mysqli_fetch_all($result, MYSQLI_ASSOC);
             text-align: left;
         }
 
+        .fasilitas-title-luas {
+            font-size: 14px;
+            font-weight: bold;
+            width: 25px;
+            text-align: left;
+        }
+
         .fasilitas-value {
             font-size: 14px;
             font-weight: bold;
             padding-left: 5px;
             padding-right: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .main-link-card {
@@ -553,14 +588,14 @@ $ruko_terbaru = mysqli_fetch_all($result, MYSQLI_ASSOC);
                             <button class="main-rekomendasi-card">
                                 <div class="rekomendasi-card-image">
                                     <!-- Jika Disewa -->
-                                    <?php if ($ruko['harga_jual'] == 0 || $ruko['harga_jual'] == NULL) : ?>
+                                    <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
                                         <div class="card-pop-sewa">
                                             Disewa
                                         </div>
                                     <?php endif; ?>
 
                                     <!-- Jika Dijual -->
-                                    <?php if ($ruko['harga_sewa'] == 0 || $ruko['harga_sewa'] == NULL) : ?>
+                                    <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
                                         <div class="card-pop-jual">
                                             Dijual
                                         </div>
@@ -569,51 +604,67 @@ $ruko_terbaru = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                 <div class="rekomendasi-card-bottom">
                                     <div class="rekomendasi-card-harga">
                                         <!-- Harga Jual, Harga Sewa -->
-                                        <div class="rekomendasi-card-harga-kiri">
-                                            IDR 1,2 Miliar
-                                        </div>
-                                        <div class="rekomendasi-card-harga-kanan">
-                                            IDR 100 Juta/Bulan
-                                        </div>
+                                        <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
+                                            <div class="rekomendasi-card-harga-kiri">
+                                                <!-- function format subvalue harga -->
+                                                IDR <?php echo formatSubvalue($ruko['harga_jual']); ?>
+                                            </div>
+                                            <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                                <div class="rekomendasi-card-harga-kanan">
+                                                    IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?>
+                                                </div>
+                                            <?php endif; ?>
+
+                                        <?php elseif ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                            <div class="rekomendasi-card-harga-kiri">
+                                                <!-- per bulan -->
+                                                IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / bulan
+                                            </div>
+                                        <?php endif; ?>
+
                                     </div>
-                                    <!-- deskripsi atas= kota, nama ruko, alamat -->
+                                    <!-- deskripsi atas -->
                                     <div class="rekomendasi-card-deskripsi-atas">
-                                        <div class="rekomendasi-card-kota">Jakarta</div>
-                                        <div class="rekomendasi-card-nama">Ruko Baru</div>
-                                        <div class="rekomendasi-card-alamat">Jl. Ruko Baru No. 1 </div>
+                                        <div class="rekomendasi-card-kota">
+                                            <?php echo $ruko['kota']; ?>
+                                        </div>
+                                        <div class="rekomendasi-card-nama">
+                                            <?php echo $ruko['nama_ruko']; ?>
+                                        </div>
+                                        <div class="rekomendasi-card-alamat">
+
+                                        </div>
                                     </div>
 
-                                    <!-- deskripsi bawah (grid 2 x 6)= fasilitas (luas tanah, luas kamar, kamar tidur, kamar mandi, garasi, jumlah lantai) -->
+                                    <!-- deskripsi bawah -->
                                     <div class="rekomendasi-card-deskripsi-bawah">
                                         <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">LT</div>
-                                            :
-                                            <div class="fasilitas-value">100 m2</div>
+                                            <div class="fasilitas-title-luas">LT : </div>
+                                            <div class="fasilitas-value"><?php echo $ruko['luas_tanah']; ?> m2</div>
                                         </div>
                                         <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">LB</div>
-                                            :
-                                            <div class="fasilitas-value">200 m2</div>
+                                            <div class="fasilitas-title-luas">LB :</div>
+                                            <div class="fasilitas-value"><?php echo $ruko['luas_bangunan']; ?> m2</div>
                                         </div>
                                         <div class="rekomendasi-card-fasilitas">
                                             <div class="fasilitas-title">Kamar</div>
                                             :
-                                            <div class="fasilitas-value">3</div>
+                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_tdr']; ?></div>
                                         </div>
                                         <div class="rekomendasi-card-fasilitas">
                                             <div class="fasilitas-title">Toilet</div>
                                             :
-                                            <div class="fasilitas-value">2</div>
+                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_mandi']; ?></div>
                                         </div>
                                         <div class="rekomendasi-card-fasilitas">
                                             <div class="fasilitas-title">Garasi</div>
                                             :
-                                            <div class="fasilitas-value">1</div>
+                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_lantai']; ?></div>
                                         </div>
                                         <div class="rekomendasi-card-fasilitas">
                                             <div class="fasilitas-title">Lantai</div>
                                             :
-                                            <div class="fasilitas-value">2</div>
+                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_garasi']; ?></div>
                                         </div>
                                     </div>
                                 </div>
@@ -642,8 +693,102 @@ $ruko_terbaru = mysqli_fetch_all($result, MYSQLI_ASSOC);
                             </button>
                         </a>
                     </div>
+
                 </div>
-            </div>
+
+                <div class="main-rekomendasi-content">
+                    <?php foreach ($ruko_terbaru as $ruko) : ?>
+                        <a class="main-link-card" href="detail.php?id_ruko=<?php echo $ruko['id_ruko']; ?>">
+                            <button class="main-rekomendasi-card">
+                                <div class="rekomendasi-card-image">
+                                    <!-- Jika Disewa -->
+                                    <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
+                                        <div class="card-pop-sewa">
+                                            Disewa
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <!-- Jika Dijual -->
+                                    <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                        <div class="card-pop-jual">
+                                            Dijual
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="rekomendasi-card-bottom">
+                                    <div class="rekomendasi-card-harga">
+                                        <!-- Harga Jual, Harga Sewa -->
+                                        <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
+                                            <div class="rekomendasi-card-harga-kiri">
+                                                <!-- function format subvalue harga -->
+                                                IDR <?php echo formatSubvalue($ruko['harga_jual']); ?>
+                                            </div>
+                                            <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                                <div class="rekomendasi-card-harga-kanan">
+                                                    IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?>
+                                                </div>
+                                            <?php endif; ?>
+
+                                        <?php elseif ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                            <div class="rekomendasi-card-harga-kiri">
+                                                <!-- per bulan -->
+                                                IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / bulan
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <!-- Deskrpisi Atas -->
+                                    <div class="rekomendasi-card-deskripsi-atas">
+                                        <div class="rekomendasi-card-kota">
+                                            <?php echo $ruko['kota']; ?>
+                                        </div>
+                                        <div class="rekomendasi-card-nama">
+                                            <?php echo $ruko['nama_ruko']; ?>
+                                        </div>
+                                        <div class="rekomendasi-card-alamat">
+                                            <?php echo $ruko['alamat']; ?>
+                                        </div>
+                                    </div>
+
+                                    <!-- Deskripsi Bawah -->
+                                    <div class="rekomendasi-card-deskripsi-bawah">
+
+                                        <div class="rekomendasi-card-fasilitas">
+                                            <div class="fasilitas-title-luas">LT : </div>
+                                            <div class="fasilitas-value"><?php echo $ruko['luas_tanah']; ?> m2</div>
+                                        </div>
+                                        <div class="rekomendasi-card-fasilitas">
+                                            <div class="fasilitas-title-luas">LB :</div>
+                                            <div class="fasilitas-value"><?php echo $ruko['luas_bangunan']; ?> m2</div>
+                                        </div>
+                                        <div class="rekomendasi-card-fasilitas">
+                                            <div class="fasilitas-title">Kamar</div>
+                                            :
+                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_tdr']; ?></div>
+                                        </div>
+                                        <div class="rekomendasi-card-fasilitas">
+                                            <div class="fasilitas-title">Toilet</div>
+                                            :
+                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_mandi']; ?></div>
+                                        </div>
+                                        <div class="rekomendasi-card-fasilitas">
+                                            <div class="fasilitas-title">Garasi</div>
+                                            :
+                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_garasi']; ?></div>
+                                        </div>
+                                        <div class="rekomendasi-card-fasilitas">
+                                            <div class="fasilitas-title">Lantai</div>
+                                            :
+                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_lantai']; ?></div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </button>
+                        </a>
+                    <?php endforeach ?>
+                </div>
 
 
         </section>
