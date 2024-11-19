@@ -54,9 +54,11 @@ function formatSubvalue($value)
         .main-index {
             height: auto;
             min-height: 100vh;
-            padding-top: 60px;
+            margin: 0;
+            padding: 60px 0 0 0;
             font-family: 'Poppins', sans-serif;
             z-index: -2;
+            width: 100%;
         }
 
         /* Hero */
@@ -71,7 +73,7 @@ function formatSubvalue($value)
         }
 
         .hero-image {
-            width: 102%;
+            width: 100%;
             height: 100%;
             object-fit: cover;
             position: absolute;
@@ -200,7 +202,7 @@ function formatSubvalue($value)
             cursor: pointer;
             font-size: 24px;
             font-weight: bold;
-            width: 150px;
+            width: 180px;
             height: 100%;
         }
 
@@ -262,6 +264,23 @@ function formatSubvalue($value)
             vertical-align: middle;
         }
 
+        .lihat-semua button{
+                background-color: #703BF7;
+                color: white;
+                border: none;
+                border-radius: 20px;
+                padding: 10px 20px;
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: bold;
+                transition: all 0.2s;
+        }
+
+        .lihat-semua button:hover{
+            background-color: #BBA0FF;
+            transition: all 0.5s;
+        }
+
         .main-rekomendasi-content {
             display: flex;
             align-items: center;
@@ -295,7 +314,6 @@ function formatSubvalue($value)
 
         .rekomendasi-card-image {
             display: flex;
-            background-image: url("images/ruko/rukoa.webp");
             background-size: cover;
             background-position: center;
             width: 100%;
@@ -574,7 +592,7 @@ function formatSubvalue($value)
                         <img src="images/assets/purple_star(2).png" alt="star" style="width: 15px; height: auto;">
                     </div>
                     <div class="main-rekomendasi-title-right">
-                        <a href="pencarian.php">
+                        <a class="lihat-semua" href="pencarian.php">
                             <button>
                                 Lihat Semua
                             </button>
@@ -584,9 +602,14 @@ function formatSubvalue($value)
 
                 <div class="main-rekomendasi-content">
                     <?php foreach ($ruko_rekomendasi as $ruko) : ?>
+                        <?php
+                        $sql = "SELECT gambar_properti FROM gambar_ruko WHERE id_ruko = " . $ruko['id_ruko'] . " LIMIT 1";
+                        $result = mysqli_query($conn, $sql);
+                        $gambar = mysqli_fetch_assoc($result);
+                        ?>
                         <a class="main-link-card" href="detail.php?id_ruko=<?php echo $ruko['id_ruko']; ?>">
                             <button class="main-rekomendasi-card">
-                                <div class="rekomendasi-card-image">
+                                <div class="rekomendasi-card-image" style="background-image: url('images/ruko/<?php echo $gambar['gambar_properti']; ?>')">
                                     <!-- Jika Disewa -->
                                     <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
                                         <div class="card-pop-sewa">
@@ -687,7 +710,7 @@ function formatSubvalue($value)
                     </div>
 
                     <div class="main-rekomendasi-title-right">
-                        <a href="pencarian.php">
+                        <a class="lihat-semua" href="pencarian.php">
                             <button>
                                 Lihat Semua
                             </button>
@@ -698,9 +721,14 @@ function formatSubvalue($value)
 
                 <div class="main-rekomendasi-content">
                     <?php foreach ($ruko_terbaru as $ruko) : ?>
+                        <?php
+                        $sql = "SELECT gambar_properti FROM gambar_ruko WHERE id_ruko = " . $ruko['id_ruko'] . " LIMIT 1";
+                        $result = mysqli_query($conn, $sql);
+                        $gambar = mysqli_fetch_assoc($result);
+                        ?>
                         <a class="main-link-card" href="detail.php?id_ruko=<?php echo $ruko['id_ruko']; ?>">
                             <button class="main-rekomendasi-card">
-                                <div class="rekomendasi-card-image">
+                                <div class="rekomendasi-card-image" style="background-image: url('images/ruko/<?php echo $gambar['gambar_properti']; ?>')">
                                     <!-- Jika Disewa -->
                                     <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
                                         <div class="card-pop-sewa">
@@ -821,7 +849,7 @@ function formatSubvalue($value)
         });
         lokasiSearchBox.addEventListener("mouseout", function() {
             if (lokasiDropdownBox.style.display != "flex") {
-                lokasiSearchBox.style.backgroundColor = "lightgrey";
+                lokasiSearchBox.style.backgroundColor = "white";
             }
         });
 
@@ -832,7 +860,7 @@ function formatSubvalue($value)
         });
         tipeSearchBox.addEventListener("mouseout", function() {
             if (tipeDropdownBox.style.display != "flex") {
-                tipeSearchBox.style.backgroundColor = "lightgrey";
+                tipeSearchBox.style.backgroundColor = "white";
             }
         });
 
@@ -843,7 +871,7 @@ function formatSubvalue($value)
         });
         hargaSearchBox.addEventListener("mouseout", function() {
             if (hargaDropdownBox.style.display != "flex") {
-                hargaSearchBox.style.backgroundColor = "lightgrey";
+                hargaSearchBox.style.backgroundColor = "white";
             }
         });
 
@@ -988,7 +1016,6 @@ function formatSubvalue($value)
             let inputHargaMinValue = formatSubvalueHarga(inputHargaMin.value);
             let inputHargaMaxValue = formatSubvalueHarga(inputHargaMax.value);
 
-            // Jika Min = "" OR Max == ""
             if (inputHargaMin.value == "" || inputHargaMax.value == "") {
                 subvalueHarga.innerHTML = "Pilih Rentang Harga"
             } else {
@@ -996,7 +1023,6 @@ function formatSubvalue($value)
                 hiddenMin.value = inputHargaMin.value;
                 hiddenMax.value = inputHargaMax.value;
             }
-
         });
 
         function formatSubvalueHarga(value) {

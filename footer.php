@@ -21,6 +21,10 @@
         * {
             font-family: "Poppins", sans-serif;
         }
+        html {
+            margin: 0;
+            padding: 0;
+        }
 
         .footer {
             background-color: #703BF7;
