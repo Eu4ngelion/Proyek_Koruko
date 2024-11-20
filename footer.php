@@ -4,9 +4,6 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-
-    // !!! lanjutkan loh yah
-
 ?>
 
 
@@ -125,13 +122,18 @@
         }
 
         .social-icons a {
-            width: 32px;
-            height: 32px;
-            background-color: white;
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .social-icons img {
+            width: 100%;
+            height: 100%;
         }
 
         /* Copyright text */
@@ -183,10 +185,10 @@
                 <div class="link-section">
                     <div class="footer-title">Sosial Media</div>
                     <div class="social-icons">
-                        <a href="#"><img src="path-to-instagram-icon.png" alt="IG"></a>
-                        <a href="#"><img src="path-to-twitter-icon.png" alt="Twit"></a>
-                        <a href="#"><img src="path-to-facebook-icon.png" alt="FB"></a>
-                        <a href="#"><img src="path-to-youtube-icon.png" alt="YT"></a>
+                        <a href="#"><img src="images/assets/instagram.png" alt="IG"></a>
+                        <a href="#"><img src="images/assets/twitter.png" alt="Twit"></a>
+                        <a href="#"><img src="images/assets/fb.png" alt="FB"></a>
+                        <a href="#"><img src="images/assets/yt.png" alt="YT"></a>
                         </div>
                 </div>
                 
