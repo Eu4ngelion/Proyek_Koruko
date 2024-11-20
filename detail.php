@@ -1,5 +1,15 @@
 <?php
 require "koneksi.php";
+
+// Memulai Sesion
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION["login"])) {
+    $_SESSION["login"] = false;
+}
+
+
 if (!isset($_GET['id_ruko'])) {
     echo "script>alert('Ruko tidak ditemukan!')
         window.location.href = 'index.php';
@@ -391,12 +401,27 @@ function formatPropertySalePrice($price)
             height: 83%;
         }
 
-        .foto-pengguna img {
-            width: 105px;
+        .foto-pengguna {
+            display: flex;
+            width: 100px;
             height: 100px;
-            margin-bottom: 16px;
-            border-radius: 50%;
+            margin: 0 auto 16px auto;
+            background-color: white;
+            border-radius: 100%;
+            align-items: center;
         }
+
+        .foto-pengguna img {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            background-color: white; 
+            background-image: url(images/assets/default_user.png);
+            background-size: 90%;
+            background-position: center;
+        }
+
+
 
         .nama-pengguna {
             font-size: 24px;
@@ -686,7 +711,7 @@ function formatPropertySalePrice($price)
                             <?php $gambar = mysqli_fetch_assoc($hasil); ?>
                             <img src="images/ruko/<?php echo $gambar['gambar_properti'] ?>" alt="gambar ruko">
                         <?php else: ?>
-                            <img src="images/assets/imgnotfound.png" alt="Image Gk Ada">
+                            <img src="images/assets/imgnotfound.jpg" alt="Image Gk Ada">
                         <?php endif; ?>
                     </div>
                     <div class="image-tengah">
@@ -694,7 +719,7 @@ function formatPropertySalePrice($price)
                             <?php $gambar = mysqli_fetch_assoc($hasil); ?>
                             <img src="images/ruko/<?php echo $gambar['gambar_properti'] ?>" alt="gambar ruko">
                         <?php else: ?>
-                            <img src="images/assets/imgnotfound.png" alt="Image Gk Ada">
+                            <img src="images/assets/imgnotfound.jpg" alt="Image Gk Ada">
                         <?php endif; ?>
                     </div>
                     <div class="image-bawah">
@@ -702,7 +727,7 @@ function formatPropertySalePrice($price)
                         <?php $gambar = mysqli_fetch_assoc($hasil); ?>
                         <img src="images/ruko/<?php echo $gambar['gambar_properti'] ?>" alt="gambar ruko">
                     <?php else: ?>
-                        <img src="images/assets/imgnotfound.png" alt="Image Gk Ada">
+                        <img src="images/assets/imgnotfound.jpg" alt="Image Gk Ada">
                     <?php endif; ?>
                     </div>
                 </div>
@@ -774,7 +799,7 @@ function formatPropertySalePrice($price)
                         <!-- menampilkan data pengguna -->
                         <div class="data-pengguna">
                             <div class="foto-pengguna">
-                                <img src="images/assets/orang2.jpeg" alt="foto pengguna">
+                                <img class="img-foto-pengguna" src="images/user/<?php echo $pengguna['gambar_user'] ?>"alt="">
                             </div>
                             <div class="nama-pengguna">
                                 <?php echo $pengguna['nama_pengguna'] ?>
