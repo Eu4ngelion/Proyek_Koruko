@@ -65,15 +65,42 @@ body{
 }
 
 .form-group-picture {
-    width: 25%;
+    width: 50%;
     display: flex;
     gap: 10%;
 }
 
+.section-header {
+    color: white;
+    background-color: #703BF7;
+    border-radius: 10px;
+    text-align: center;
+}
+
 .btn-pengaturan {
-    align-items: center;
     margin-top: 5%;
     margin-bottom: 10%;
+}
+
+.btn-ganti {
+    display: flex;
+    text-align: left;
+    color: white;
+    font-weight: bold;
+    margin-left: 2%;
+}
+
+.ganti-1 {
+    background-color: #703BF7;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+.ganti-2 {
+    margin-left: 8.5%;
+    background-color: #703BF7;
+    border-radius: 10px;
+    padding: 1%;
 }
 
 .btn-simpan {
@@ -96,3 +123,58 @@ body{
     width: 150px;
 }
 
+/* Admin Tentang */
+.form-row-1 {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.gambar_tentang {
+    max-width: 85%;
+    border-radius: 10px;
+}
+
+.form-row-2 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    justify-content: center;
+    gap: 2%;
+}
+
+.form-group-1 {
+    font-weight: bold;
+}
+
+.gambar-section {
+    background-color: #703BF7;
+    padding: 3% 20%;
+    color: white;
+    border-radius: 10px;
+}
+
+.form-group-1 textarea {
+    border-radius: 10px;
+    height: 300px;
+    width: 100%;
+}
+
+.form-group-2 {
+    flex: 1;
+    font-weight: bold;
+}
+
+.form-group-2 textarea {
+    width: 100%;
+    border-radius: 10px;
+    height: 120px;
+}
+
+.btn-tentang {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 10%;
+}

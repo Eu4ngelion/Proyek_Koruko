@@ -16,7 +16,7 @@ if (!$result_website) {
 $row_website = mysqli_fetch_assoc($result_website);
 
 $nama_admin_current = $row_admin['nama_admin'];
-$sandi_admin_current = $row_admin['sandi']; 
+$sandi_admin_current = $row_admin['sandi'];
 $judul_current = $row_website['judul'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -107,16 +107,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <main>
         <div class="container-hero">
             <h1>Pengaturan</h1>
-
             <div class="container-pengaturan">
                 <form action="" method="POST" enctype="multipart/form-data">
                     <div style="display: flex; justify-content: space-between;">
                         <div style="flex: 1; margin-right: 20px;">
                             <table style="width: 100%;">
                                 <tr>
-                                    <h2>Website</h2>
+                                    <td class="section-header">
+                                        <h2>Website</h2>
+                                    </td>
                                 </tr>
-                                <tr class="form-group">
+                                <tr>
                                     <td colspan="2">
                                         <div class="form-item">
                                             <label for="nama_admin">Nama Pengguna Admin</label>
@@ -124,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="form-group">
+                                <tr>
                                     <td colspan="2">
                                         <div class="form-item">
                                             <label for="sandi">Sandi Admin</label>
@@ -132,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="form-group">
+                                <tr>
                                     <td colspan="2">
                                         <div class="form-item">
                                             <label for="judul">Judul Website</label>
@@ -140,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="form-group">
+                                <tr>
                                     <td colspan="2">
                                         <div class="form-item">
                                             <label for="email">Email</label>
@@ -148,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="form-group">
+                                <tr>
                                     <td colspan="2">
                                         <div class="form-item">
                                             <label for="telepon">No Telepon</label>
@@ -156,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="form-group">
+                                <tr>
                                     <td colspan="2">
                                         <div class="form-item">
                                             <label for="alamat">Alamat</label>
@@ -169,9 +170,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div style="flex: 1; margin-right: 10px;">
                             <table style="width: 100%;">
                                 <tr>
-                                    <h2>Footer</h2>
+                                    <td class="section-header">
+                                        <h2>Footer</h2>
+                                    </td>
                                 </tr>
-                                <tr class="form-group">
+                                <tr>
                                     <td colspan="2">
                                         <div class="form-item">
                                             <label for="deskripsi_footer">Deskripsi Footer</label>
@@ -179,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="form-group">
+                                <tr>
                                     <td colspan="2">
                                         <div class="form-item">
                                             <label for="instagram">Link Instagram</label>
@@ -187,7 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="form-group">
+                                <tr>
                                     <td colspan="2">
                                         <div class="form-item">
                                             <label for="twitter">Link Twitter</label>
@@ -195,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="form-group">
+                                <tr>
                                     <td colspan="2">
                                         <div class="form-item">
                                             <label for="facebook">Link Facebook</label>
@@ -203,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="form-group">
+                                <tr>
                                     <td colspan="2">
                                         <div class="form-item">
                                             <label for="youtube">Link YouTube</label>
@@ -215,28 +218,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
                     <div class="form-group-picture">
-                        <tr class="form-group">
+                        <tr>
                             <td colspan="2">
                                 <div class="form-item">
-                                    <label for="gambar_admin">Profil Admin</label>
-                                    <input type="file" id="gambar_admin" name="gambar_admin">
+                                    <label for="">Profil Admin</label>
+                                    <input type="file" id="gambar_admin" style="display: none;" name="gambar_admin">
                                     <?php if ($row_admin['gambar_admin']) { ?>
                                         <img src="images/admin/<?php echo $row_admin['gambar_admin']; ?>" alt="Gambar Admin">
                                     <?php } ?>
                                 </div>
                             </td>
                         </tr>
-                        <tr class="form-group">
+                        <tr>
                             <td colspan="2">
                                 <div class="form-item">
-                                    <label for="logo_web">Logo Website</label>
-                                    <input type="file" id="logo_web" name="logo_web">
+                                    <label for="">Logo Website</label>
+                                    <input type="file" id="logo_web" style="display: none;" name="logo_web">
                                     <?php if ($row_website['logo_web']) { ?>
                                         <img src="images/website/<?php echo $row_website['logo_web']; ?>" alt="Logo Website">
                                     <?php } ?>
                                 </div>
                             </td>
                         </tr>
+                    </div>
+                    <div class="btn-ganti">
+                        <label class="ganti-1" for="gambar_admin">Ganti</label>
+                        <label class="ganti-2" for="logo_web">Ganti</label>
                     </div>
                     <div class="btn-pengaturan">
                         <input class="btn-simpan" type="submit" value="Simpan">
