@@ -1,4 +1,3 @@
-Kelola.php
 
     <?php
     require "koneksi.php";

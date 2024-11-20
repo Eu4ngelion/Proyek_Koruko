@@ -29,8 +29,10 @@ $ruko_result = mysqli_query($conn, $query_ruko);
 </head>
 
 <body>
-    <?php include 'navbar.php'; ?>
-
+    <?php
+    include "navbar.php";
+    ?>
+    <h1>Admin Properti</h1>
     <main class="main-content">
         <h1>Lihat Properti</h1>
 
@@ -125,10 +127,13 @@ $ruko_result = mysqli_query($conn, $query_ruko);
                             </td>
                             <td class="action-buttons">
                                 <?php if ($row['status'] == 0) { ?>
-                                    <button class="btn-verifikasi" onclick="verifyProperty(<?php echo $row['id_ruko']; ?>)">
+                                    <a href = "admin_verif.php?id_ruko=<?php echo $row['id_ruko']; ?>">
+                                    <button class="btn-verifikasi">
                                         Verifikasi
                                     </button>
+                                    </a>
                                 <?php } ?>
+                                    
                                 <button class="btn-hapus" onclick="deleteProperty(<?php echo $row['id_ruko']; ?>)">
                                     Hapus
                                 </button>

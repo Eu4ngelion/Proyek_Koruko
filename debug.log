@@ -1,0 +1,137 @@
+    [2024-11-20 11:31:45] Starting upload process...
+    [2024-11-20 11:31:45] Files received: Array
+    (
+        [name] => Array
+            (
+                [0] => havenmedia-high-resolution-logo-transparent.png
+            )
+
+        [type] => Array
+            (
+                [0] => image/png
+            )
+
+        [tmp_name] => Array
+            (
+                [0] => C:\xampp\tmp\php655B.tmp
+            )
+
+        [error] => Array
+            (
+                [0] => 0
+            )
+
+        [size] => Array
+            (
+                [0] => 55492
+            )
+
+    )
+
+    [2024-11-20 11:31:45] Ruko inserted with ID: 47
+    [2024-11-20 11:31:45] Processing file: havenmedia-high-resolution-logo-transparent.png
+    [2024-11-20 11:31:45] Attempting to move file to: images/ruko/ruko_47_673dba915dc88.png
+    [2024-11-20 11:31:45] Successfully processed file: havenmedia-high-resolution-logo-transparent.png
+    [2024-11-20 11:31:45] Transaction committed. Upload complete.
+[2024-11-20 11:34:45] Starting upload process...
+[2024-11-20 11:34:45] Files received: Array
+(
+    [name] => Array
+        (
+            [0] => pa.png
+            [1] => WhatsApp Image 2024-10-21 at 08.44.44_8c8f769e.jpg
+            [2] => WhatsApp Image 2024-10-18 at 12.43.46_8e7c6a28.jpg
+        )
+
+    [type] => Array
+        (
+            [0] => image/png
+            [1] => image/jpeg
+            [2] => image/jpeg
+        )
+
+    [tmp_name] => Array
+        (
+            [0] => C:\xampp\tmp\php2305.tmp
+            [1] => C:\xampp\tmp\php2315.tmp
+            [2] => C:\xampp\tmp\php2316.tmp
+        )
+
+    [error] => Array
+        (
+            [0] => 0
+            [1] => 0
+            [2] => 0
+        )
+
+    [size] => Array
+        (
+            [0] => 7808632
+            [1] => 11768
+            [2] => 94571
+        )
+
+)
+
+[2024-11-20 11:34:45] Ruko inserted with ID: 48
+[2024-11-20 11:34:45] Processing file: pa.png
+[2024-11-20 11:34:45] Attempting to move file to: images/ruko/ruko_48_673dbb450a289.png
+[2024-11-20 11:34:45] Successfully processed file: pa.png
+[2024-11-20 11:34:45] Processing file: WhatsApp Image 2024-10-21 at 08.44.44_8c8f769e.jpg
+[2024-11-20 11:34:45] Attempting to move file to: images/ruko/ruko_48_673dbb450a686.jpg
+[2024-11-20 11:34:45] Successfully processed file: WhatsApp Image 2024-10-21 at 08.44.44_8c8f769e.jpg
+[2024-11-20 11:34:45] Processing file: WhatsApp Image 2024-10-18 at 12.43.46_8e7c6a28.jpg
+[2024-11-20 11:34:45] Attempting to move file to: images/ruko/ruko_48_673dbb450adc8.jpg
+[2024-11-20 11:34:45] Successfully processed file: WhatsApp Image 2024-10-18 at 12.43.46_8e7c6a28.jpg
+[2024-11-20 11:34:45] Transaction committed. Upload complete.
+[2024-11-20 11:38:41] Starting upload process...
+[2024-11-20 11:38:41] Files received: Array
+(
+    [name] => Array
+        (
+            [0] => review4.png
+            [1] => screenshot (1).png
+            [2] => screenshot (4).png
+        )
+
+    [type] => Array
+        (
+            [0] => image/png
+            [1] => image/png
+            [2] => image/png
+        )
+
+    [tmp_name] => Array
+        (
+            [0] => C:\xampp\tmp\phpBCD8.tmp
+            [1] => C:\xampp\tmp\phpBCD9.tmp
+            [2] => C:\xampp\tmp\phpBCDA.tmp
+        )
+
+    [error] => Array
+        (
+            [0] => 0
+            [1] => 0
+            [2] => 0
+        )
+
+    [size] => Array
+        (
+            [0] => 347040
+            [1] => 1927894
+            [2] => 215696
+        )
+
+)
+
+[2024-11-20 11:38:41] Ruko inserted with ID: 49
+[2024-11-20 11:38:41] Processing file: review4.png
+[2024-11-20 11:38:41] Attempting to move file to: images/ruko/ruko_49_673dbc3100c22.png
+[2024-11-20 11:38:41] Successfully processed file: review4.png
+[2024-11-20 11:38:41] Processing file: screenshot (1).png
+[2024-11-20 11:38:41] Attempting to move file to: images/ruko/ruko_49_673dbc310109d.png
+[2024-11-20 11:38:41] Successfully processed file: screenshot (1).png
+[2024-11-20 11:38:41] Processing file: screenshot (4).png
+[2024-11-20 11:38:41] Attempting to move file to: images/ruko/ruko_49_673dbc310143c.png
+[2024-11-20 11:38:41] Successfully processed file: screenshot (4).png
+[2024-11-20 11:38:41] Transaction committed. Upload complete.
