@@ -213,6 +213,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="form-item">
                                     <label for="gambar_admin">Profil Admin</label>
                                     <input type="file" id="gambar_admin" name="gambar_admin">
+                                    <?php if ($row_admin['gambar_admin']) { ?>
+                                        <img src="images/admin/<?php echo $row_admin['gambar_admin']; ?>" alt="Gambar Admin">
+                                    <?php } ?>
                                 </div>
                             </td>
                         </tr>
@@ -221,6 +224,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="form-item">
                                     <label for="logo_web">Logo Website</label>
                                     <input type="file" id="logo_web" name="logo_web">
+                                    <?php if ($row_website['logo_web']) { ?>
+                                        <img src="images/website/<?php echo $row_website['logo_web']; ?>" alt="Logo Website">
+                                    <?php } ?>
                                 </div>
                             </td>
                         </tr>
