@@ -14,9 +14,6 @@ require "koneksi.php";
         body {
             font-family: 'Poppins', sans-serif;
         }
-        textarea {
-            font-family: 'Poppins', sans-serif;
-        }
     </style>
     
     <link rel="stylesheet" href="styles/admin.css">
