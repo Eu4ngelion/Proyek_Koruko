@@ -10,12 +10,12 @@ if (!isset($_SESSION["login"])) {
 }
 
 // Mengambil 4 data ruko secara acak untuk rekomendasi
-$sql_rekomendasi = "SELECT * FROM ruko ORDER BY RAND() LIMIT 10";
+$sql_rekomendasi = "SELECT * FROM ruko WHERE status = '1' ORDER BY RAND() LIMIT 10 ";
 $result = mysqli_query($conn, $sql_rekomendasi);
 $ruko_rekomendasi = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 // Mengambil 4 data ruko terbaru (ruko dengan tanggal terbaru)
-$sql_terbaru = "SELECT * FROM ruko ORDER BY tanggal DESC LIMIT 10";
+$sql_terbaru = "SELECT * FROM ruko WHERE status = '1' ORDER BY tanggal DESC LIMIT 10";
 $result = mysqli_query($conn, $sql_terbaru);
 $ruko_terbaru = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -634,14 +634,14 @@ function formatSubvalue($value)
                                             </div>
                                             <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
                                                 <div class="rekomendasi-card-harga-kanan">
-                                                    IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?>
+                                                    IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / Tahun
                                                 </div>
                                             <?php endif; ?>
 
                                         <?php elseif ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
                                             <div class="rekomendasi-card-harga-kiri">
                                                 <!-- per bulan -->
-                                                IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / bulan
+                                                IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / Tahun
                                             </div>
                                         <?php endif; ?>
 
@@ -655,7 +655,7 @@ function formatSubvalue($value)
                                             <?php echo $ruko['nama_ruko']; ?>
                                         </div>
                                         <div class="rekomendasi-card-alamat">
-
+                                            <?php echo $ruko['alamat']; ?>
                                         </div>
                                     </div>
 
