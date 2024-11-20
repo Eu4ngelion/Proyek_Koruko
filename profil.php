@@ -2,11 +2,15 @@
 require "koneksi.php";
 
 // Ambil data pengguna dari database
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 $username = $_SESSION['username']; // Ambil username dari session
 $sql = "SELECT * FROM pengguna WHERE nama_pengguna='$username'";
 $result = mysqli_query($conn, $sql);
 $user_data = mysqli_fetch_assoc($result);
+
 
 // Proses pembaruan data
 if (isset($_POST['update'])) {
@@ -14,17 +18,34 @@ if (isset($_POST['update'])) {
     $nama_pengguna = $_POST['nama_pengguna'];
     $telepon = $_POST['telepon'];
     $email = $_POST['email'];
-    $sandi = $_POST['sandi']; 
+    $sandi = $_POST['sandi'];
     $hashed_sandi = password_hash($sandi, PASSWORD_DEFAULT);
 
-    // Update query
-    $sql = "UPDATE pengguna SET nama_lengkap='$nama_lengkap', nama_pengguna='$nama_pengguna', telepon='$telepon', email='$email', sandi='$hashed_sandi' WHERE nama_pengguna='$username'"; // Ganti 'User 123' dengan username yang sesuai
-
-    if (mysqli_query($conn, $sql)) {
-        echo "<script>alert('Profil berhasil diperbarui');</script>";
+    // Cek apakah ada duplikat sudah digunakan
+    $sql = "SELECT * FROM pengguna WHERE nama_pengguna != '$username' AND( nama_pengguna='$nama_pengguna' OR telepon='$telepon' OR email='$email')";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        if ($row['nama_pengguna'] == $nama_pengguna) {
+            echo "<script>alert('Nama pengguna sudah digunakan');</script>";
+        } else if ($row['telepon'] == $telepon) {
+            echo "<script>alert('Nomor telepon sudah digunakan');</script>";
+        } else if ($row['email'] == $email) {
+            echo "<script>alert('Email sudah digunakan');</script>";
+        }
+        // Bersihkan data post sebelumnya
     } else {
-        echo "<script>alert('Error: " . mysqli_error($conn) . "');</script>";
+        // Update query
+        $sql = "UPDATE pengguna SET nama_lengkap='$nama_lengkap', nama_pengguna='$nama_pengguna', telepon='$telepon', email='$email', sandi='$hashed_sandi' WHERE nama_pengguna='$username'"; // Ganti 'User 123' dengan username yang sesuai
+
+        if (mysqli_query($conn, $sql)) {
+            echo "<script>alert('Profil berhasil diperbarui');</script>";
+            $_SESSION['username'] = $nama_pengguna;
+        } else {
+            echo "<script>alert('Error: " . mysqli_error($conn) . "');</script>";
+        }
     }
+    header("Refresh:0"); // Refresh halaman agar perubahan terlihat
 }
 
 if (isset($_POST['upload'])) {
@@ -60,6 +81,7 @@ if (isset($_POST['upload'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,6 +96,7 @@ if (isset($_POST['upload'])) {
             font-family: 'Poppins', sans-serif;
             text-align: center;
         }
+
         .main-index {
             width: 100%;
             max-width: 800px;
@@ -85,17 +108,28 @@ if (isset($_POST['upload'])) {
             flex-direction: column;
             align-items: center;
         }
+        
+        .profil-form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
         .profile-item {
             margin: 15px 0;
             width: 100%;
             max-width: 400px;
             text-align: left;
         }
+
         .profile-item label {
             display: block;
             margin-bottom: 5px;
             font-size: 18px;
         }
+
         .button-ganti {
             background-color: #703BF7;
             color: white;
@@ -105,6 +139,7 @@ if (isset($_POST['upload'])) {
             cursor: pointer;
             font-size: 16px;
         }
+
         input {
             width: 100%;
             padding: 10px;
@@ -114,19 +149,26 @@ if (isset($_POST['upload'])) {
             color: white;
             text-align: left;
         }
+
         img {
             border-radius: 50%;
             width: 100px;
             height: 100px;
         }
+
+        #fotoProfil {
+            cursor: pointer;
+            background-color: white;
+        }
     </style>
 </head>
+
 <body class="body-index">
     <header><?php include "navbar.php"; ?></header>
 
     <main class="main-index">
         <h1>Profil Akun</h1>
-        <form method="POST" action="profil.php" enctype="multipart/form-data">
+        <form class="profil-form" method="POST" action="profil.php" enctype="multipart/form-data">
             <div class="profile-item">
                 <label>Nama Lengkap:</label>
                 <div style="display: flex; align-items: center;">
@@ -175,5 +217,14 @@ if (isset($_POST['upload'])) {
     </main>
 
     <footer><?php include "footer.php"; ?></footer>
+
+    <script>
+        // Preview Update Gambar Profil
+        document.getElementById('uploadFoto').addEventListener('change', function (e) {
+            var img = document.getElementById('fotoProfil');
+            img.src = URL.createObjectURL(e.target.files[0]);
+        });
+    </script>
 </body>
+
 </html>
