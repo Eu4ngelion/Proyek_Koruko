@@ -26,6 +26,36 @@ if (isset($_POST['update'])) {
         echo "<script>alert('Error: " . mysqli_error($conn) . "');</script>";
     }
 }
+
+if (isset($_POST['upload'])) {
+    // Proses upload foto
+    if (isset($_FILES['uploadFoto']) && $_FILES['uploadFoto']['error'] == 0) {
+        $target_dir = "images/user/";
+        $target_file = $target_dir . basename($_FILES["uploadFoto"]["name"]);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Cek apakah file gambar adalah gambar yang valid
+        $check = getimagesize($_FILES["uploadFoto"]["tmp_name"]);
+        if ($check !== false) {
+            // Pindahkan file ke direktori tujuan
+            if (move_uploaded_file($_FILES["uploadFoto"]["tmp_name"], $target_file)) {
+                // Update query untuk mengganti gambar_user
+                $sql = "UPDATE pengguna SET gambar_user='$target_file' WHERE nama_pengguna='$username'";
+                if (mysqli_query($conn, $sql)) {
+                    // Update session gambar_user
+                    $_SESSION['gambar_user'] = $target_file;
+                    echo "<script>alert('Foto profil berhasil diperbarui');</script>";
+                } else {
+                    echo "<script>alert('Error: " . mysqli_error($conn) . "');</script>";
+                }
+            } else {
+                echo "<script>alert('Maaf, terjadi kesalahan saat mengupload file Anda.');</script>";
+            }
+        } else {
+            echo "<script>alert('File yang diupload bukan gambar.');</script>";
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -96,7 +126,7 @@ if (isset($_POST['update'])) {
 
     <main class="main-index">
         <h1>Profil Akun</h1>
-        <form method="POST" action="profil.php">
+        <form method="POST" action="profil.php" enctype="multipart/form-data">
             <div class="profile-item">
                 <label>Nama Lengkap:</label>
                 <div style="display: flex; align-items: center;">
@@ -128,7 +158,7 @@ if (isset($_POST['update'])) {
             <div class="profile-item">
                 <label>Kata Sandi:</label>
                 <div style="display: flex; align-items: center;">
-                    <input type="password" name="sandi" value="" required
+                    <input type="password" name="sandi" value=""
                         title="Password harus memiliki minimal 8 karakter dan satu huruf kapital.">
                     <button class="button-ganti" style="margin-left: 10px;" type="submit" name="update">Ganti</button>
                 </div>
@@ -136,8 +166,9 @@ if (isset($_POST['update'])) {
             <div class="profile-item">
                 <div style="display: flex; flex-direction: column; align-items: center;">
                     <label>Foto Profil:</label>
-                    <img src="images/user/profil_user_1.png" alt="Foto Profil">
-                    <button class="button-ganti" style="margin-top: 10px;">Ganti</button>
+                    <input type="file" id="uploadFoto" name="uploadFoto" style="display: none;" accept="image/*">
+                    <img src="<?php echo $user_data['gambar_user'] ? $user_data['gambar_user'] : 'images/user/default.png'; ?>" alt="Foto Profil" id="fotoProfil" onclick="document.getElementById('uploadFoto').click();">
+                    <button class="button-ganti" style="margin-top: 10px;" type="submit" name="upload">Simpan Foto Profil</button>
                 </div>
             </div>
         </form>
