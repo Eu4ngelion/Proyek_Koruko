@@ -4,8 +4,6 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,10 +15,6 @@
     <style>
         * {
             font-family: "Poppins", sans-serif;
-        }
-        html {
-            margin: 0;
-            padding: 0;
         }
 
         .footer {
@@ -191,7 +185,6 @@
                         <a href="#"><img src="images/assets/yt.png" alt="YT"></a>
                         </div>
                 </div>
-                
             </div>
         </div>
         <div class="copyright">

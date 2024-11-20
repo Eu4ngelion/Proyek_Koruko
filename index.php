@@ -34,6 +34,10 @@ function formatSubvalue($value)
     }
 }
 
+// Mengambil 4 data ruko terbaru (ruko dengan tanggal terbaru)
+$sql_terbaru = "SELECT * FROM ruko ORDER BY tanggal DESC LIMIT 4";
+$result = mysqli_query($conn, $sql_terbaru);
+$ruko_terbaru = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +58,6 @@ function formatSubvalue($value)
         .main-index {
             height: auto;
             min-height: 100vh;
-            margin: 0;
             padding: 60px 0 0 0;
             font-family: 'Poppins', sans-serif;
             z-index: -2;
@@ -251,6 +254,7 @@ function formatSubvalue($value)
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 20px;
         }
 
         .main-rekomendasi-title-left {
@@ -439,7 +443,7 @@ function formatSubvalue($value)
             width: 25px;
             text-align: left;
         }
-
+      
         .fasilitas-value {
             font-size: 14px;
             font-weight: bold;
@@ -716,7 +720,6 @@ function formatSubvalue($value)
                             </button>
                         </a>
                     </div>
-
                 </div>
 
                 <div class="main-rekomendasi-content">
@@ -1015,7 +1018,6 @@ function formatSubvalue($value)
         terapkanHarga.addEventListener("click", function() {
             let inputHargaMinValue = formatSubvalueHarga(inputHargaMin.value);
             let inputHargaMaxValue = formatSubvalueHarga(inputHargaMax.value);
-
             if (inputHargaMin.value == "" || inputHargaMax.value == "") {
                 subvalueHarga.innerHTML = "Pilih Rentang Harga"
             } else {

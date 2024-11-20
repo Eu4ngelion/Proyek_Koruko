@@ -1,0 +1,422 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container-main{
+    background-color: black;
+    min-height: 100vh;
+}
+
+.main-pencarian {
+    height: auto;
+    padding-top: 80px; /* Jarak lebih kecil dari atas */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Posisi lebih ke atas */
+    background: black;
+    flex-direction: column;
+}
+
+.search-bar {
+    position: relative;
+    width: 40%; /* Lebar search bar lebih kecil */
+    max-width: 400px; /* Batas maksimal lebih kecil */
+    margin-top: 30px; /* Sesuaikan jarak dari atas */
+    
+}
+
+.search-bar input[type="text"] {
+    width: 100%;
+    padding: 10px 15px; /* Padding lebih kecil */
+    border: none;
+    border-radius: 30px; /* Radius lebih kecil untuk bentuk */
+    outline: none;
+    font-size: 14px; /* Font lebih kecil */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+}
+
+.search-bar input::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+.search-bar .search-button {
+    position: absolute;
+    right: 8px; /* Sesuaikan jarak tombol ke kanan */
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #666;
+    font-size: 16px; /* Ukuran ikon lebih kecil */
+    cursor: default;
+}
+
+.search-bar .search-button:hover {
+    color: #333;
+}
+
+.search-bar .search-button i {
+    font-size: 18px; /* Ikon lebih kecil */
+}
+
+ /* Hero */
+ .main-hero-image {
+    height: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.hero-image {
+    width: 102%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    z-index: -1;
+    filter: blur(7px) brightness(0.5);
+}
+
+.hero-text {
+    text-align: center;
+    color: white;
+}
+
+.main-hero-title {
+    font-size: 64px;
+    font-weight: bolder;
+    letter-spacing: -2px;
+    color: white;
+}
+
+.main-hero-subtitle {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+}
+
+.main-hero-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.main-search-lokasi,
+.main-search-tipe,
+.main-search-harga {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.main-dropdown-lokasi-box,
+.main-dropdown-tipe-box,
+.main-dropdown-harga-box {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    z-index: 1;
+    background-color: #ffffff;
+    border: 1px solid #703BF7;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px #703BF7;
+    padding: 12px 0px;
+    margin-top: 5px;
+    width: auto;
+    min-width: 200px;
+}
+
+.main-dropdown-lokasi-search {
+    padding: 10px 80px 10px 10px;
+    margin: 5px 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+}
+
+.main-dropdown-harga-min,
+.main-dropdown-harga-max {
+    padding: 10px 80px 10px 10px;
+    margin: 5px 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+}
+
+.main-dropdown-tipe-radio {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px 20px;
+
+}
+
+.main-dropdown-tipe-radio label {
+    display: flex;
+    margin-right: 10px;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+}
+
+.main-dropdown-tipe-radio input[type="radio"] {
+    margin-right: 5px;
+    width: 20px;
+    height: 16px;
+}
+
+
+.main-lokasi-search-box,
+.main-tipe-search-box,
+.main-harga-search-box {
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 200px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.main-lokasi-search-category-title,
+.main-tipe-search-category-title,
+.main-harga-search-category-title {
+    font-weight: bold;
+}
+
+.main-search-submit {
+    background-color: #703BF7;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    width: 150px;
+    height: 100%;
+}
+
+.main-input-lokasi {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins', sans-serif;
+}
+
+.main-dropdown-lokasi-terapkan,
+.main-dropdown-tipe-terapkan,
+.main-dropdown-harga-terapkan {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    border-top: 2px solid #703BF7;
+    margin: 10px auto;
+    padding-top: 10px;
+}
+
+.main-dropdown-lokasi-terapkan-button,
+.main-dropdown-tipe-terapkan-button,
+.main-dropdown-harga-terapkan-button {
+    background-color: #703BF7;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100px;
+}
+
+.main-rekomendasi-content {
+    display: flex;
+    align-items: center;
+    margin: 0px auto;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+    height: auto;
+    padding-top: 18px;
+    width: 80%;
+}
+
+.main-rekomendasi-card {
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 10px;
+    padding: 0;
+    border-radius: 10px;
+    width: 275px;
+    height: 315px;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.main-rekomendasi-card:hover {
+    box-shadow: 0px 0px 30px #703BF7;
+    transform: translateY(-20px);
+    transition: all 0.3s;
+}
+
+.rekomendasi-card-image {
+    display: flex;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 150px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    align-items: flex-end;
+}
+
+.card-pop-sewa {
+    background-color: #703BF7;
+    color: white;
+    width: 50px;
+    height: 20px;
+    padding: 3px 12px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    box-shadow: 0px 2px 4px black;
+}
+
+.card-pop-jual {
+    background-color: #EFAE2D;
+    color: white;
+    width: 50px;
+    height: 20px;
+    padding: 3px 12px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0px 2px 4px black;
+}
+
+.rekomendasi-card-bottom {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    padding: 1px 0 0 0;
+}
+
+.rekomendasi-card-harga {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.rekomendasi-card-harga-kiri {
+    font-size: 14px;
+    font-weight: bold;
+    color: #703BF7;
+}
+
+.rekomendasi-card-harga-kanan {
+    font-size: 12px;
+    color: #703BF7;
+}
+
+.rekomendasi-card-deskripsi-atas {
+    display: flex;
+    margin: 10px 0 0 0;
+    flex-direction: column;
+    width: 100%;
+}
+
+.rekomendasi-card-kota {
+    font-size: 16px;
+    font-weight: bold;
+    color: #703BF7;
+    /* align kiri */
+    text-align: left;
+    margin: -5px 0 0 0;
+}
+
+.rekomendasi-card-nama {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    margin: -5px 0 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rekomendasi-card-alamat {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+    margin: -5px 0 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+.rekomendasi-card-deskripsi-bawah {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    border-top: 1px solid black;
+}
+
+.rekomendasi-card-fasilitas {
+    display: flex;
+    flex-direction: row;
+}
+
+.fasilitas-title {
+    font-size: 14px;
+    font-weight: bold;
+    width: 60px;
+    text-align: left;
+}
+
+.fasilitas-title-luas {
+    font-size: 14px;
+    font-weight: bold;
+    width: 25px;
+    text-align: left;
+}
+
+.fasilitas-value {
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 5px;
+    padding-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.main-link-card {
+    display: block;
+    margin: 0;
+    width: 290px;
+    text-decoration: none;
+}

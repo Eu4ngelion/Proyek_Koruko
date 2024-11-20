@@ -3,7 +3,15 @@ require "koneksi.php";
 
 session_start();
 if ($_SESSION['username'] != 'admin') {
-    header('location: .php');
+    header('location: index.php');
+    exit();
+}
+if (!isset($_GET['id_ruko'])) {
+    echo "
+        <script>
+            alert('ID ruko tidak ditemukan!');
+            document.location.href = 'admin_properti.php';
+        </script>";
     exit();
 }
 $idRuko = $_GET['id_ruko'];
@@ -13,44 +21,39 @@ $result = mysqli_query($conn, "SELECT * FROM ruko WHERE id_ruko = $idRuko");
 while ($row = mysqli_fetch_assoc($result)) {
     $ruko[] = $row;
 }
-
-if (isset($_POST["submit"])) {
-
-    if ($_FILES['foto']['error'] === 4) { // cek apakah ada file yg diupload
-        $file_name = $oldImg; // kalo tidak, akan mengambil gambar lama
+if (isset($_POST['verifikasi'])) {
+    $sql = "UPDATE ruko SET status = 1 WHERE id_ruko = $idRuko";
+    $hasil = mysqli_query($conn, $sql);
+    if ($hasil) {
+        echo "
+            <script>
+                alert('Berhasil memverifikasi ruko!');
+                document.location.href = 'admin_properti.php';
+            </script>";
     } else {
-        $tmp_name = $_FILES['foto']['tmp_name']; // mengambil path temporary file
-        $file_name = $_FILES['foto']['name']; // mengambil nama file
-
-        // cek apakah yang diupload adalah file gambar
-        $validExtensions = ['png', 'jpg', 'jpeg'];
-        $fileExtension = explode('.', $file_name);
-        $fileExtension = strtolower(end($fileExtension));
-        if (!in_array($fileExtension, $validExtensions)) {
-            echo "
-                <script>
-                    alert('Tolong upload file gambar!');
-                </script>";
-        } else {
-            move_uploaded_file($tmp_name, 'imgRuko/' . $file_name);
-            unlink('imgRuko/' . $oldImg); // menghapus gambar lama dari folder images
-        }
+        echo "
+            <script>
+                alert('Gagal memverifikasi ruko!');
+                document.location.href = 'admin_properti.php';
+            </script>";
     }
+}
 
-    $result = mysqli_query($conn, $sql);
-
-    if ($result) {
+if (isset($_POST['tolak'])) {
+    $sql = "UPDATE ruko SET status = -1 WHERE id_ruko = $idRuko";
+    $hasil = mysqli_query($conn, $sql);
+    if ($hasil) {
         echo "
-        <script>
-            alert('Berhasil Mengubah data ruko!');
-            document.location.href = ' edit_ruko.php';
-        </script>";
+            <script>
+            alert('Berhasil menolak ruko!');
+            document.location.href = 'admin_properti.php';
+            </script>";
     } else {
         echo "
-        <script>
-            alert('Gagal Mengubah data ruko!');
-            document.location.href = 'edit_ruko.php';
-        </script>";
+            <script>
+            alert('Gagal menolak ruko!');
+            document.location.href = 'admin_properti.php';
+            </script>";
     }
 }
 ?>
@@ -63,8 +66,9 @@ if (isset($_POST["submit"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verifikasi Ruko</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/stylececel.css">
+    <link rel="stylesheet" href="styles/admin_verif.css">
 </head>
 
 <body>
@@ -79,9 +83,10 @@ if (isset($_POST["submit"])) {
                 <a href="admin_properti.php">
                     <button class="btn btn-kembali">Kembali</button>
                 </a>
-
-                <button class="btn btn-verifikasi">Verifikasi</button>
-                <button class="btn btn-tolak">Tolak</button>
+                <form class="form-verif-tolak" method="POST" action="">
+                    <button type="submit" class="btn btn-verifikasi" name="verifikasi" value="verifikasi">Verifikasi</button>
+                    <button type="submit" class="btn btn-tolak" name="tolak" value="tolak">Tolak</button>
+                </form>
             </div>
         </div>
 
@@ -175,12 +180,23 @@ if (isset($_POST["submit"])) {
 
                     <div class="preview-section">
                         <h3 class="preview-title">Preview</h3>
-                        <div class="preview-container">
-                            <img src="placeholder-image.svg" alt="Preview" id="previewImage">
-                        </div>
-                        <div class="preview-nav">
-                            <button class="nav-prev">←</button>
-                            <button class="nav-next">→</button>
+                        <div class="big-preview-container">
+                            <button class="nav-prev" id="nav-prev">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+                            <div class="preview-container">
+                                <?php 
+                                    // menampilkan gambar ruko
+                                    $sql = "SELECT * FROM gambar_ruko WHERE id_ruko = $idRuko";
+                                    $result = mysqli_query($conn, $sql);
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo '<img class="preview-img" src="images/ruko/' . $row['gambar_properti'] . '" style="display:none">';
+                                    }
+                                ?>
+                            </div>
+                            <button class="nav-next" id="nav-next">
+                                <i class="fa-solid fa-chevron-right"></i>   
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -190,6 +206,102 @@ if (isset($_POST["submit"])) {
     <footer class="footer">
         <?php include "footer.php"; ?>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const previewContainer = document.querySelector('.preview-container');
+            const previewImages = document.querySelectorAll('.preview-container img');
+            const navPrev = document.querySelector('.nav-prev');
+            const navNext = document.querySelector('.nav-next');
+            let currentImageIndex = 0;
+
+            // Function to show image at given index
+            function showImage(index) {
+                // Hide all images first
+                previewImages.forEach(img => {
+                    img.style.display = 'none';
+                });
+
+                // Show the current image
+                previewImages[index].style.display = 'block';
+
+                // Update navigation button states
+                updateNavigationState();
+            }
+
+            // Function to update navigation button states
+            function updateNavigationState() {
+                // Update prev button state
+                navPrev.disabled = currentImageIndex === 0;
+                navPrev.style.opacity = currentImageIndex === 0 ? '0.5' : '1';
+
+                // Update next button state
+                navNext.disabled = currentImageIndex === previewImages.length - 1;
+                navNext.style.opacity = currentImageIndex === previewImages.length - 1 ? '0.5' : '1';
+            }
+
+            // Previous button click handler
+            navPrev.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default button behavior
+                if (currentImageIndex > 0) {
+                    currentImageIndex--;
+                    showImage(currentImageIndex);
+                }
+            });
+
+            // Next button click handler
+            navNext.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default button behavior
+                if (currentImageIndex < previewImages.length - 1) {
+                    currentImageIndex++;
+                    showImage(currentImageIndex);
+                }
+            });
+
+            // Optional: Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft' && currentImageIndex > 0) {
+                    currentImageIndex--;
+                    showImage(currentImageIndex);
+                } else if (e.key === 'ArrowRight' && currentImageIndex < previewImages.length - 1) {
+                    currentImageIndex++;
+                    showImage(currentImageIndex);
+                }
+            });
+
+            // Add touch swipe support for mobile devices
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            previewContainer.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            previewContainer.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                const swipeThreshold = 50; // Minimum swipe distance
+                const swipeDistance = touchEndX - touchStartX;
+
+                if (Math.abs(swipeDistance) > swipeThreshold) {
+                    if (swipeDistance > 0 && currentImageIndex > 0) {
+                        // Swipe right - show previous image
+                        currentImageIndex--;
+                        showImage(currentImageIndex);
+                    } else if (swipeDistance < 0 && currentImageIndex < previewImages.length - 1) {
+                        // Swipe left - show next image
+                        currentImageIndex++;
+                        showImage(currentImageIndex);
+                    }
+                }
+            }
+
+            // Initialize the first image
+            showImage(currentImageIndex);
+        });
+    </script>
 </body>
 
 </html>
