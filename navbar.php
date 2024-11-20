@@ -14,7 +14,7 @@ if (!isset($_SESSION["login"])) {
 
 // Jika belum login dan ada di halaman tertentu
 if ($_SESSION["login"] == false) {
-    if ($current_page == 'profil' || $current_page == 'kelola' || $current_page == 'admin_properti' || $current_page == 'admin_akun' || $current_page == 'admin_tentang' || $current_page == 'admin_pengaturan' || $current_page == 'admin_verif') {
+    if ($current_page == 'profil' || $current_page == 'kelola' || $current_page== 'tambah_ruko' || $current_page == 'admin_properti' || $current_page == 'admin_akun' || $current_page == 'admin_tentang' || $current_page == 'admin_pengaturan' || $current_page == 'admin_verif') {
         echo "
         <script>
         alert('Anda harus login terlebih dahulu!')
