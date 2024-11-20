@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Nov 19, 2024 at 02:42 PM
+-- Generation Time: Nov 20, 2024 at 03:11 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,7 +38,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`nama_admin`, `sandi`, `gambar_admin`) VALUES
-('admin', '$2y$10$5pEj7Yuo/6EjQnoePV.jB.NA0IikIv0zuZaVNbkjuBc3ka5lujyo6', 'profil_admin.png');
+('admin', '$2y$10$VELFm.UCc65o5ePjrtefteRRM6WWbqMbFw1RP3NqzYCkqr5WlguCy', 'profil_admin.png');
 
 -- --------------------------------------------------------
 
@@ -89,7 +89,7 @@ CREATE TABLE `pengguna` (
 
 INSERT INTO `pengguna` (`nama_pengguna`, `nama_lengkap`, `sandi`, `email`, `telepon`, `gambar_user`) VALUES
 ('Kedua', 'Orang Kedua', '$2y$10$PWoILy9caioORmvT1ohVtO1qnOe41abWcx2ijLoXze2m.ULVbyj9u', 'kedua@gmail.com', '0822223333', NULL),
-('Koruko', 'Koruko', '$2y$10$5pEj7Yuo/6EjQnoePV.jB.NA0IikIv0zuZaVNbkjuBc3ka5lujyo6', 'Koruko@gmail.com', '0811112222', NULL),
+('Kor23', 'Koruko', '$2y$10$FsZXGus62K4YKx8GNK8A5uqEJkrn2oLlRtys6O8AzQisSbvJagJZ.', 'Koruko@gmail.com', '0811112222', 'profil_user_1.png'),
 ('pengguna', 'Pengguna', '$2y$10$G.rsNaDmzbyf5qC4YDE2DeMdO7PEREK8PCmq3OgWQHQqjW4FBnsL.', 'pengguna@gmail.com', '083333444455', NULL),
 ('username', 'nama lengkap', '$2y$10$d.bYMTw837nNYACF1/CQGO2JouDjC3O9GKA/SOSKUFxp39v0lrIN2', 'user@gmail.com', '0811111111', NULL);
 
@@ -123,16 +123,16 @@ CREATE TABLE `ruko` (
 --
 
 INSERT INTO `ruko` (`id_ruko`, `nama_pengguna`, `nama_ruko`, `harga_jual`, `harga_sewa`, `kota`, `alamat`, `luas_bangunan`, `luas_tanah`, `jmlh_kmr_tdr`, `jmlh_kmr_mandi`, `jmlh_lantai`, `jmlh_garasi`, `tanggal`, `status`, `deskripsi`) VALUES
-(1, 'Koruko', 'Ruko Koruko', 100000, 10000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250000, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
-(2, 'Koruko', 'Ruko Koruko 2', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
-(3, 'Koruko', 'Ruko Koruko 3', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
-(4, 'Koruko', 'Ruko Koruko 4', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
-(5, 'Koruko', 'Ruko Koruko 5', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
-(6, 'Koruko', 'Ruko Koruko 6', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
-(7, 'Koruko', 'Ruko Koruko 7', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
-(8, 'Koruko', 'Ruko Koruko 8', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
-(9, 'Koruko', 'Ruko Koruko 9', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
-(10, 'Koruko', 'Ruko Koruko 10', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 2, 'Ini Rumah Keren');
+(1, 'Kor23', 'Ruko Koruko', 100000, 10000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250000, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(2, 'Kor23', 'Ruko Koruko 2', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(3, 'Kor23', 'Ruko Koruko 3', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(4, 'Kor23', 'Ruko Koruko 4', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(5, 'Kor23', 'Ruko Koruko 5', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(6, 'Kor23', 'Ruko Koruko 6', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(7, 'Kor23', 'Ruko Koruko 7', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(8, 'Kor23', 'Ruko Koruko 8', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(9, 'Kor23', 'Ruko Koruko 9', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(10, 'Kor23', 'Ruko Koruko 10', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 2, 'Ini Rumah Keren');
 
 -- --------------------------------------------------------
 
@@ -162,7 +162,7 @@ CREATE TABLE `website` (
 --
 
 INSERT INTO `website` (`judul`, `email`, `telepon`, `alamat`, `deskripsi_tentang`, `visi`, `misi`, `instagram`, `facebook`, `youtube`, `twitter`, `deskripsi_footer`, `logo_web`, `gambar_tentang`) VALUES
-('Koruko', 'Koruko@gmail.com', '081122223333', NULL, 'Deskripsi Tentang', 'Visi Tentang', 'Misi Tentang', '', '', '', '', 'Deskripsi Footer', 'koruko_purple.png', '');
+('Koruko', 'Koruko@gmail.com', '081122223333', 'Jl wahid hasyim 2 Kos sempaja', 'Tentang Tentang Tentang Tentang Tentang', 'Visi Visi Visi Visi Visi', 'Misi Misi Misi', 'https://www.instagram.com/fcbarcelona/', 'https://www.facebook.com/?locale=id_ID', 'https://www.youtube.com/', 'https://x.com/home', 'Deskripsi Footer', 'koruko_purple.png', 'gambar_tentang.jpg');
 
 --
 -- Indexes for dumped tables
@@ -195,6 +195,12 @@ ALTER TABLE `pengguna`
 ALTER TABLE `ruko`
   ADD PRIMARY KEY (`id_ruko`),
   ADD KEY `nama_pengguna` (`nama_pengguna`);
+
+--
+-- Indexes for table `website`
+--
+ALTER TABLE `website`
+  ADD PRIMARY KEY (`judul`);
 
 --
 -- AUTO_INCREMENT for dumped tables

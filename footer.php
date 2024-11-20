@@ -15,7 +15,7 @@
     <title>Footer</title>
     <style>
         * {
-            font-family: "Poppins", sans-serif;
+            font-family: "Poppins";
         }
 
         .footer {
