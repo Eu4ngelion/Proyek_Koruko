@@ -79,7 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die("Query error: " . mysqli_error($conn));
     }
 
-    echo "Data berhasil diperbarui!";
+    echo "<script>
+        alert('Data berhasil diperbarui!');
+    </script>";
+
+    header("Refresh:0");
+
 }
 ?>
 
@@ -256,6 +261,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <footer>
         <?php include "footer.php"; ?>
     </footer>
+
+    <script>
+        // Preview image Profil Admin Dan Logo Website
+        document.getElementById('gambar_admin').addEventListener('change', function (e) {
+            var img = document.querySelector('.form-group-picture img');
+            img.src = URL.createObjectURL(e.target.files[0]);
+        });
+
+        document.getElementById('logo_web').addEventListener('change', function (e) {
+            var img = document.querySelectorAll('.form-group-picture img')[1];
+            img.src = URL.createObjectURL(e.target.files[0]);
+        });
+
+        // jika tekan batal, refresh halaman
+        document.querySelector('.btn-batal').addEventListener('click', function () {
+            location.reload();
+        });
+
+    </script>
 
 </body>
 

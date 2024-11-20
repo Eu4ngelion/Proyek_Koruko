@@ -160,7 +160,7 @@ if (isset($_POST['tambah'])) {
                 <div class="title">Tambah Ruko</div>
                 <div class="action-buttons">
                     <a href="kelola.php">
-                        <button class="btn btn-kembali-utama">Kembali</button>
+                        <div class="btn btn-kembali-utama">Kembali</div>
                     </a>
                     <button type="submit" class="btn btn-tambah-utama" name="tambah" value="tambah">Tambah</button>
                 </div>
@@ -186,19 +186,19 @@ if (isset($_POST['tambah'])) {
                     </div>
 
                     <div class="form-input">
+                        <label class="label-form">Status</label>
+                        <input name="status_palsu" type="text" value="Belum Diverifikasi" disabled>
+                        <input name="status" type="hidden" value="0" disabled>
+                    </div>
+
+                    <div class="form-input">
                         <label class="label-form">Nama Ruko</label>
                         <input name="namaRuko" type="text" required>
                     </div>
 
                     <div class="form-input">
                         <label class="label-form">Harga Jual</label>
-                        <input name="hargaJual" type="number" required>
-                    </div>
-
-                    <div class="form-input">
-                        <label class="label-form">Status</label>
-                        <input name="status_palsu" type="text" value="Belum Diverifikasi" disabled>
-                        <input name="status" type="hidden" value="0" disabled>
+                        <input name="hargaJual" type="number">
                     </div>
 
                     <div class="form-input">
@@ -206,15 +206,15 @@ if (isset($_POST['tambah'])) {
                         <input name="luasBangunan" type="text" required>
                     </div>
 
-                    <div class="form-input price-group">
-                        <label class="label-form">Harga Sewa</label>
-                        <input name="hargaSewa" type="number" required>
-                        <span class="price-suffix">per tahun</span>
-                    </div>
-
                     <div class="form-input">
                         <label class="label-form">Kota</label>
                         <input name="kota" type="text" required>
+                    </div>
+
+                    <div class="form-input price-group">
+                        <label class="label-form">Harga Sewa</label>
+                        <input name="hargaSewa" type="number">
+                        <span class="price-suffix">per tahun</span>
                     </div>
 
                     <div class="form-input">

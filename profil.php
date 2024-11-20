@@ -52,7 +52,7 @@ if (isset($_POST['upload'])) {
     // Proses upload foto
     if (isset($_FILES['uploadFoto']) && $_FILES['uploadFoto']['error'] == 0) {
         $target_dir = "images/user/";
-        $target_file = $target_dir . basename($_FILES["uploadFoto"]["name"]);
+        $target_file = basename($_FILES["uploadFoto"]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
         // Cek apakah file gambar adalah gambar yang valid
@@ -209,7 +209,7 @@ if (isset($_POST['upload'])) {
                 <div style="display: flex; flex-direction: column; align-items: center;">
                     <label>Foto Profil:</label>
                     <input type="file" id="uploadFoto" name="uploadFoto" style="display: none;" accept="image/*">
-                    <img src="<?php echo $user_data['gambar_user'] ? $user_data['gambar_user'] : 'images/user/default.png'; ?>" alt="Foto Profil" id="fotoProfil" onclick="document.getElementById('uploadFoto').click();">
+                    <img src="<?php echo $user_data['gambar_user'] ? "images/user/" . $user_data['gambar_user'] : 'images/assets/default_user.png'; ?>" alt="Foto Profil" id="fotoProfil" onclick="document.getElementById('uploadFoto').click();">
                     <button class="button-ganti" style="margin-top: 10px;" type="submit" name="upload">Simpan Foto Profil</button>
                 </div>
             </div>
@@ -219,6 +219,10 @@ if (isset($_POST['upload'])) {
     <footer><?php include "footer.php"; ?></footer>
 
     <script>
+
+        // Preview Gambar Profil dari sql ketika content loaded
+        
+
         // Preview Update Gambar Profil
         document.getElementById('uploadFoto').addEventListener('change', function (e) {
             var img = document.getElementById('fotoProfil');

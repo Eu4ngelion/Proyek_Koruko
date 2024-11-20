@@ -4,6 +4,11 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
+
+    // Ambil data website
+    $sql = "SELECT telepon, alamat, email, instagram, facebook, youtube, twitter, judul, deskripsi_tentang FROM website";
+    $result = mysqli_query($conn, $sql);
+    $footer = mysqli_fetch_assoc($result);
 ?>
 
 <!DOCTYPE html>
@@ -145,10 +150,10 @@
         <div class="footer-content">
             <div class="footer-kiri">
                 <div class="footer-logo">
-                    Koruko
+                    <?php echo $footer['judul']; ?>
                 </div>
                 <div class="footer-description">
-                    Koruko adalah platform, yang bertujuan untuk membantu menemukan ruko idaman untuk disewa atau dibeli. Kami menyediakan informasi lengkap dan terkini tentang harga, lokasi, dan fitur-fitur lainnya untuk membantu Anda dalam proses pencarian.
+                    <?php echo $footer['deskripsi_tentang']; ?>
                 </div>
             </div>
 
@@ -170,9 +175,9 @@
                 <div class="link-section">
                     <div class="footer-title">Kontak</div>
                     <div class="contact-info">
-                        <p>Telp: +62 8123456790</p>
-                        <p>Email: koruko@gmail.com</p>
-                        <p>Alamat: Jl. Raya No. 1, Jakarta</p>
+                        <p>Telp: <?php echo $footer['telepon']; ?></p>
+                        <p>Email: <?php echo $footer['email']; ?></p>
+                        <p>Alamat: <?php echo $footer['alamat']; ?></p>
                     </div>
                 </div>
                 
@@ -180,16 +185,16 @@
                 <div class="link-section">
                     <div class="footer-title">Sosial Media</div>
                     <div class="social-icons">
-                        <a href="#"><img src="images/assets/instagram.png" alt="IG"></a>
-                        <a href="#"><img src="images/assets/twitter.png" alt="Twit"></a>
-                        <a href="#"><img src="images/assets/fb.png" alt="FB"></a>
-                        <a href="#"><img src="images/assets/yt.png" alt="YT"></a>
+                        <a href="<?php echo htmlspecialchars($footer['instagram']); ?>"><img src="images/assets/ig.png" alt="IG"></a>
+                        <a href="<?php echo htmlspecialchars($footer['twitter']); ?>"><img src="images/assets/twitter.png" alt="Twit"></a>
+                        <a href="<?php echo htmlspecialchars($footer['facebook']); ?>"><img src="images/assets/fb.png" alt="FB"></a>
+                        <a href="<?php echo htmlspecialchars($footer['youtube']); ?>"><img src="images/assets/yt.png" alt="YT"></a>
                         </div>
                 </div>
             </div>
         </div>
         <div class="copyright">
-            © 2024 Koruko . All rights reserved
+            ©2024 <?php echo $footer['judul']; ?>. All rights reserved.
         </div>
     </footer>
 </body>
