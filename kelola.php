@@ -10,7 +10,6 @@
                 ORDER BY ruko.id_ruko DESC";
     $ruko_result = mysqli_query($conn, $query_ruko);
 
-    // Debug: Periksa apakah query berhasil
     if (!$ruko_result) {
         echo "Error: " . mysqli_error($conn);
     }

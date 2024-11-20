@@ -227,6 +227,22 @@ if (isset($_SESSION["username"])) {
             align-items: center;
         }
 
+        .navbar-right .navbar-item-current {
+            display: flex;
+            font-family: "Poppins";
+            font-size: 16px;
+            font-weight: bold;
+            list-style: none;
+            margin: 0 10px;
+            background-color: #703BF7;
+            border: 1px solid white;
+            border-radius: 15px;
+            padding: 2px 15px;
+            transition: all 0.3s;
+            justify-content: center;
+            align-items: center;
+        }
+
         .navbar-right .navbar-item-current:hover{
             background-color: #BBA0FF;
             border: 1px solid white;

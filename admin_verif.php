@@ -102,6 +102,11 @@ if (isset($_POST['tolak'])) {
                         <label class="label-form">Pemilik Ruko</label>
                         <input name="pemilikRuko" type="text" value="<?php echo $ruko[0]['nama_pengguna'] ?>" disabled>
                     </div>
+                    
+                    <div class="form-input">
+                        <label class="label-form">Status</label>
+                        <input name="status" type="text" value="<?php echo $ruko[0]['status'] ?>" disabled>
+                    </div>
 
                     <div class="form-input">
                         <label class="label-form">Nama Ruko</label>
@@ -114,25 +119,21 @@ if (isset($_POST['tolak'])) {
                     </div>
 
                     <div class="form-input">
-                        <label class="label-form">Status</label>
-                        <input name="status" type="text" value="<?php echo $ruko[0]['status'] ?>" disabled>
-                    </div>
-
-                    <div class="form-input">
                         <label class="label-form">Luas Bangunan</label>
                         <input name="luasBangunan" type="text" value="<?php echo $ruko[0]['luas_bangunan'] ?>" disabled>
-                    </div>
-
-                    <div class="form-input price-group">
-                        <label class="label-form">Harga Sewa</label>
-                        <input name="hargaSewa" type="number" value="<?php echo $ruko[0]['harga_sewa'] ?>" disabled>
-                        <span class="price-suffix">per tahun</span>
                     </div>
 
                     <div class="form-input">
                         <label class="label-form">Kota</label>
                         <input name="kota" type="text" value="<?php echo $ruko[0]['kota'] ?>" disabled>
                     </div>
+                    
+                    <div class="form-input price-group">
+                        <label class="label-form">Harga Sewa</label>
+                        <input name="hargaSewa" type="number" value="<?php echo $ruko[0]['harga_sewa'] ?>" disabled>
+                        <span class="price-suffix">per tahun</span>
+                    </div>
+
 
                     <div class="form-input">
                         <label class="label-form">Luas Tanah</label>

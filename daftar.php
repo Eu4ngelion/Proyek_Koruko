@@ -180,7 +180,7 @@ if (isset($_POST['register-submit'])) {
     <section class="login-content">
         <div class="login-box">
             <div class="login-title">
-                Register
+                Daftar
             </div>
             <form class="form-group" action="daftar.php" method="POST">
                 <input type="text" name="full-name" id="full-name" class="form-control"

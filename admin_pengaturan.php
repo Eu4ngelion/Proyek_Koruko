@@ -1,6 +1,10 @@
 <?php
 require "koneksi.php";
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 $sql_admin = "SELECT * FROM admin LIMIT 1";
 $result_admin = mysqli_query($conn, $sql_admin);
 if (!$result_admin) {
@@ -73,15 +77,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!mysqli_query(mysql: $conn, query: $query_admin)) {
         die("Query error: " . mysqli_error($conn));
     }
+    // Update session admin
+    $_SESSION['username'] = $nama_admin;
 
     $query_website = "UPDATE website SET judul='$judul', deskripsi_footer='$deskripsi_footer', alamat='$alamat', email='$email', telepon='$telepon', instagram='$instagram', twitter='$twitter', facebook='$facebook', youtube='$youtube', logo_web='$old_logo_web' WHERE judul = '$judul_current'";
     if (!mysqli_query(mysql: $conn, query: $query_website)) {
         die("Query error: " . mysqli_error($conn));
     }
 
+
     echo "<script>
         alert('Data berhasil diperbarui!');
     </script>";
+
 
     header("Refresh:0");
 
