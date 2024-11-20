@@ -2,18 +2,21 @@
 require "koneksi.php";
 
 $sql_admin = "SELECT * FROM admin LIMIT 1";
-$result_admin = mysqli_query(mysql: $conn, query: $sql_admin);
+$result_admin = mysqli_query($conn, $sql_admin);
 if (!$result_admin) {
     die("Query error: " . mysqli_error($conn));
 }
-$row_admin = mysqli_fetch_assoc(result: $result_admin);
+$row_admin = mysqli_fetch_assoc($result_admin);
 
 $sql_website = "SELECT * FROM website LIMIT 1";
-$result_website = mysqli_query(mysql: $conn, query: $sql_admin);
+$result_website = mysqli_query($conn, $sql_website);
 if (!$result_website) {
     die("Query error: " . mysqli_error($conn));
 }
-$row_website = mysqli_fetch_assoc(result: $result_website);
+$row_website = mysqli_fetch_assoc($result_website);
+
+$nama_admin_current = $row_admin['nama_admin'];
+$judul_current = $row_website['judul'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // tabel admin
