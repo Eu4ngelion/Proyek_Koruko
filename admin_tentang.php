@@ -1,5 +1,40 @@
 <?php
 require "koneksi.php";
+
+$sql_website = "SELECT * FROM website LIMIT 1";
+$result_website = mysqli_query($conn, $sql_website);
+if (!$result_website) {
+    die("Query error: " . mysqli_error($conn));
+}
+$row_website = mysqli_fetch_assoc($result_website);
+
+$deskripsi_current = $row_website['deskripsi_tentang'];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $deskripsi_tentang = $_POST['deskripsi'];
+    $visi = $_POST['visi'];
+    $misi = $_POST['misi'];
+    $gambar_tentang = $_FILES['gambar'];
+
+    $gambar_tentang_dir = "images/website/";
+    $gambar_tentang_name = "gambar_tentang.jpg"; 
+
+    if ($gambar_tentang['tmp_name']) {
+        if (file_exists($gambar_tentang_dir . $gambar_tentang_name)) {
+            unlink($gambar_tentang_dir . $gambar_tentang_name);
+        }
+        if (!move_uploaded_file($gambar_tentang['tmp_name'], $gambar_tentang_dir . $gambar_tentang_name)) {
+            die("Gagal mengupload gambar");
+        }
+    }
+
+    $query_website = "UPDATE website SET gambar_tentang='$gambar_tentang_name', deskripsi_tentang='$deskripsi_tentang', visi='$visi', misi='$misi' WHERE deskripsi_tentang = '$deskripsi_current'";
+    if (!mysqli_query($conn, $query_website)) {
+        die("Query error: " . mysqli_error($conn));
+    }
+
+    echo "<script>alert('Data berhasil diperbarui!');</script>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,61 +49,62 @@ require "koneksi.php";
         body {
             font-family: 'Poppins', sans-serif;
         }
-        textarea {
-            font-family: 'Poppins', sans-serif;
-        }
     </style>
-    
     <link rel="stylesheet" href="styles/admin.css">
 </head>
 
 <body>
-    <?php include "navbar.php"; ?>
-    <div class="container">
-        <div class="page-title">
+    <header>
+        <?php include "navbar.php"; ?>
+    </header>
+
+    <main>
+        <div class="container-hero">
             <h1>Edit Tentang Kami</h1>
         </div>
 
-        <div class="slice-up-admin-tentang">
-            <div class="slice-up-left">
-                <div class="preview-admin">
-                    <div class="image-container">
-                        <img alt="Preview Image" id="preview-image" style="max-width: 100%; height: auto;">
+        <form action="" method="POST" enctype="multipart/form-data">
+            <div class="container-pengaturan">
+                <div class="form-row-1">
+                    <div class="form-group-1">
+                        <?php if ($row_website['gambar_tentang']) { ?>
+                            <img src="images/website/<?php echo $row_website['gambar_tentang']; ?>" alt="Gambar Tentang" class="gambar_tentang">
+                        <?php } ?>
+                        <br>
+                        <br>
+                        <label class="gambar-section" for="gambar">Upload Gambar</label>
+                        <br>
+                        <input type="file" id="gambar" name="gambar" accept="image/*" style="display: none;">
                     </div>
-                    <button class="btn-upload-admin">Upload Gambar</button>
+                    <div class="form-group-1" style="width: 200%;">
+                        <textarea id="deskripsi" name="deskripsi"><?php echo $row_website['deskripsi_tentang']; ?></textarea>
+                    </div>
                 </div>
             </div>
-            <div class="slice-up-right">
-                <form action="" method="post" enctype="multipart/form-data">
-                    <div class="form-group-admin">
-                        <textarea id="deskripsi" class="form-field" name="deskripsi" rows="8" cols="50" placeholder=" Masukkan deskripsi"></textarea>
+            <div class="container-pengaturan">
+                <div class="form-row-2">
+                    <div class="form-group-2">
+                        <label for="visi">Visi</label>
+                        <br>
+                        <textarea id="visi" name="visi" rows="4" cols="50"><?php echo $row_website['visi']; ?></textarea>
                     </div>
-                </form>
+                    <div class="form-group-2">
+                        <label for="misi">Misi</label>
+                        <br>
+                        <textarea id="misi" name="misi" rows="4" cols="50"><?php echo $row_website['misi']; ?></textarea>
+                    </div>
+                </div>
+                <div class="btn-tentang">
+                    <input class="btn-simpan" type="submit" value="Simpan">
+                    <input class="btn-batal" type="reset" value="Batal">
+                </div>
             </div>
-        </div>
+        </form>
 
-        <div class="slice-down-admin-tentang">
-            <form action="" method="post" enctype="multipart/form-data">
-                <h2>Visi</h2>
-                <div class="form-group-admin">
-                    <textarea id="visi" class="form-field" name="visi" rows="6" cols="50" placeholder=" Masukkan visi"></textarea>
-                </div>
-                <h2>Misi</h2>
-                <div class="form-group-admin">
-                    <textarea id="misi" class="form-field" name="misi" rows="6" cols="50" placeholder=" Masukkan misi"></textarea>
-                </div>
-            </form>
-        </div>
-
-        <div class="btn-admin-tentang">
-            <button class="btn-batal-admin">Batal</button>
-            <button class="btn-simpan-admin">Simpan Perubahan</button>
-
-        </div>
-    </div>
+    </main>
 
     <footer>
-        <?php include"footer.php"?>
+        <?php include "footer.php" ?>
     </footer>
 
 </body>
