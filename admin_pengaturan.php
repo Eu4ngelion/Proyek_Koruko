@@ -16,6 +16,7 @@ if (!$result_website) {
 $row_website = mysqli_fetch_assoc($result_website);
 
 $nama_admin_current = $row_admin['nama_admin'];
+$sandi_admin_current = $row_admin['sandi']; 
 $judul_current = $row_website['judul'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -60,6 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!move_uploaded_file($logo_web['tmp_name'], $website_upload_dir . $old_logo_web)) {
             die("Gagal upload website logo.");
         }
+    }
+
+    if (empty($sandi_admin)) {
+        $sandi_admin = $sandi_admin_current;
+    } else {
+        $sandi_admin = password_hash($sandi_admin, PASSWORD_DEFAULT);
     }
 
     $query_admin = "UPDATE admin SET nama_admin='$nama_admin', sandi='$sandi_admin', gambar_admin='$old_gambar_admin' WHERE nama_admin = '$nama_admin_current'";
@@ -121,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <td colspan="2">
                                         <div class="form-item">
                                             <label for="sandi">Sandi Admin</label>
-                                            <input type="password" id="sandi" name="sandi" required>
+                                            <input type="password" id="sandi" name="sandi">
                                         </div>
                                     </td>
                                 </tr>
