@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Nov 13, 2024 at 04:28 AM
+-- Generation Time: Nov 19, 2024 at 02:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -52,6 +52,22 @@ CREATE TABLE `gambar_ruko` (
   `gambar_properti` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `gambar_ruko`
+--
+
+INSERT INTO `gambar_ruko` (`id_gambar`, `id_ruko`, `gambar_properti`) VALUES
+(1, 1, 'rukoa.webp'),
+(2, 2, 'rukob.webp'),
+(3, 3, 'rukoc.webp'),
+(4, 4, 'rukod.webp'),
+(5, 5, 'rukoe.webp'),
+(6, 6, 'rukof.webp'),
+(7, 7, 'rukog.webp'),
+(8, 8, 'rukoh.webp'),
+(9, 9, 'rukoi.webp'),
+(10, 10, 'rukoj.webp');
+
 -- --------------------------------------------------------
 
 --
@@ -74,7 +90,8 @@ CREATE TABLE `pengguna` (
 INSERT INTO `pengguna` (`nama_pengguna`, `nama_lengkap`, `sandi`, `email`, `telepon`, `gambar_user`) VALUES
 ('Kedua', 'Orang Kedua', '$2y$10$PWoILy9caioORmvT1ohVtO1qnOe41abWcx2ijLoXze2m.ULVbyj9u', 'kedua@gmail.com', '0822223333', NULL),
 ('Koruko', 'Koruko', '$2y$10$5pEj7Yuo/6EjQnoePV.jB.NA0IikIv0zuZaVNbkjuBc3ka5lujyo6', 'Koruko@gmail.com', '0811112222', NULL),
-('pengguna', 'Pengguna', '$2y$10$G.rsNaDmzbyf5qC4YDE2DeMdO7PEREK8PCmq3OgWQHQqjW4FBnsL.', 'pengguna@gmail.com', '083333444455', NULL);
+('pengguna', 'Pengguna', '$2y$10$G.rsNaDmzbyf5qC4YDE2DeMdO7PEREK8PCmq3OgWQHQqjW4FBnsL.', 'pengguna@gmail.com', '083333444455', NULL),
+('username', 'nama lengkap', '$2y$10$d.bYMTw837nNYACF1/CQGO2JouDjC3O9GKA/SOSKUFxp39v0lrIN2', 'user@gmail.com', '0811111111', NULL);
 
 -- --------------------------------------------------------
 
@@ -90,12 +107,12 @@ CREATE TABLE `ruko` (
   `harga_sewa` bigint(20) DEFAULT NULL,
   `kota` varchar(30) NOT NULL,
   `alamat` varchar(100) NOT NULL,
-  `luas_bangunan` int(11) NOT NULL,
-  `luas_tanah` int(11) NOT NULL,
-  `jmlh_kmr_tdr` int(11) NOT NULL,
-  `jmlh_kmr_mandi` int(11) NOT NULL,
-  `jmlh_lantai` int(11) NOT NULL,
-  `jmlh_garasi` int(11) NOT NULL,
+  `luas_bangunan` int(11) NOT NULL DEFAULT 0,
+  `luas_tanah` int(11) DEFAULT 0,
+  `jmlh_kmr_tdr` int(11) NOT NULL DEFAULT 0,
+  `jmlh_kmr_mandi` int(11) NOT NULL DEFAULT 0,
+  `jmlh_lantai` int(11) NOT NULL DEFAULT 0,
+  `jmlh_garasi` int(11) NOT NULL DEFAULT 0,
   `tanggal` date NOT NULL,
   `status` int(11) NOT NULL,
   `deskripsi` text DEFAULT NULL
@@ -106,7 +123,16 @@ CREATE TABLE `ruko` (
 --
 
 INSERT INTO `ruko` (`id_ruko`, `nama_pengguna`, `nama_ruko`, `harga_jual`, `harga_sewa`, `kota`, `alamat`, `luas_bangunan`, `luas_tanah`, `jmlh_kmr_tdr`, `jmlh_kmr_mandi`, `jmlh_lantai`, `jmlh_garasi`, `tanggal`, `status`, `deskripsi`) VALUES
-(1, 'Koruko', 'Ruko Koruko', 100000, 10000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 0, 'Ini Rumah Keren');
+(1, 'Koruko', 'Ruko Koruko', 100000, 10000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250000, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(2, 'Koruko', 'Ruko Koruko 2', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(3, 'Koruko', 'Ruko Koruko 3', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(4, 'Koruko', 'Ruko Koruko 4', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(5, 'Koruko', 'Ruko Koruko 5', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(6, 'Koruko', 'Ruko Koruko 6', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(7, 'Koruko', 'Ruko Koruko 7', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(8, 'Koruko', 'Ruko Koruko 8', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(9, 'Koruko', 'Ruko Koruko 9', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
+(10, 'Koruko', 'Ruko Koruko 10', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 2, 'Ini Rumah Keren');
 
 -- --------------------------------------------------------
 
@@ -118,6 +144,7 @@ CREATE TABLE `website` (
   `judul` varchar(20) NOT NULL,
   `email` varchar(30) NOT NULL,
   `telepon` varchar(15) NOT NULL,
+  `alamat` varchar(100) DEFAULT NULL,
   `deskripsi_tentang` text NOT NULL,
   `visi` text NOT NULL,
   `misi` text NOT NULL,
@@ -134,8 +161,8 @@ CREATE TABLE `website` (
 -- Dumping data for table `website`
 --
 
-INSERT INTO `website` (`judul`, `email`, `telepon`, `deskripsi_tentang`, `visi`, `misi`, `instagram`, `facebook`, `youtube`, `twitter`, `deskripsi_footer`, `logo_web`, `gambar_tentang`) VALUES
-('Koruko', 'Koruko@gmail.com', '081122223333', 'Deskripsi Tentang', 'Visi Tentang', 'Misi Tentang', '', '', '', '', 'Deskripsi Footer', 'koruko_purple.png', '');
+INSERT INTO `website` (`judul`, `email`, `telepon`, `alamat`, `deskripsi_tentang`, `visi`, `misi`, `instagram`, `facebook`, `youtube`, `twitter`, `deskripsi_footer`, `logo_web`, `gambar_tentang`) VALUES
+('Koruko', 'Koruko@gmail.com', '081122223333', NULL, 'Deskripsi Tentang', 'Visi Tentang', 'Misi Tentang', '', '', '', '', 'Deskripsi Footer', 'koruko_purple.png', '');
 
 --
 -- Indexes for dumped tables
@@ -177,13 +204,13 @@ ALTER TABLE `ruko`
 -- AUTO_INCREMENT for table `gambar_ruko`
 --
 ALTER TABLE `gambar_ruko`
-  MODIFY `id_gambar` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_gambar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `ruko`
 --
 ALTER TABLE `ruko`
-  MODIFY `id_ruko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_ruko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

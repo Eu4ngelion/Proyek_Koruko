@@ -76,6 +76,7 @@ function formatPropertySalePrice($price)
 }
 
 
+
 ?>
 
 <!DOCTYPE html>
