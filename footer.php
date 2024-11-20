@@ -4,9 +4,6 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-
-    // !!! lanjutkan loh yah
-
 ?>
 
 
