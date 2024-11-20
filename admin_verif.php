@@ -3,7 +3,7 @@ require "koneksi.php";
 
 session_start();
 if ($_SESSION['username'] != 'admin') {
-    header('location: .php');
+    header('location: index.php');
     exit();
 }
 if (!isset($_GET['id_ruko'])) {
