@@ -284,7 +284,7 @@ function formatSubvalue($value)
         .main-rekomendasi-content {
             display: flex;
             align-items: center;
-            margin: 0;
+            margin: 0 0 50px 0 ;
             justify-content: space-between;
             flex-wrap: wrap;
             overflow: hidden;
