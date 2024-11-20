@@ -28,11 +28,11 @@ body {
     padding: 0rem 0;
 }
 
-.title {
+.title-header {
     padding-top: 50px;
     margin-top: 50px;
     font-size: 2.5rem;
-    font-weight: bold;
+    font-weight: bolder; /* Use numeric value for font weight */
     color: #000;
 }
 
@@ -301,7 +301,7 @@ textarea {
     color: black;
 }
 
-.btn-tambah-utama {
+.btn-edit-utama {
     background: #7044FF;
     color: white;
     border-radius: 5px;

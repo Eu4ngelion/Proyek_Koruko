@@ -9,6 +9,7 @@ if (($_SESSION['login']) == false) {
     header("Location: kelola.php");
 }
 
+// Function untuk debugging
 $username = $_SESSION['username'];
 
 // Ambil data pemilik ruko saat ini saja
@@ -31,80 +32,108 @@ if (isset($_POST['tambah'])) {
     $deskripsi = $_POST['deskripsi'];
 
 
-
     // Upload Gambar
     $target_dir = "images/ruko/";
     $allowed_ext = ['jpg', 'jpeg', 'png', 'webp'];
     $uploaded_files = [];
 
-    foreach ($_FILES['image']['name'] as $key => $name) {
-        $file_ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-        $original_file_name = pathinfo($name, PATHINFO_FILENAME);
-        $new_file_name = $original_file_name . '_' . time() . '.' . $file_ext;
-        $target_file = $target_dir . $new_file_name;
+    // Begin transaction
+    mysqli_begin_transaction($conn);
 
-        // Cek Validasi Gambar
-        if (!in_array($file_ext, $allowed_ext)) {
-            echo "<script>
-            alert('Format gambar tidak valid!')
-            window.location.href = 'tambah_ruko.php'
-            </script>";
-            return;
+    try {
+        // First insert the ruko data
+        $sql = "INSERT INTO ruko (nama_pengguna, nama_ruko, harga_jual, luas_bangunan, harga_sewa, kota, luas_tanah, jmlh_kmr_tdr, jmlh_kmr_mandi, alamat, jmlh_lantai, jmlh_garasi, deskripsi, status) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param(
+            $stmt,
+            "ssdddsdddsids",
+            $username,
+            $namaRuko,
+            $hargaJual,
+            $luasBangunan,
+            $hargaSewa,
+            $kota,
+            $luasTanah,
+            $kamarTidur,
+            $kamarMandi,
+            $alamat,
+            $jumlahLantai,
+            $garasi,
+            $deskripsi
+        );
+
+        if (!mysqli_stmt_execute($stmt)) {
+            throw new Exception("Failed to insert ruko data");
         }
 
-        if ($_FILES['image']['size'][$key] > 10000000) {
-            echo "<script>alert('Ukuran gambar terlalu besar (>10mb)!')
-            window.location.href = 'tambah_ruko.php'
-            </script>";
-            return;
+        $id_ruko = mysqli_insert_id($conn);
+
+        // Process each uploaded file
+        foreach ($_FILES['image']['tmp_name'] as $key => $tmp_name) {
+            if ($_FILES['image']['error'][$key] === UPLOAD_ERR_OK) {
+                $file_name = $_FILES['image']['name'][$key];
+                $file_size = $_FILES['image']['size'][$key];
+                $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+                // Validate extension
+                if (!in_array($file_ext, $allowed_ext)) {
+                    throw new Exception("Invalid file format for: " . $file_name);
+                }
+
+                // Validate size
+                if ($file_size > 10000000) {
+                    throw new Exception("File too large: " . $file_name);
+                }
+
+                // Generate unique filename
+                $new_file_name = uniqid('ruko_' . $id_ruko . '_') . '.' . $file_ext;
+                $target_file = $target_dir . $new_file_name;
+
+                // Move the file
+                if (!move_uploaded_file($tmp_name, $target_file)) {
+                    throw new Exception("Failed to move uploaded file: " . $file_name);
+                }
+
+                // Insert image record
+                $sql = "INSERT INTO gambar_ruko (id_ruko, gambar_properti) VALUES (?, ?)";
+                $stmt = mysqli_prepare($conn, $sql);
+                mysqli_stmt_bind_param($stmt, "is", $id_ruko, $new_file_name);
+
+                if (!mysqli_stmt_execute($stmt)) {
+                    throw new Exception("Failed to insert image record for: " . $file_name);
+                }
+
+                $uploaded_files[] = $new_file_name;
+            }
         }
 
-        if (move_uploaded_file($_FILES['image']['tmp_name'][$key], $target_file)) {
-            $uploaded_files[] = $new_file_name;
-        } else {
-            echo "<script>
-            alert('Gagal mengupload gambar!')
-            window.location.href = 'tambah_ruko.php'
-            </script>";
-            return;
+        // If we got here, everything worked
+        mysqli_commit($conn);
+
+
+        echo "<script>
+        alert('Ruko dan " . count($uploaded_files) . " gambar berhasil ditambahkan!');
+        window.location.href = 'kelola.php';
+        </script>";
+    } catch (Exception $e) {
+        // If anything went wrong, roll back the transaction
+        mysqli_rollback($conn);
+
+        // Clean up any files that were uploaded
+        foreach ($uploaded_files as $file) {
+            if (file_exists($target_dir . $file)) {
+                unlink($target_dir . $file);
+            }
         }
-    }
 
-    if (!empty($uploaded_files)) {
+
         echo "<script>
-        alert(Gambar berhasil diupload!)
+        alert('Error: " . addslashes($e->getMessage()) . "');
+        window.location.href = 'tambah_ruko.php';
         </script>";
     }
-
-
-    // Insert Database Ruko
-    $sql = "INSERT INTO ruko (nama_pengguna, nama_ruko, harga_jual, luas_bangunan, harga_sewa, kota, luas_tanah, jmlh_kmr_tdr, jmlh_kmr_mandi, alamat, jmlh_lantai, jmlh_garasi, deskripsi, status) 
-    VALUES ('$username', '$namaRuko', $hargaJual, $luasBangunan, $hargaSewa, '$kota', $luasTanah, $kamarTidur, $kamarMandi, '$alamat', $jumlahLantai, $garasi, '$deskripsi', 0)";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        echo "<script>
-        alert('Ruko berhasil ditambahkan!')
-        window.location.href = 'admin_properti.php'
-        </script>";
-    } else {
-        echo "<script>
-        alert('Gagal menambahkan ruko!')
-        window.location.href = 'tambah_ruko.php'
-        </script>";
-    }
-
-    // Insert Masing-masing Gambar
-    $id_ruko = mysqli_insert_id($conn);
-    foreach ($uploaded_files as $file_name) {
-        $sql = "INSERT INTO gambar_ruko (id_ruko, gambar_properti) VALUES ('$id_ruko', '$file_name')";
-        mysqli_query($conn, $sql);
-    }
-
-
-    $id_ruko = mysqli_insert_id($conn);
-    $sql = "INSERT INTO gambar_ruko (id_ruko, gambar_properti) VALUES ('$id_ruko', '$new_file_name')";
-    mysqli_query($conn, $sql);
-
 }
 ?>
 
@@ -130,7 +159,7 @@ if (isset($_POST['tambah'])) {
             <div class="header-content">
                 <div class="title">Tambah Ruko</div>
                 <div class="action-buttons">
-                    <a href="admin_properti.php">
+                    <a href="kelola.php">
                         <button class="btn btn-kembali-utama">Kembali</button>
                     </a>
                     <button type="submit" class="btn btn-tambah-utama" name="tambah" value="tambah">Tambah</button>
@@ -253,6 +282,7 @@ if (isset($_POST['tambah'])) {
                         <!-- Hidden input to store image data for form submission -->
                         <input type="hidden" name="imageData" id="imageData">
                     </div>
+
                 </div>
             </div>
         </main>
@@ -271,6 +301,7 @@ if (isset($_POST['tambah'])) {
 
             let images = [];
             let currentImageIndex = 0;
+            let fileList = new DataTransfer(); // Create a new DataTransfer object to manage files
 
             function updateImageCounter() {
                 imageCounter.textContent = `${images.length}/3 gambar`;
@@ -286,15 +317,20 @@ if (isset($_POST['tambah'])) {
                 previewContainer.innerHTML = '';
                 if (images.length > 0) {
                     const img = document.createElement('img');
-                    img.src = images[currentImageIndex];
+                    img.src = images[currentImageIndex].preview;
                     previewContainer.appendChild(img);
                 } else {
                     previewContainer.textContent = 'Tidak ada gambar.';
                 }
                 updateNavigationButtons();
                 updateImageCounter();
-                // Update hidden input with current images data
-                imageDataInput.value = JSON.stringify(images);
+
+                // Update the file input with current files
+                fileList = new DataTransfer();
+                images.forEach(img => {
+                    fileList.items.add(img.file);
+                });
+                imageInput.files = fileList.files;
             }
 
             imageInput.addEventListener('change', (e) => {
@@ -305,23 +341,21 @@ if (isset($_POST['tambah'])) {
                     return;
                 }
 
-                const promises = files.map(file => {
-                    return new Promise((resolve) => {
+                files.forEach(file => {
+                    if (images.length < 3) {
                         const reader = new FileReader();
                         reader.onload = (e) => {
-                            resolve(e.target.result);
+                            images.push({
+                                file: file,
+                                preview: e.target.result
+                            });
+                            if (images.length === 1) {
+                                currentImageIndex = 0;
+                            }
+                            displayCurrentImage();
                         };
                         reader.readAsDataURL(file);
-                    });
-                });
-
-                Promise.all(promises).then(results => {
-                    results.forEach(result => {
-                        if (images.length < 3) {
-                            images.push(result);
-                        }
-                    });
-                    displayCurrentImage();
+                    }
                 });
             });
 
@@ -347,6 +381,17 @@ if (isset($_POST['tambah'])) {
                     }
                     displayCurrentImage();
                 }
+            });
+
+            // Add form submit handler
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                if (images.length === 0) {
+                    e.preventDefault();
+                    alert('Silakan pilih minimal 1 gambar!');
+                    return;
+                }
+                // No need to do anything else, the files are already in the input
             });
         });
     </script>
