@@ -176,6 +176,8 @@ function formatSubvalue($value)
             font-size: 15px;
             font-weight: bold;
             border-radius: 100%;
+            transition:all 0.3s;
+            text-decoration: none;
         }
 
         .paginasi-page-number-active {
@@ -191,7 +193,14 @@ function formatSubvalue($value)
             font-size: 15px;
             font-weight: bold;
             border-radius: 100%;
+            transition:all 0.3s;
+            text-decoration: none;
         }
+        .paginasi-page-number:hover {
+            background-color: #703BF7;
+            color: white;
+            transition: 0.3s;
+        }   
     </style>
 
 </head>
