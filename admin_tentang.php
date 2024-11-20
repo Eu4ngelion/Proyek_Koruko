@@ -23,49 +23,20 @@ require "koneksi.php";
 </head>
 
 <body>
-    <?php include "navbar.php"; ?>
-    <div class="container">
-        <div class="page-title">
+    <header>
+        <?php include "navbar.php"; ?>
+    </header>
+
+    <main>
+        <div class="container-hero">
             <h1>Edit Tentang Kami</h1>
         </div>
 
-        <div class="slice-up-admin-tentang">
-            <div class="slice-up-left">
-                <div class="preview-admin">
-                    <div class="image-container">
-                        <img alt="Preview Image" id="preview-image" style="max-width: 100%; height: auto;">
-                    </div>
-                    <button class="btn-upload-admin">Upload Gambar</button>
-                </div>
-            </div>
-            <div class="slice-up-right">
-                <form action="" method="post" enctype="multipart/form-data">
-                    <div class="form-group-admin">
-                        <textarea id="deskripsi" class="form-field" name="deskripsi" rows="8" cols="50" placeholder=" Masukkan deskripsi"></textarea>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <form>
+            
+        </form>
 
-        <div class="slice-down-admin-tentang">
-            <form action="" method="post" enctype="multipart/form-data">
-                <h2>Visi</h2>
-                <div class="form-group-admin">
-                    <textarea id="visi" class="form-field" name="visi" rows="6" cols="50" placeholder=" Masukkan visi"></textarea>
-                </div>
-                <h2>Misi</h2>
-                <div class="form-group-admin">
-                    <textarea id="misi" class="form-field" name="misi" rows="6" cols="50" placeholder=" Masukkan misi"></textarea>
-                </div>
-            </form>
-        </div>
-
-        <div class="btn-admin-tentang">
-            <button class="btn-batal-admin">Batal</button>
-            <button class="btn-simpan-admin">Simpan Perubahan</button>
-
-        </div>
-    </div>
+    </main>
 
     <footer>
         <?php include"footer.php"?>
