@@ -53,7 +53,7 @@ body {
     border: none;
     color: #666;
     font-size: 16px; /* Ukuran ikon lebih kecil */
-    cursor: pointer;
+    cursor: default;
 }
 
 .search-bar .search-button:hover {

@@ -9,33 +9,92 @@ if (!isset($_SESSION["login"])) {
     $_SESSION["login"] = false;
 }
 
-// Jika tidak ada searcing, tampilkan random
-if (isset($_GET['submit-search-block'])) {
-    $lokasi = $_GET['lokasi'];
-    $tipe = $_GET['tipe'];
-    $harga_min = $_GET['harga_min'];
-    $harga_max = $_GET['harga_max'];
-
-    $sql_search = "SELECT * FROM ruko WHERE kota LIKE '%$lokasi%' OR (harga_sewa BETWEEN $harga_min AND $harga_max OR harga_jual BETWEEN $harga_min AND $harga_max) AND status = 1";
-    $result = mysqli_query($conn, $sql_search);
-    $ruko_rekomendasi = mysqli_fetch_all($result, MYSQLI_ASSOC);
+// Default GET
+if (isset($_GET['searching'])) {
+    $cari_keyword = $_GET['searching'];
 } else {
-    $sql_rekomendasi = "SELECT * FROM ruko ORDER BY RAND() LIMIT 12";
-    $result = mysqli_query($conn, $sql_rekomendasi);
-    $ruko_rekomendasi = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $cari_keyword = "";
 }
-$sql_rekomendasi = "SELECT * FROM ruko ORDER BY RAND() LIMIT 12";
-$result = mysqli_query($conn, $sql_rekomendasi);
-$ruko_rekomendasi = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-// jika ada searching
-if (isset($_POST['searching'])) {
-    $searching = $_POST['searching'];
-    $sql_search = "SELECT * FROM ruko WHERE nama_ruko LIKE '%$searching%' OR kota LIKE '%$searching%' OR alamat LIKE '%$searching%' OR harga_sewa LIKE '%$searching%' OR harga_jual LIKE '%$searching%' AND status = 1";
-    $result = mysqli_query($conn, $sql_search);
-    $ruko_rekomendasi = mysqli_fetch_all($result, MYSQLI_ASSOC);
+if (isset($_GET['lokasi'])) {
+    $cari_lokasi = $_GET['lokasi'];
+} else {
+    $cari_lokasi = "";
+}
+if (isset($_GET['tipe'])) {
+    $cari_tipe = $_GET['tipe'];
+} else {
+    $cari_tipe = "";
+}
+if (isset($_GET['harga_min'])) {
+    $cari_harga_min = $_GET['harga_min'];
+} else {
+    $cari_harga_min = "";
+}
+if (isset($_GET['harga_max'])) {
+    $cari_harga_max = $_GET['harga_max'];
+} else {
+    $cari_harga_max = "";
+}
+if (isset($_GET["cur_page"])) {
+    $cur_page = $_GET["cur_page"];
+} else {
+    // Masuk lagi ke url ini dengan get cur page = 1
+    $new_location = "Location: pencarian.php?";
+    $new_location .= "searching=" . $cari_keyword . "&";
+    $new_location .= "lokasi=" . $cari_lokasi . "&";
+    $new_location .= "tipe=" . $cari_tipe . "&";
+    $new_location .= "harga_min=" . $cari_harga_min . "&";
+    $new_location .= "harga_max=" . $cari_harga_max . "&";
+    $new_location .= "cur_page=1";
+    header($new_location);
+    exit();
 }
 
+// Algoritma Searching 
+$search_where_algoritma = "WHERE (
+ nama_ruko LIKE '%$cari_keyword%'
+ OR kota LIKE '%$cari_keyword%'
+ OR alamat LIKE '%$cari_keyword%'
+ OR harga_sewa LIKE '%$cari_keyword%'
+ OR harga_jual LIKE '%$cari_keyword%'
+ )";
+
+
+if ($cari_lokasi != "") {
+    $search_where_algoritma .= " AND kota LIKE '%$cari_lokasi%'";
+}
+if ($cari_tipe != "" && $cari_tipe != "Semua") {
+    if ($cari_tipe == "Dijual") {
+        $search_where_algoritma .= " AND (harga_jual != 0 OR harga_jual != NULL) ";
+    }
+    if ($cari_tipe == "Disewa") {
+        $search_where_algoritma .= " AND (harga_sewa != 0 OR harga_sewa != NULL)";
+    }
+}
+if ($cari_harga_min != "") {
+    $search_where_algoritma .= " AND (harga_sewa >= $cari_harga_min OR harga_jual >= $cari_harga_min)";
+}
+if ($cari_harga_max != "") {
+    $search_where_algoritma .= " AND (harga_sewa <= $cari_harga_max OR harga_jual <= $cari_harga_max)";
+}
+
+// Query Pencarian
+$sql_search = "SELECT * FROM ruko ";
+$sql_search .= $search_where_algoritma;
+$sql_search .= " AND status = 1";
+$sql_search .= " LIMIT 12";
+$sql_search .= " OFFSET " . ($cur_page - 1) * 12;
+
+$result_search = mysqli_query($conn, $sql_search);
+$ruko_rekomendasi = mysqli_fetch_all($result_search, MYSQLI_ASSOC);
+
+// Query Count Jumlah Ruko Ditemukan
+$sql_count = "SELECT COUNT(*) AS count FROM ruko ";
+$sql_count .= $search_where_algoritma;
+$sql_count .= " AND status = 1";
+
+$result_count = mysqli_query($conn, $sql_count);
+$count_total_ruko = mysqli_fetch_assoc($result_count);
 
 // Function format subvalue
 function formatSubvalue($value)
@@ -64,6 +123,77 @@ function formatSubvalue($value)
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/searching.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .paginasi-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0
+        }
+
+
+
+        .paginasi-arrow-left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .paginasi-arrow {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            margin: 0 10px;
+            border-radius: 100%;
+            /* align center the arrow */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .paginasi-page-number-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .paginasi-page-number {
+            color: black;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 100%;
+        }
+
+        .paginasi-page-number-active {
+            color: white;
+            background-color: #703BF7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 100%;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -73,12 +203,12 @@ function formatSubvalue($value)
     <main class="container-main">
         <div class="main-pencarian">
             <div class="search-bar">
-                <form action="pencarian.php" method="GET">
-                    <input type="text" name="searching" placeholder="Cari buku...">
-                </form>
-                <button class="search-button">
+                <input id="input-search-bar" type="text" name="input-search-bar"
+                    placeholder="Cari Ruko..." value="<?php echo $cari_keyword; ?>">
+
+                <div class="search-button">
                     <i class="fas fa-search"></i>
-                </button>
+                </div>
             </div>
             <div class="main-hero-search">
                 <!-- kategori lokasi -->
@@ -92,14 +222,23 @@ function formatSubvalue($value)
                             </div>
                             <!-- the value it picked -->
                             <div id="subvalue-lokasi" class="main-lokasi-search-category-value">
-                                Pilih Lokasi
+                                <?php if ($cari_lokasi != "") {
+                                    echo $cari_lokasi;
+                                } else {
+                                    echo "Pilih Lokasi";
+                                } ?>
                             </div>
                         </div>
                     </button>
                     <!-- drop down -->
                     <div class="main-dropdown-lokasi-box">
                         <!-- search bar lokasi-->
-                        <input id="main-input-lokasi" name="lokasi" type="text" class="main-dropdown-lokasi-search" placeholder="Cari Kota atau Alamat">
+                        <input id="main-input-lokasi" name="lokasi" type="text" class="main-dropdown-lokasi-search"
+                            placeholder="Cari Kota atau Alamat"
+                            <?php if ($cari_lokasi != "") {
+                                echo "value='$cari_lokasi'";
+                            }
+                            ?>>
                         <!-- tombol terapkan -->
                         <div class="main-dropdown-lokasi-terapkan">
                             <button type="button" id="terapkan-lokasi" class="main-dropdown-lokasi-terapkan-button">Terapkan</button>
@@ -118,26 +257,35 @@ function formatSubvalue($value)
                             </div>
                             <!-- the value it picked -->
                             <div id="subvalue-tipe" class="main-tipe-search-category-value">
-                                Pilih Tipe
+                                <?php if ($cari_tipe != "") {
+                                    echo $cari_tipe;
+                                } else {
+                                    echo "Pilih Tipe";
+                                } ?>
                             </div>
                         </div>
                     </button>
                     <!-- drop down -->
                     <div class="main-dropdown-tipe-box">
                         <div class="main-dropdown-tipe">
-                            <!-- hidden input -->
-                            <input id="main-input-tipe" type="hidden" name="tipe" value="">
+                            <input id="main-input-tipe" type="hidden" name="tipe" value="<?php echo $cari_tipe; ?>">
 
                             <!-- radio -->
                             <div class="main-dropdown-tipe-radio">
                                 <label>
-                                    <input type="radio" name="tipe" value="Semua"> Semua
+                                    <input type="radio" name="tipe" value="Semua"
+                                        <?php if ($cari_tipe == "Semua") echo "checked"; ?>>
+                                    Semua
                                 </label>
                                 <label>
-                                    <input type="radio" name="tipe" value="Dijual"> Dijual
+                                    <input type="radio" name="tipe" value="Dijual"
+                                        <?php if ($cari_tipe == "Dijual") echo "checked"; ?>>
+                                    Dijual
                                 </label>
                                 <label>
-                                    <input type="radio" name="tipe" value="Disewa"> Disewa
+                                    <input type="radio" name="tipe" value="Disewa"
+                                        <?php if ($cari_tipe == "Disewa") echo "checked"; ?>>
+                                    Disewa
                                 </label>
                             </div>
 
@@ -160,14 +308,22 @@ function formatSubvalue($value)
                                 <img id="harga-arrow" src="images/assets/dropdown_arrow_icon.png" alt="arrow down" style="width: 20px; float: right;">
                             </div>
                             <!-- the value it picked -->
-                            <div id="subvalue-harga" class="main-harga-search-category-value">Pilih Rentang Harga</div>
+                            <div id="subvalue-harga" class="main-harga-search-category-value">
+                                <?php
+                                if ($cari_harga_min != "" && $cari_harga_max != "") {
+                                    echo "IDR " . formatSubvalue($cari_harga_min) . " - IDR " . formatSubvalue($cari_harga_max);
+                                } else {
+                                    echo "Pilih Rentang Harga";
+                                } ?>
+                            </div>
 
                         </div>
                     </button>
 
                     <!-- drop down -->
                     <div class="main-dropdown-harga-box">
-                        <input id="main-input-harga-min" name="harga_min" type="text" class="main-dropdown-harga-min" placeholder="Minimum">
+                        <input id="main-input-harga-min" name="harga_min" type="text" class="main-dropdown-harga-min" '
+                        placeholder="Minimum" >
                         <input id="main-input-harga-max" name="harga_max" type="text" class="main-dropdown-harga-max" placeholder="Maksimum">
 
                         <!-- terapkan harga -->
@@ -180,111 +336,173 @@ function formatSubvalue($value)
                 <!-- Submit, Pencarian -->
                 <form action="pencarian.php" method="GET">
                     <!-- Hidden Form -->
-                    <input id="hidden_lokasi" type="hidden" name="lokasi" value="">
-                    <input id="hidden_tipe" type="hidden" name="tipe" value="">
-                    <input id="hidden_min" type="hidden" name="harga_min" value="">
-                    <input id="hidden_max" type="hidden" name="harga_max" value="">
+                    <input id="hidden_keyword" type="hidden" name="searching" value="<?php echo $cari_keyword; ?>">
+                    <input id="hidden_lokasi" type="hidden" name="lokasi" value="<?php echo $cari_lokasi; ?>">
+                    <input id="hidden_tipe" type="hidden" name="tipe" value="<?php echo $cari_tipe ?>">
+                    <input id="hidden_min" type="hidden" name="harga_min" value="<?php echo $cari_harga_min ?>">
+                    <input id="hidden_max" type="hidden" name="harga_max" value="<?php echo $cari_harga_max ?>">
 
                     <button class="main-search-submit" name="submit-search-block" type="submit" value="submitted">Cari</button>
                 </form>
             </div>
             <div class="main-rekomendasi-content">
-                    <?php foreach ($ruko_rekomendasi as $ruko) : ?>
-                        <?php
-                        $sql = "SELECT gambar_properti FROM gambar_ruko WHERE id_ruko = " . $ruko['id_ruko'];
-                        $result = mysqli_query($conn, $sql);
-                        $gambar = mysqli_fetch_assoc($result);
-                        ?>
-                        <a class="main-link-card" href="detail.php?id_ruko=<?php echo $ruko['id_ruko']; ?>">
-                            <button class="main-rekomendasi-card">
-                                <div class="rekomendasi-card-image" style="background-image: url('images/ruko/<?php echo $gambar['gambar_properti']; ?>')">
-                                    <!-- Jika Disewa -->
-                                    <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
-                                        <div class="card-pop-sewa">
-                                            Disewa
-                                        </div>
-                                    <?php endif; ?>
+                <?php foreach ($ruko_rekomendasi as $ruko) : ?>
+                    <?php
+                    $sql = "SELECT gambar_properti FROM gambar_ruko WHERE id_ruko = " . $ruko['id_ruko'];
+                    $result = mysqli_query($conn, $sql);
+                    $gambar = mysqli_fetch_assoc($result);
+                    ?>
+                    <a class="main-link-card" href="detail.php?id_ruko=<?php echo $ruko['id_ruko']; ?>">
+                        <button class="main-rekomendasi-card">
+                            <div class="rekomendasi-card-image" style="background-image: url(' images/ruko/<?php echo $gambar['gambar_properti']; ?>')">
+                        <!-- Jika Disewa -->
+                        <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                            <div class="card-pop-sewa">
+                                Disewa
+                            </div>
+                        <?php endif; ?>
 
-                                    <!-- Jika Dijual -->
-                                    <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
-                                        <div class="card-pop-jual">
-                                            Dijual
-                                        </div>
-                                    <?php endif; ?>
+                        <!-- Jika Dijual -->
+                        <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
+                            <div class="card-pop-jual">
+                                Dijual
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="rekomendasi-card-bottom">
+                        <div class="rekomendasi-card-harga">
+                            <!-- Harga Jual, Harga Sewa -->
+                            <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
+                                <div class="rekomendasi-card-harga-kiri">
+                                    <!-- function format subvalue harga -->
+                                    IDR <?php echo formatSubvalue($ruko['harga_jual']); ?>
                                 </div>
-                                <div class="rekomendasi-card-bottom">
-                                    <div class="rekomendasi-card-harga">
-                                        <!-- Harga Jual, Harga Sewa -->
-                                        <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
-                                            <div class="rekomendasi-card-harga-kiri">
-                                                <!-- function format subvalue harga -->
-                                                IDR <?php echo formatSubvalue($ruko['harga_jual']); ?>
-                                            </div>
-                                            <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
-                                                <div class="rekomendasi-card-harga-kanan">
-                                                    IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?>
-                                                </div>
-                                            <?php endif; ?>
-
-                                        <?php elseif ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
-                                            <div class="rekomendasi-card-harga-kiri">
-                                                <!-- per bulan -->
-                                                IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / bulan
-                                            </div>
-                                        <?php endif; ?>
-
+                                <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                    <div class="rekomendasi-card-harga-kanan">
+                                        IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / Tahun
                                     </div>
-                                    <!-- deskripsi atas -->
-                                    <div class="rekomendasi-card-deskripsi-atas">
-                                        <div class="rekomendasi-card-kota">
-                                            <?php echo $ruko['kota']; ?>
-                                        </div>
-                                        <div class="rekomendasi-card-nama">
-                                            <?php echo $ruko['nama_ruko']; ?>
-                                        </div>
-                                        <div class="rekomendasi-card-alamat">
+                                <?php endif; ?>
 
-                                        </div>
-                                    </div>
-
-                                    <!-- deskripsi bawah -->
-                                    <div class="rekomendasi-card-deskripsi-bawah">
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title-luas">LT : </div>
-                                            <div class="fasilitas-value"><?php echo $ruko['luas_tanah']; ?> m2</div>
-                                        </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title-luas">LB :</div>
-                                            <div class="fasilitas-value"><?php echo $ruko['luas_bangunan']; ?> m2</div>
-                                        </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">Kamar</div>
-                                            :
-                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_tdr']; ?></div>
-                                        </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">Toilet</div>
-                                            :
-                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_mandi']; ?></div>
-                                        </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">Garasi</div>
-                                            :
-                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_lantai']; ?></div>
-                                        </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">Lantai</div>
-                                            :
-                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_garasi']; ?></div>
-                                        </div>
-                                    </div>
+                            <?php elseif ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                <div class="rekomendasi-card-harga-kiri">
+                                    <!-- per bulan -->
+                                    IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / Tahun
                                 </div>
-                            </button>
-                        </a>
-                    <?php endforeach; ?>
+                            <?php endif; ?>
+
+                        </div>
+                        <!-- deskripsi atas -->
+                        <div class="rekomendasi-card-deskripsi-atas">
+                            <div class="rekomendasi-card-kota">
+                                <?php echo $ruko['kota']; ?>
+                            </div>
+                            <div class="rekomendasi-card-nama">
+                                <?php echo $ruko['nama_ruko']; ?>
+                            </div>
+                            <div class="rekomendasi-card-alamat">
+
+                            </div>
+                        </div>
+
+                        <!-- deskripsi bawah -->
+                        <div class="rekomendasi-card-deskripsi-bawah">
+                            <div class="rekomendasi-card-fasilitas">
+                                <div class="fasilitas-title-luas">LT : </div>
+                                <div class="fasilitas-value"><?php echo $ruko['luas_tanah']; ?> m2</div>
+                            </div>
+                            <div class="rekomendasi-card-fasilitas">
+                                <div class="fasilitas-title-luas">LB :</div>
+                                <div class="fasilitas-value"><?php echo $ruko['luas_bangunan']; ?> m2</div>
+                            </div>
+                            <div class="rekomendasi-card-fasilitas">
+                                <div class="fasilitas-title">Kamar</div>
+                                :
+                                <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_tdr']; ?></div>
+                            </div>
+                            <div class="rekomendasi-card-fasilitas">
+                                <div class="fasilitas-title">Toilet</div>
+                                :
+                                <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_mandi']; ?></div>
+                            </div>
+                            <div class="rekomendasi-card-fasilitas">
+                                <div class="fasilitas-title">Garasi</div>
+                                :
+                                <div class="fasilitas-value"><?php echo $ruko['jmlh_lantai']; ?></div>
+                            </div>
+                            <div class="rekomendasi-card-fasilitas">
+                                <div class="fasilitas-title">Lantai</div>
+                                :
+                                <div class="fasilitas-value"><?php echo $ruko['jmlh_garasi']; ?></div>
+                            </div>
+                        </div>
+                    </div>
+                    </button>
+                    </a>
+                <?php endforeach; ?>
                 </div>
             </div>
-        </div>
+
+            <!-- Paginasi -->
+            <div class="paginasi-container">
+                <?php
+                $total_page = ceil($count_total_ruko['count'] / 12);
+                $start_page = $cur_page - 2;
+                $end_page = $cur_page + 2;
+                ?>
+                <!-- jika total page > 3 dan cur_page  -->
+                <?php if ($cur_page > 1) : ?>
+                    <a id="paginasi-arrow-left"
+                        class="paginasi-arrow-left"
+                        href="pencarian.php?searching=<?php echo $cari_keyword; ?>&lokasi=<?php echo $cari_lokasi; ?>&tipe=<?php echo $cari_tipe; ?>&harga_min=<?php echo $cari_harga_min; ?>&harga_max=<?php echo $cari_harga_max; ?>&cur_page=<?php echo $cur_page - 1; ?>">
+                        <button class="paginasi-arrow">
+                            < </button>
+                    </a>
+                <?php endif; ?>
+
+                <div class="paginasi-page-number-container">
+                    <!-- Tampilkan 2 Halaman Sebelumnya, Halaman Sekarang, dan 2 Halaman Selanjutnya -->
+
+                    <?php
+
+                    if ($start_page < 1) {
+                        $start_page = 1;
+                    }
+                    if ($end_page > $total_page) {
+                        $end_page = $total_page;
+                    }
+                    if ($total_page < 5) {
+                        $start_page = 1;
+                        $end_page = $total_page;
+                    }
+                    ?>
+
+                    <?php for ($i = $start_page; $i <= $end_page; $i++) : ?>
+                        <?php if ($i == $cur_page) : ?>
+
+                            <a class='paginasi-page-number-active'
+                                href="pencarian.php?searching=<?php echo $cari_keyword; ?>&lokasi=<?php echo $cari_lokasi; ?>&tipe=<?php echo $cari_tipe; ?>&harga_min=<?php echo $cari_harga_min; ?>&harga_max=<?php echo $cari_harga_max; ?>&cur_page=<?php echo $i; ?>">
+                                <?php echo $i; ?>
+                            </a>
+                        <?php else : ?>
+                            <a class='paginasi-page-number'
+                                href="pencarian.php?searching=<?php echo $cari_keyword; ?>&lokasi=<?php echo $cari_lokasi; ?>&tipe=<?php echo $cari_tipe; ?>&harga_min=<?php echo $cari_harga_min; ?>&harga_max=<?php echo $cari_harga_max; ?>&cur_page=<?php echo $i; ?>">
+                                <?php echo $i; ?>
+                            </a>
+                        <?php endif ?>
+                    <?php endfor ?>
+                </div>
+
+                <?php if ($cur_page < $total_page) : ?>
+                    <a id="paginasi-arrow-right"
+                        class="paginasi-arrow-left"
+                        href="pencarian.php?searching=<?php echo $cari_keyword; ?>&lokasi=<?php echo $cari_lokasi; ?>&tipe=<?php echo $cari_tipe; ?>&harga_min=<?php echo $cari_harga_min; ?>&harga_max=<?php echo $cari_harga_max; ?>&cur_page=<?php echo $cur_page + 1; ?>">
+                        <button class="paginasi-arrow"> > </button>
+                    </a>
+                <?php endif; ?>
+
+
+                </>
+            </div>
     </main>
 
     <footer>
@@ -314,7 +532,7 @@ function formatSubvalue($value)
         });
         lokasiSearchBox.addEventListener("mouseout", function() {
             if (lokasiDropdownBox.style.display != "flex") {
-                lokasiSearchBox.style.backgroundColor = "lightgrey";
+                lokasiSearchBox.style.backgroundColor = "white";
             }
         });
 
@@ -325,7 +543,7 @@ function formatSubvalue($value)
         });
         tipeSearchBox.addEventListener("mouseout", function() {
             if (tipeDropdownBox.style.display != "flex") {
-                tipeSearchBox.style.backgroundColor = "lightgrey";
+                tipeSearchBox.style.backgroundColor = "white";
             }
         });
 
@@ -336,7 +554,7 @@ function formatSubvalue($value)
         });
         hargaSearchBox.addEventListener("mouseout", function() {
             if (hargaDropdownBox.style.display != "flex") {
-                hargaSearchBox.style.backgroundColor = "lightgrey";
+                hargaSearchBox.style.backgroundColor = "white";
             }
         });
 
@@ -425,6 +643,15 @@ function formatSubvalue($value)
 
             hiddenTipe.value = inputTipe;
         });
+
+        // Ketika Search Bar Diinput Update Hidden Input Keyword
+        let inputSearchBar = document.querySelector("#input-search-bar");
+        let hiddenKeyword = document.querySelector("#hidden_keyword");
+
+        inputSearchBar.addEventListener("input", function() {
+            hiddenKeyword.value = inputSearchBar.value;
+        });
+
 
         // Ketika diklik terapkan update hidden input
         let terapkanLokasiHidden = document.querySelector("#terapkan-lokasi");
