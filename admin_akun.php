@@ -1,26 +1,22 @@
 <?php
 require "koneksi.php";
-
 // Pagination setup
 $halaman_sekarang = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
 $baris_per_halaman = 10;
 $offset = ($halaman_sekarang - 1) * $baris_per_halaman;
-
 // Query untuk mendapatkan total data
 $query_total = "SELECT COUNT(*) as total FROM pengguna";
 $total_result = mysqli_query($conn, $query_total);
 $total_data = mysqli_fetch_assoc($total_result)['total'];
 $total_halaman = ceil($total_data / $baris_per_halaman);
-
 // Query statistik
 $query_stats = "SELECT COUNT(*) as jumlah_pengguna FROM pengguna";
 $stats_result = mysqli_query($conn, $query_stats);
 $stats = mysqli_fetch_assoc($stats_result);
-
 // Query untuk mendapatkan data dengan pagination
 $query_pengguna = "SELECT * FROM pengguna ORDER BY nama_pengguna LIMIT $baris_per_halaman OFFSET $offset";
-=======
-$query_pengguna = "SELECT * FROM pengguna ORDER BY nama_pengguna";
+$pengguna_result = mysqli_query($conn, $query_pengguna);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
