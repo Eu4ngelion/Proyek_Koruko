@@ -67,16 +67,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="container-pengaturan">
                 <div class="form-row-1">
                     <div class="form-group-1">
-                        <?php if ($row_website['gambar_tentang']) { ?>
-                            <img src="images/website/<?php echo $row_website['gambar_tentang']; ?>" alt="Gambar Tentang" class="gambar_tentang">
-                        <?php } ?>
-                        <br>
-                        <br>
-                        <label class="gambar-section" for="gambar">Upload Gambar</label>
-                        <br>
-                        <input type="file" id="gambar" name="gambar" accept="image/*" style="display: none;">
+                        <div class="gambar-section">
+                            <?php if ($row_website['gambar_tentang']) { ?>
+                                <img src="images/website/<?php echo $row_website['gambar_tentang']; ?>" alt="Gambar Tentang" class="gambar_tentang">
+                            <?php } ?>
+                        </div>
+                        <div class="btn-upload">
+                            <label class="gambar-section" for="gambar">Upload Gambar</label>
+                            <input type="file" id="gambar" name="gambar" accept="image/*" style="display: none;">
+                        </div>
                     </div>
-                    <div class="form-group-1" style="width: 200%;">
+                    <div class="form-group-1-1" style="width: 142%;">
                         <textarea id="deskripsi" name="deskripsi"><?php echo $row_website['deskripsi_tentang']; ?></textarea>
                     </div>
                 </div>
