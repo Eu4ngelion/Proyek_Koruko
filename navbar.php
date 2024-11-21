@@ -5,20 +5,44 @@ require "koneksi.php";
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+// Nama halaman saat ini
+$current_page = basename($_SERVER['PHP_SELF'], ".php");
+
 if (!isset($_SESSION["login"])) {
     $_SESSION["login"] = false;
 }
 
+// Jika belum login dan ada di halaman tertentu
+if ($_SESSION["login"] == false) {
+    if ($current_page == 'profil' || $current_page == 'kelola' || $current_page== 'tambah_ruko' || $current_page == 'admin_properti' || $current_page == 'admin_akun' || $current_page == 'admin_tentang' || $current_page == 'admin_pengaturan' || $current_page == 'admin_verif') {
+        echo "
+        <script>
+        alert('Anda harus login terlebih dahulu!')
+        window.location.href = 'masuk.php'
+        </script>";
+    }
+}
+// jika sudah login dan memilih masuk atau daftar
+if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
+    if ($current_page == 'masuk' || $current_page == 'daftar') {
+        echo "
+        <script>
+        alert('Anda sudah login!')
+        window.location.href = 'index.php'
+        </script>";
+    }
+}
+
+
 // Default User Kosong
-$porfil_user = null;
+$profil_user = null;
 if (!isset($_SESSION["username"])) {
     $user = "";
 } else {
     $user = $_SESSION["username"];
 }
 
-// Nama halaman saat ini
-$current_page = basename($_SERVER['PHP_SELF'], ".php");
+
 
 // Mengambil data admin, dan profil admin
 $sql = "SELECT nama_admin, gambar_admin FROM admin";
@@ -39,6 +63,7 @@ if (isset($_SESSION['username'])) {
         header('Location: admin_properti.php');
     }
 }
+
 
 // Mengambil logo dan judul web
 $sql = "SELECT judul, logo_web FROM website";
@@ -77,20 +102,21 @@ if (isset($_SESSION["username"])) {
     <style>
         .navbar {
             background-color: black;
-            padding: 10px 0;
+            padding: 5px 0;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
+            box-shadow: 0 4px 80px #703BF7;
         }
 
         .navbar-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 0 15px;
-            padding: 0 20px;
+            margin: 0 10%;
+            padding: 0;
         }
 
         .navbar-logo {
@@ -160,6 +186,7 @@ if (isset($_SESSION["username"])) {
             border-radius: 15px;
             padding: 2px 15px;
             transition: all 0.3s;
+            margin: 0 10px;
         }
 
         .navbar-item-current:hover {
@@ -169,6 +196,7 @@ if (isset($_SESSION["username"])) {
             padding: 2px 15px;
             text-shadow: 0 4px 4px black;
             transition: all 0.3s;
+            margin: 0 10px;
         }
 
         .navbar-link {
@@ -237,7 +265,7 @@ if (isset($_SESSION["username"])) {
             <ul class="navbar-middle">
                 <!-- Signed Out User -->
                 <?php if ($user != $nama_admin): ?>
-                    <li class="<?php echo ($current_page == 'beranda') ? 'navbar-item-current' : 'navbar-item'; ?>">
+                    <li class="<?php echo ($current_page == 'index') ? 'navbar-item-current' : 'navbar-item'; ?>">
                         <a href="index.php" class="navbar-link">Beranda</a>
                     </li>
                     <li class="<?php echo ($current_page == 'tentang') ? 'navbar-item-current' : 'navbar-item'; ?>">

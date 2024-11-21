@@ -1,5 +1,5 @@
 <?php
-    $server = 'localhost:3307';
+    $server = 'localhost';
     $user = 'root';
     $password = '';
     $db = 'koruko';
