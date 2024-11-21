@@ -1,30 +1,16 @@
 <?php
 require "koneksi.php";
 
-// Pagination setup
-$halaman_sekarang = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
-$baris_per_halaman = 10;
-$offset = ($halaman_sekarang - 1) * $baris_per_halaman;
-
-// Query untuk mendapatkan total data
-$query_total = "SELECT COUNT(*) as total FROM pengguna";
-$total_result = mysqli_query($conn, $query_total);
-$total_data = mysqli_fetch_assoc($total_result)['total'];
-$total_halaman = ceil($total_data / $baris_per_halaman);
-
-// Query statistik
 $query_stats = "SELECT COUNT(*) as jumlah_pengguna FROM pengguna";
 $stats_result = mysqli_query($conn, $query_stats);
 $stats = mysqli_fetch_assoc($stats_result);
 
-// Query untuk mendapatkan data dengan pagination
-$query_pengguna = "SELECT * FROM pengguna ORDER BY nama_pengguna LIMIT $baris_per_halaman OFFSET $offset";
-=======
 $query_pengguna = "SELECT * FROM pengguna ORDER BY nama_pengguna";
+$pengguna_result = mysqli_query($conn, $query_pengguna);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,11 +20,8 @@ $query_pengguna = "SELECT * FROM pengguna ORDER BY nama_pengguna";
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 </head>
-
 <body>
-    <header>
-        <?php include 'navbar.php'; ?>
-    </header>
+    <?php include 'navbar.php'; ?>
 
     <main class="main-content">
         <h1>Lihat Akun</h1>
@@ -59,8 +42,8 @@ $query_pengguna = "SELECT * FROM pengguna ORDER BY nama_pengguna";
             </button>
         </div>
 
-         <!-- Users Table -->
-         <div class="table-container">
+        <!-- Users Table -->
+        <div class="table-container">
             <table id="penggunaTable">
                 <thead>
                     <tr>
@@ -74,8 +57,8 @@ $query_pengguna = "SELECT * FROM pengguna ORDER BY nama_pengguna";
                 </thead>
                 <tbody>
                     <?php
-                    $counter = 1 + (($halaman_sekarang - 1) * $baris_per_halaman);
-                    while ($row = mysqli_fetch_assoc($pengguna_result)) {
+                    $counter = 1;
+                    while($row = mysqli_fetch_assoc($pengguna_result)) {
                         $query_ruko = "SELECT COUNT(*) as ruko_count FROM ruko WHERE nama_pengguna = '" . $row['nama_pengguna'] . "'";
                         $ruko_result = mysqli_query($conn, $query_ruko);
                         $ruko_count = mysqli_fetch_assoc($ruko_result)['ruko_count'];
@@ -97,8 +80,8 @@ $query_pengguna = "SELECT * FROM pengguna ORDER BY nama_pengguna";
             </table>
         </div>
 
-       <!-- Pagination -->
-       <div class="pagination">
+        <!-- Pagination -->
+        <div class="pagination">
             <button>&lt;</button>
             <button class="active">1</button>
             <button>2</button>
@@ -107,12 +90,9 @@ $query_pengguna = "SELECT * FROM pengguna ORDER BY nama_pengguna";
             <button>&gt;</button>
         </div>
     </main>
-    
-    <footer>
-        <?php include 'footer.php'; ?>
-    </footer>
+
+    <?php include 'footer.php'; ?>
 
     <script src="scripts/admin_akun.js"></script>
 </body>
-
 </html>

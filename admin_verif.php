@@ -123,17 +123,11 @@ if (isset($_POST['tolak'])) {
                         <input name="luasBangunan" type="text" value="<?php echo $ruko[0]['luas_bangunan'] ?>" disabled>
                     </div>
 
-                    <div class="form-input">
-                        <label class="label-form">Kota</label>
-                        <input name="kota" type="text" value="<?php echo $ruko[0]['kota'] ?>" disabled>
-                    </div>
-                    
                     <div class="form-input price-group">
                         <label class="label-form">Harga Sewa</label>
                         <input name="hargaSewa" type="number" value="<?php echo $ruko[0]['harga_sewa'] ?>" disabled>
                         <span class="price-suffix">per tahun</span>
                     </div>
-
 
                     <div class="form-input">
                         <label class="label-form">Luas Tanah</label>

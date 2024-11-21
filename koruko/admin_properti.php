@@ -1,16 +1,6 @@
 <?php
 require "koneksi.php";
 
-// Pagination setup
-$halaman_sekarang = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
-$baris_per_halaman = 10;
-$offset = ($halaman_sekarang - 1) * $baris_per_halaman;
-
-// Query untuk mendapatkan total data
-$query_total = "SELECT COUNT(*) as total FROM ruko";
-$total_result = mysqli_query($conn, $query_total);
-$total_data = mysqli_fetch_assoc($total_result)['total'];
-$total_halaman = ceil($total_data / $baris_per_halaman);
 $query_stats = "SELECT 
     COUNT(*) as jumlah_ruko,
     SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) as disewakan,
@@ -21,15 +11,12 @@ FROM ruko";
 $stats_result = mysqli_query($conn, $query_stats);
 $stats = mysqli_fetch_assoc($stats_result);
 
-// Query untuk mendapatkan data dengan pagination
-$query_ruko = "SELECT * FROM ruko ORDER BY id_ruko DESC LIMIT $baris_per_halaman OFFSET $offset";
+$query_ruko = "SELECT * FROM ruko ORDER BY id_ruko DESC";
 $ruko_result = mysqli_query($conn, $query_ruko);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,12 +26,9 @@ $ruko_result = mysqli_query($conn, $query_ruko);
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 </head>
-
 <body>
-    <?php
-    include "navbar.php";
-    ?>
-    <h1>Admin Properti</h1>
+    <?php include 'navbar.php'; ?>
+
     <main class="main-content">
         <h1>Lihat Properti</h1>
 
@@ -98,54 +82,51 @@ $ruko_result = mysqli_query($conn, $query_ruko);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = mysqli_fetch_assoc($ruko_result)) { ?>
+                    <?php while($row = mysqli_fetch_assoc($ruko_result)) { ?>
                         <tr>
                             <td><?php echo $row['id_ruko']; ?></td>
                             <td><?php echo $row['nama_ruko']; ?></td>
                             <td><?php echo $row['kota']; ?></td>
                             <td><?php echo $row['alamat']; ?></td>
                             <td>
-                                <?php if ($row['harga_jual']) { ?>
+                                <?php if($row['harga_jual']) { ?>
                                     Rp <?php echo number_format($row['harga_jual'], 0, ',', '.'); ?>
                                 <?php } ?>
-                                <?php if ($row['harga_sewa']) { ?>
+                                <?php if($row['harga_sewa']) { ?>
                                     <?php echo $row['harga_jual'] ? '<br>' : ''; ?>
                                     (<?php echo number_format($row['harga_sewa'], 0, ',', '.'); ?> juta/tahun)
                                 <?php } ?>
                             </td>
                             <td>
-                                <?php
-                                switch ($row['status']) {
-                                    case -1:
-                                        echo '<span class="status ditolak">Ditolak</span>';
-                                        break;
-                                    case 0:
-                                        echo '<span class="status pending">Belum Diverifikasi</span>';
-                                        break;
-                                    case 1:
-                                        if ($row['harga_sewa'] && $row['harga_jual']) {
-                                            echo '<span class="status active">Dijual + Disewa</span>';
-                                        } elseif ($row['harga_sewa']) {
-                                            echo '<span class="status active">Disewa</span>';
-                                        } else {
-                                            echo '<span class="status active">Dijual</span>';
-                                        }
-                                        break;
-                                    case 2:
-                                        echo '<span class="status sold">Terjual</span>';
-                                        break;
-                                }
+                                <?php 
+                                    switch($row['status']) {
+                                        case -1:
+                                            echo '<span class="status ditolak">Ditolak</span>';
+                                            break;
+                                        case 0:
+                                            echo '<span class="status pending">Belum Diverifikasi</span>';
+                                            break;
+                                        case 1:
+                                            if($row['harga_sewa'] && $row['harga_jual']) {
+                                                echo '<span class="status active">Dijual + Disewa</span>';
+                                            } elseif($row['harga_sewa']) {
+                                                echo '<span class="status active">Disewa</span>';
+                                            } else {
+                                                echo '<span class="status active">Dijual</span>';
+                                            }
+                                            break;
+                                        case 2:
+                                            echo '<span class="status sold">Terjual</span>';
+                                            break;
+                                    }
                                 ?>
                             </td>
                             <td class="action-buttons">
-                                <?php if ($row['status'] == 0) { ?>
-                                    <a href = "admin_verif.php?id_ruko=<?php echo $row['id_ruko']; ?>">
-                                    <button class="btn-verifikasi">
+                                <?php if($row['status'] == 0) { ?>
+                                    <button class="btn-verifikasi" onclick="verifyProperty(<?php echo $row['id_ruko']; ?>)">
                                         Verifikasi
                                     </button>
-                                    </a>
                                 <?php } ?>
-                                    
                                 <button class="btn-hapus" onclick="deleteProperty(<?php echo $row['id_ruko']; ?>)">
                                     Hapus
                                 </button>
@@ -156,8 +137,8 @@ $ruko_result = mysqli_query($conn, $query_ruko);
             </table>
         </div>
 
-         <!-- Pagination -->
-         <div class="pagination">
+        <!-- Pagination -->
+        <div class="pagination">
             <button>&lt;</button>
             <button class="active">1</button>
             <button>2</button>
@@ -171,5 +152,4 @@ $ruko_result = mysqli_query($conn, $query_ruko);
 
     <script src="scripts/admin_properti.js"></script>
 </body>
-
 </html>

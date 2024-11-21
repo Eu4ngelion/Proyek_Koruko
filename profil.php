@@ -123,7 +123,6 @@ if (isset($_POST['upload'])) {
             font-family: 'Poppins', sans-serif;
             text-align: center;
         }
-
         .main-index {
             width: 100%;
             max-width: 800px;
@@ -135,7 +134,6 @@ if (isset($_POST['upload'])) {
             flex-direction: column;
             align-items: center;
         }
-
         .profil-form {
             display: flex;
             flex-direction: column;
@@ -150,13 +148,11 @@ if (isset($_POST['upload'])) {
             max-width: 400px;
             text-align: left;
         }
-
         .profile-item label {
             display: block;
             margin-bottom: 5px;
             font-size: 18px;
         }
-
         .button-ganti {
             background-color: #703BF7;
             color: white;
@@ -166,7 +162,6 @@ if (isset($_POST['upload'])) {
             cursor: pointer;
             font-size: 16px;
         }
-
         input {
             width: 100%;
             padding: 10px;
@@ -176,7 +171,6 @@ if (isset($_POST['upload'])) {
             color: white;
             text-align: left;
         }
-
         img {
             border-radius: 50%;
             width: 100px;
