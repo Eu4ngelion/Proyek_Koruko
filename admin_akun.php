@@ -1,7 +1,6 @@
 <?php
 require "koneksi.php";
 
-
 // Pagination setup
 $halaman_sekarang = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
 $baris_per_halaman = 10;
@@ -20,8 +19,8 @@ $stats = mysqli_fetch_assoc($stats_result);
 
 // Query untuk mendapatkan data dengan pagination
 $query_pengguna = "SELECT * FROM pengguna ORDER BY nama_pengguna LIMIT $baris_per_halaman OFFSET $offset";
-$pengguna_result = mysqli_query($conn, $query_pengguna);
-?>
+=======
+$query_pengguna = "SELECT * FROM pengguna ORDER BY nama_pengguna";
 
 <!DOCTYPE html>
 <html lang="en">

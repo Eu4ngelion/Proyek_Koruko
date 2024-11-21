@@ -172,8 +172,9 @@ if (isset($_SESSION["username"])) {
             border-radius: 15px;
             padding: 2px 10px;
             text-shadow:
-                0 4px 4px black;
+            0 4px 4px black;
             transition: all 0.3s;
+            box-shadow: 0 0 30px #703BF7;
         }
 
         .navbar-item-current {
@@ -197,6 +198,7 @@ if (isset($_SESSION["username"])) {
             text-shadow: 0 4px 4px black;
             transition: all 0.3s;
             margin: 0 10px;
+            box-shadow: 0 0 30px #703BF7;
         }
 
         .navbar-link {
@@ -216,8 +218,8 @@ if (isset($_SESSION["username"])) {
             font-weight: bold;
             list-style: none;
             margin: 0 10px;
-            background-color: transparent;
-            border: 1px solid white;
+            background-color: white;
+            border: 1px solid black;
             padding: 2px 15px;
             border-radius: 15px;
             transition: all 0.3s;
@@ -225,13 +227,45 @@ if (isset($_SESSION["username"])) {
             align-items: center;
         }
 
-        .navbar-right .navbar-item:hover {
+        .navbar-right .navbar-item-current {
+            display: flex;
+            font-family: "Poppins";
+            font-size: 16px;
+            font-weight: bold;
+            list-style: none;
+            margin: 0 10px;
+            background-color: #703BF7;
+            border: 1px solid white;
+            border-radius: 15px;
+            padding: 2px 15px;
+            transition: all 0.3s;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar-right .navbar-item-current:hover{
             background-color: #BBA0FF;
             border: 1px solid white;
             border-radius: 15px;
             padding: 2px 15px;
-            text-shadow: 0 4px 4px black;
+            text-shadow: none;
             transition: all 0.3s;
+            box-shadow: 0 0 30px #703BF7;
+        }
+
+        .navbar-right .navbar-item:hover {
+            background-color: #BBA0FF;
+            border: 1px solid white;
+            border-radius: 15px;
+            text-shadow: none;
+            padding: 2px 15px;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px #703BF7;
+        }
+
+        .navbar-right .navbar-link {
+            text-decoration: none;
+            color: black;
         }
 
         .profil-admin {
@@ -240,6 +274,7 @@ if (isset($_SESSION["username"])) {
             border-radius: 50%;
             margin-left: 10px;
             background-color: white;
+            border: 1px solid black;
         }
 
         .profil-user {
@@ -248,6 +283,8 @@ if (isset($_SESSION["username"])) {
             border-radius: 50%;
             margin-left: 10px;
             background-color: white;
+            border: 1px solid black;
+            
         }
     </style>
 </head>
@@ -316,7 +353,7 @@ if (isset($_SESSION["username"])) {
                         <?php else: ?>
                             <a href="profil.php" class="navbar-link"><?php echo $user ?></a>
                             <img class="profil-user"
-                                src="images/user/<?php echo ($profil_user != null) ? $profil_user : "default_user.png"; ?>"
+                                src="<?php echo ($profil_user != null) ? "images/user/$profil_user" : "images/assets/default_user.png"; ?>"
                                 alt="profil">
                         <?php endif; ?>
 

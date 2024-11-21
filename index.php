@@ -9,12 +9,10 @@ if (!isset($_SESSION["login"])) {
     $_SESSION["login"] = false;
 }
 
-// Mengambil 4 data ruko secara acak untuk rekomendasi
 $sql_rekomendasi = "SELECT * FROM ruko WHERE status = '1' ORDER BY RAND() LIMIT 10 ";
 $result = mysqli_query($conn, $sql_rekomendasi);
 $ruko_rekomendasi = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-// Mengambil 4 data ruko terbaru (ruko dengan tanggal terbaru)
 $sql_terbaru = "SELECT * FROM ruko WHERE status = '1' ORDER BY tanggal DESC LIMIT 10";
 $result = mysqli_query($conn, $sql_terbaru);
 $ruko_terbaru = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -33,7 +31,6 @@ function formatSubvalue($value)
         return number_format($num, 0, ',', '.');
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -54,8 +51,7 @@ function formatSubvalue($value)
         .main-index {
             height: auto;
             min-height: 100vh;
-            margin: 0;
-            padding: 60px 0 0 0;
+            padding: 60px 0 200px 0;
             font-family: 'Poppins', sans-serif;
             z-index: -2;
             width: 100%;
@@ -251,6 +247,7 @@ function formatSubvalue($value)
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 20px;
         }
 
         .main-rekomendasi-title-left {
@@ -264,19 +261,19 @@ function formatSubvalue($value)
             vertical-align: middle;
         }
 
-        .lihat-semua button{
-                background-color: #703BF7;
-                color: white;
-                border: none;
-                border-radius: 20px;
-                padding: 10px 20px;
-                cursor: pointer;
-                font-size: 16px;
-                font-weight: bold;
-                transition: all 0.2s;
+        .lihat-semua button {
+            background-color: #703BF7;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.2s;
         }
 
-        .lihat-semua button:hover{
+        .lihat-semua button:hover {
             background-color: #BBA0FF;
             transition: all 0.5s;
         }
@@ -284,11 +281,11 @@ function formatSubvalue($value)
         .main-rekomendasi-content {
             display: flex;
             align-items: center;
-            margin: 0 0 50px 0 ;
+            margin: 0 0 50px 0;
             justify-content: space-between;
             flex-wrap: wrap;
             overflow: hidden;
-            height: 340px;
+            height: 350px;
             padding-top: 18px;
         }
 
@@ -697,9 +694,7 @@ function formatSubvalue($value)
                 </div>
             </div>
 
-
-            </div>
-
+            <!-- Rekomendasi Ruko Baru -->
             <div class="main-rekomendasi">
                 <div class="main-rekomendasi-title">
                     <div class="main-rekomendasi-title-left">
@@ -716,7 +711,6 @@ function formatSubvalue($value)
                             </button>
                         </a>
                     </div>
-
                 </div>
 
                 <div class="main-rekomendasi-content">
@@ -817,8 +811,7 @@ function formatSubvalue($value)
                         </a>
                     <?php endforeach ?>
                 </div>
-
-
+            </div>
         </section>
     </main>
 
@@ -1015,7 +1008,6 @@ function formatSubvalue($value)
         terapkanHarga.addEventListener("click", function() {
             let inputHargaMinValue = formatSubvalueHarga(inputHargaMin.value);
             let inputHargaMaxValue = formatSubvalueHarga(inputHargaMax.value);
-
             if (inputHargaMin.value == "" || inputHargaMax.value == "") {
                 subvalueHarga.innerHTML = "Pilih Rentang Harga"
             } else {

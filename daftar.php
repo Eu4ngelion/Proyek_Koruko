@@ -180,7 +180,7 @@ if (isset($_POST['register-submit'])) {
     <section class="login-content">
         <div class="login-box">
             <div class="login-title">
-                Register
+                Daftar
             </div>
             <form class="form-group" action="daftar.php" method="POST">
                 <input type="text" name="full-name" id="full-name" class="form-control"
@@ -211,7 +211,7 @@ if (isset($_POST['register-submit'])) {
                 <div class="redirect-register">
                     Sudah punya akun? <a href="masuk.php">Masuk</a>
                 </div>
-                <button name="register-submit" id="register-submit" class="button-ungu" type="submit">Masuk</button>
+                <button name="register-submit" id="register-submit" class="button-ungu" type="submit">Daftar</button>
             </form>
         </div>
     </section>

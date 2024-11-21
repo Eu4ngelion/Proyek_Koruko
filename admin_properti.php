@@ -11,7 +11,6 @@ $query_total = "SELECT COUNT(*) as total FROM ruko";
 $total_result = mysqli_query($conn, $query_total);
 $total_data = mysqli_fetch_assoc($total_result)['total'];
 $total_halaman = ceil($total_data / $baris_per_halaman);
-
 $query_stats = "SELECT 
     COUNT(*) as jumlah_ruko,
     SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) as disewakan,
