@@ -68,6 +68,7 @@ $website = mysqli_fetch_assoc($result);
             width: 250px;
             height: 250px;
             background-color: white;
+            border-radius: 15px;
         }
 
         .tentang-gambar img {
