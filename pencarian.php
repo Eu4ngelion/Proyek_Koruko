@@ -52,30 +52,38 @@ if (isset($_GET["cur_page"])) {
 
 // Algoritma Searching 
 $search_where_algoritma = "WHERE (
- nama_ruko LIKE '%$cari_keyword%'
- OR kota LIKE '%$cari_keyword%'
- OR alamat LIKE '%$cari_keyword%'
- OR harga_sewa LIKE '%$cari_keyword%'
- OR harga_jual LIKE '%$cari_keyword%'
- )";
-
+    nama_ruko LIKE '%$cari_keyword%'
+    OR kota LIKE '%$cari_keyword%'
+    OR alamat LIKE '%$cari_keyword%'
+    OR harga_sewa LIKE '%$cari_keyword%'
+    OR harga_jual LIKE '%$cari_keyword%'
+    )";
 
 if ($cari_lokasi != "") {
-    $search_where_algoritma .= " AND kota LIKE '%$cari_lokasi%'";
+    $search_where_algoritma .= " AND kota LIKE '%$cari_lokasi%' ";
 }
+
 if ($cari_tipe != "" && $cari_tipe != "Semua") {
     if ($cari_tipe == "Dijual") {
-        $search_where_algoritma .= " AND (harga_jual != 0 OR harga_jual != NULL) ";
+        $search_where_algoritma .= " AND harga_jual > 0 ";
     }
     if ($cari_tipe == "Disewa") {
-        $search_where_algoritma .= " AND (harga_sewa != 0 OR harga_sewa != NULL)";
+        $search_where_algoritma .= " AND harga_sewa > 0 ";
     }
 }
+
 if ($cari_harga_min != "") {
-    $search_where_algoritma .= " AND (harga_sewa >= $cari_harga_min OR harga_jual >= $cari_harga_min)";
+    $search_where_algoritma .= " AND (
+           (harga_sewa > 0 AND harga_sewa >= $cari_harga_min) OR 
+           (harga_jual > 0 AND harga_jual >= $cari_harga_min)
+       ) ";
 }
+
 if ($cari_harga_max != "") {
-    $search_where_algoritma .= " AND (harga_sewa <= $cari_harga_max OR harga_jual <= $cari_harga_max)";
+    $search_where_algoritma .= " AND (
+           (harga_sewa > 0 AND harga_sewa <= $cari_harga_max) OR 
+           (harga_jual > 0 AND harga_jual <= $cari_harga_max)
+       ) ";
 }
 
 // Query Pencarian
@@ -176,7 +184,7 @@ function formatSubvalue($value)
             font-size: 15px;
             font-weight: bold;
             border-radius: 100%;
-            transition:all 0.3s;
+            transition: all 0.3s;
             text-decoration: none;
         }
 
@@ -193,14 +201,15 @@ function formatSubvalue($value)
             font-size: 15px;
             font-weight: bold;
             border-radius: 100%;
-            transition:all 0.3s;
+            transition: all 0.3s;
             text-decoration: none;
         }
+
         .paginasi-page-number:hover {
             background-color: #703BF7;
             color: white;
             transition: 0.3s;
-        }   
+        }
     </style>
 
 </head>
@@ -355,24 +364,24 @@ function formatSubvalue($value)
                 </form>
             </div>
             <div class="main-rekomendasi-content">
-                <?php foreach ($ruko_rekomendasi as $ruko) : ?>
-                    <?php
-                    $sql = "SELECT gambar_properti FROM gambar_ruko WHERE id_ruko = " . $ruko['id_ruko'];
-                    $result = mysqli_query($conn, $sql);
-                    $gambar = mysqli_fetch_assoc($result);
-                    ?>
-                    <a class="main-link-card" href="detail.php?id_ruko=<?php echo $ruko['id_ruko']; ?>">
-                        <button class="main-rekomendasi-card">
-                            <div class="rekomendasi-card-image" style="background-image: url(' images/ruko/<?php echo $gambar['gambar_properti']; ?>')">
-                        <!-- Jika Disewa -->
-                        <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+            <?php foreach ($ruko_rekomendasi as $ruko) : ?>
+    <?php
+                $sql = "SELECT gambar_properti FROM gambar_ruko WHERE id_ruko = " . $ruko['id_ruko'];
+                $result = mysqli_query($conn, $sql);
+                $gambar = mysqli_fetch_assoc($result);
+    ?>
+    <a class="main-link-card" href="detail.php?id_ruko=<?php echo $ruko['id_ruko']; ?>">
+        <button class="main-rekomendasi-card">
+            <div class="rekomendasi-card-image" style="background-image: url(' images/ruko/<?php echo $gambar['gambar_properti']; ?>')">
+                        <!-- Tampilkan label Disewa hanya jika harga sewa memiliki nilai -->
+                        <?php if ($ruko['harga_sewa'] > 0) : ?>
                             <div class="card-pop-sewa">
                                 Disewa
                             </div>
                         <?php endif; ?>
 
-                        <!-- Jika Dijual -->
-                        <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
+                        <!-- Tampilkan label Dijual hanya jika harga jual memiliki nilai -->
+                        <?php if ($ruko['harga_jual'] > 0) : ?>
                             <div class="card-pop-jual">
                                 Dijual
                             </div>
@@ -380,25 +389,19 @@ function formatSubvalue($value)
                     </div>
                     <div class="rekomendasi-card-bottom">
                         <div class="rekomendasi-card-harga">
-                            <!-- Harga Jual, Harga Sewa -->
-                            <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
+                            <!-- Jika ada harga jual -->
+                            <?php if ($ruko['harga_jual'] > 0) : ?>
                                 <div class="rekomendasi-card-harga-kiri">
-                                    <!-- function format subvalue harga -->
                                     IDR <?php echo formatSubvalue($ruko['harga_jual']); ?>
-                                </div>
-                                <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
-                                    <div class="rekomendasi-card-harga-kanan">
-                                        IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / Tahun
-                                    </div>
-                                <?php endif; ?>
-
-                            <?php elseif ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
-                                <div class="rekomendasi-card-harga-kiri">
-                                    <!-- per bulan -->
-                                    IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / Tahun
                                 </div>
                             <?php endif; ?>
 
+                            <!-- Jika ada harga sewa -->
+                            <?php if ($ruko['harga_sewa'] > 0) : ?>
+                                <div class="rekomendasi-card-harga-kanan">
+                                    IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / Tahun
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <!-- deskripsi atas -->
                         <div class="rekomendasi-card-deskripsi-atas">
@@ -409,7 +412,7 @@ function formatSubvalue($value)
                                 <?php echo $ruko['nama_ruko']; ?>
                             </div>
                             <div class="rekomendasi-card-alamat">
-
+                                <?php echo $ruko['alamat']; ?>
                             </div>
                         </div>
 
@@ -436,12 +439,12 @@ function formatSubvalue($value)
                             <div class="rekomendasi-card-fasilitas">
                                 <div class="fasilitas-title">Garasi</div>
                                 :
-                                <div class="fasilitas-value"><?php echo $ruko['jmlh_lantai']; ?></div>
+                                <div class="fasilitas-value"><?php echo $ruko['jmlh_garasi']; ?></div>
                             </div>
                             <div class="rekomendasi-card-fasilitas">
                                 <div class="fasilitas-title">Lantai</div>
                                 :
-                                <div class="fasilitas-value"><?php echo $ruko['jmlh_garasi']; ?></div>
+                                <div class="fasilitas-value"><?php echo $ruko['jmlh_lantai']; ?></div>
                             </div>
                         </div>
                     </div>
