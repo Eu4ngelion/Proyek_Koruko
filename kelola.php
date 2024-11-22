@@ -5,23 +5,23 @@
     // Ambil nama pengguna dari sesi
     $nama_pengguna = $_SESSION['username'];    
 
-    // Tambahkan variabel untuk pagination
-    $per_page = 5; // Jumlah item per halaman
-    $cur_page = isset($_GET['cur_page']) ? (int)$_GET['cur_page'] : 1; // Halaman saat ini
-    $offset = ($cur_page - 1) * $per_page; // Offset untuk query
+    // variabel untuk pagination
+    $per_page = 5; // 
+    $cur_page = isset($_GET['cur_page']) ? (int)$_GET['cur_page'] : 1; 
+    $offset = ($cur_page - 1) * $per_page; 
 
     // Ambil data properti yang dimiliki oleh pengguna yang sedang login
     $query_ruko = "SELECT ruko.*, pengguna.nama_pengguna FROM ruko 
                 JOIN pengguna ON ruko.nama_pengguna = pengguna.nama_pengguna 
                 WHERE ruko.nama_pengguna = '$nama_pengguna'
                 ORDER BY ruko.id_ruko DESC
-                LIMIT $per_page OFFSET $offset"; // Tambahkan LIMIT dan OFFSET
+                LIMIT $per_page OFFSET $offset"; 
     $ruko_result = mysqli_query($conn, $query_ruko);
 
     // Query untuk menghitung total jumlah ruko
     $count_query = "SELECT COUNT(*) AS count FROM ruko WHERE nama_pengguna = '$nama_pengguna'";
     $count_result = mysqli_query($conn, $count_query);
-    $count_total_ruko = mysqli_fetch_assoc($count_result)['count']; // Total jumlah ruko
+    $count_total_ruko = mysqli_fetch_assoc($count_result)['count']; 
 
     // Debug: Periksa apakah query berhasil
     if (!$ruko_result) {
