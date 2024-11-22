@@ -42,8 +42,8 @@ if (isset($_POST['tambah'])) {
 
     try {
         // First insert the ruko data
-        $sql = "INSERT INTO ruko (nama_pengguna, nama_ruko, harga_jual, luas_bangunan, harga_sewa, kota, luas_tanah, jmlh_kmr_tdr, jmlh_kmr_mandi, alamat, jmlh_lantai, jmlh_garasi, deskripsi, status) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+        $sql = "INSERT INTO ruko (nama_pengguna, nama_ruko, harga_jual, luas_bangunan, harga_sewa, kota, luas_tanah, jmlh_kmr_tdr, jmlh_kmr_mandi, alamat, jmlh_lantai, jmlh_garasi, deskripsi, status, tanggal) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, NOW())";
 
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param(
