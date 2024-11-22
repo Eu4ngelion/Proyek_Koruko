@@ -1,6 +1,16 @@
 <?php
 require "koneksi.php";
 
+// Pagination setup
+$halaman_sekarang = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
+$baris_per_halaman = 10;
+$offset = ($halaman_sekarang - 1) * $baris_per_halaman;
+
+// Query untuk mendapatkan total data
+$query_total = "SELECT COUNT(*) as total FROM ruko";
+$total_result = mysqli_query($conn, $query_total);
+$total_data = mysqli_fetch_assoc($total_result)['total'];
+$total_halaman = ceil($total_data / $baris_per_halaman);
 $query_stats = "SELECT 
     COUNT(*) as jumlah_ruko,
     SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) as disewakan,
@@ -11,9 +21,11 @@ FROM ruko";
 $stats_result = mysqli_query($conn, $query_stats);
 $stats = mysqli_fetch_assoc($stats_result);
 
-$query_ruko = "SELECT * FROM ruko ORDER BY id_ruko DESC";
+// Query untuk mendapatkan data dengan pagination
+$query_ruko = "SELECT * FROM ruko ORDER BY id_ruko DESC LIMIT $baris_per_halaman OFFSET $offset";
 $ruko_result = mysqli_query($conn, $query_ruko);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,8 +41,10 @@ $ruko_result = mysqli_query($conn, $query_ruko);
 </head>
 
 <body>
-    <?php include 'navbar.php'; ?>
-
+    <?php
+    include "navbar.php";
+    ?>
+    <h1>Admin Properti</h1>
     <main class="main-content">
         <h1>Lihat Properti</h1>
 
@@ -125,10 +139,13 @@ $ruko_result = mysqli_query($conn, $query_ruko);
                             </td>
                             <td class="action-buttons">
                                 <?php if ($row['status'] == 0) { ?>
-                                    <button class="btn-verifikasi" onclick="verifyProperty(<?php echo $row['id_ruko']; ?>)">
+                                    <a href = "admin_verif.php?id_ruko=<?php echo $row['id_ruko']; ?>">
+                                    <button class="btn-verifikasi">
                                         Verifikasi
                                     </button>
+                                    </a>
                                 <?php } ?>
+                                    
                                 <button class="btn-hapus" onclick="deleteProperty(<?php echo $row['id_ruko']; ?>)">
                                     Hapus
                                 </button>
@@ -139,8 +156,8 @@ $ruko_result = mysqli_query($conn, $query_ruko);
             </table>
         </div>
 
-        <!-- Pagination -->
-        <div class="pagination">
+         <!-- Pagination -->
+         <div class="pagination">
             <button>&lt;</button>
             <button class="active">1</button>
             <button>2</button>

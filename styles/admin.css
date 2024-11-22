@@ -3,113 +3,210 @@ body{
     padding: 0;
 }
 
-.container-admin-pengaturan {
-    margin-top: 200px;
+/* Admin Pengaturan */
+.container-hero {
+    margin-top: 7%;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
 }
 
-.container-admin-pengaturan {
-    margin-top: 7%;
+.container-pengaturan {
     margin-left: 10%;
     margin-right: 10%;
 }
 
-.container-admin-tentang {
-    margin-top: 7%;
-    margin-left: 10%;
-    margin-right: 10%;
+.main-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 5%;
 }
 
-.slice-container {
-    justify-content: center;
-    gap: 50px;
+.header-pengaturan {
+    display: flex; 
+    justify-content: space-between; 
+    text-align: center;
+}
+
+.admin-text-hero {
+    background-color: #703BF7;
+    padding-left: 10%;
+    padding-right: 10%;
+    color: white;
+    border-radius: 10px;
+}
+
+.form-item {
     display: flex;
-    width: 100%;
+    flex-direction: column;
+    margin-bottom: 15px;
+    text-align: left;
 }
 
-.container {
-    margin-top: 10%;
-    margin-left: 10%;
-    margin-right: 10%;
-
-
+.form-item label {
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-.page-title {
+.form-item input {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.form-item img {
+    max-width: 100px;
+    max-height: 100px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-item textarea {
+    font-size: 14px;
+    height: 120px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.form-group-picture {
+    width: 50%;
+    display: flex;
+    gap: 10%;
+}
+
+.section-header {
+    color: white;
+    background-color: #703BF7;
+    border-radius: 10px;
     text-align: center;
 }
 
+.btn-pengaturan {
+    margin-top: 5%;
+    margin-bottom: 10%;
+}
 
-.page-title-2 {
-    text-align: center;
+.btn-ganti {
+    display: flex;
+    text-align: left;
+    color: white;
+    font-weight: bold;
+    margin-left: 2%;
+}
+
+.ganti-1 {
+    background-color: #703BF7;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+.ganti-2 {
+    margin-left: 8.5%;
+    background-color: #703BF7;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+.btn-simpan {
     background-color: #703BF7;
     color: white;
-    border-radius: 5px;
-    border: 2px solid black;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 5px 5px;
+    width: 150px;
 }
 
-.slice-up-admin-tentang {
-    justify-content: grid;
+.btn-batal {
+    background-color: #FF0000;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 5px 5px;
+    width: 150px;
 }
 
-.slice-up-admin-tentang {
-    justify-content: space-between;
-
+/* Admin Tentang */
+.form-row-1 {
     display: flex;
+    margin-bottom: 15px;
+    gap: 1.5%;
 }
 
-.image-container {
-    width: 100%;
-    height: 100%;
-    background-color: #ffffff;
-    border: 2px solid black;
-    border-radius: 5px;
-    padding-bottom: 90px;
-    margin-bottom: 10px;
+.gambar_tentang {
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    border: 1px solid black;
 }
 
-.slice-up-right {
-    padding-left: 5%;
+.form-row-2 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    justify-content: center;
+    gap: 2%;
+}
+
+.form-group-1_1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 1px solid black;
+}
+
+.form-group-1_2 {
     flex: 2;
 }
 
-.form-field {
-    width: 100%;
-    border: 2px solid black;
+.gambar-section {
+    background-color: #703BF7;
+    padding: 3% 20%;
+    color: white;
     border-radius: 10px;
-    resize: none;
-    padding-top: 10px;
-    padding-bottom: 10px;
 }
 
-.btn-admin-tentang {
-    text-align: right;
-    margin-right: 15%;
+.form-group-1_2 textarea {
+    border-radius: 10px;
+    height: 335px;
+    width: 100%;
+    resize: vertical;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    padding: 10px;
+
 }
 
-.btn-simpan-admin {
-    text-decoration: none;
-    border: 2px solid black;
-    color: white;
-    background-color: #703BF7;
-    padding: 10px 20px;
-    border-radius: 5px;
+.form-group-2 {
+    flex: 2;
+    font-weight: bold;
 }
 
-.btn-upload-admin {
-    text-decoration: none;
-    border: 2px solid black;
-    color: white;
-    background-color: #703BF7;
-    padding: 10px 20px;
-    border-radius: 5px;
+.form-group-2 label{
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.btn-batal-admin {
-    text-decoration: none;
-    border: 2px solid black;
-    color: white;
-    background-color: #FF0000;
-    padding: 10px 20px;
-    border-radius: 5px;
+.form-group-2 textarea {
+    width: 100%;
+    border-radius: 10px;
+    height: 120px;
+    resize: vertical;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    padding: 10px;
+
 }
 
+.btn-tentang {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 10%;
+}

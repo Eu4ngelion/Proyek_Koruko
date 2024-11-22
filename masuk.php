@@ -3,10 +3,9 @@ require "koneksi.php";
 
 // Memulai Sesion
 if (session_status() == PHP_SESSION_NONE) session_start();
-if(!isset($_SESSION["login"])){
+if (!isset($_SESSION["login"])) {
     $_SESSION["login"] = false;
-}
-else if (isset($_SESSION["login"]) && $_SESSION["login"] == true){
+} else if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
     header("Location: index.php");
     exit;
 }
@@ -169,7 +168,10 @@ if (isset($_POST["login-submit"])) {
 </head>
 
 <body>
-    <?php include "navbar.php" ?>
+    <header>
+        <?php include "navbar.php" ?>
+    </header>
+
     <section class="login-content">
         <div class="login-box">
             <div class="login-title">
@@ -186,9 +188,11 @@ if (isset($_POST["login-submit"])) {
             </form>
         </div>
     </section>
+
     <div class="copyright" style="text-align: right; color: white; margin-top: 20px;">
         © 2024 Koruko . All rights reserved
     </div>
+
 </body>
 
 </html>
