@@ -2,14 +2,29 @@
     <?php
     require "koneksi.php";
     session_start();
+
+    // Ambil nama pengguna dari sesi
     $nama_pengguna = $_SESSION['username'];    
+
+    // variabel untuk pagination
+    $per_page = 5; // 
+    $cur_page = isset($_GET['cur_page']) ? (int)$_GET['cur_page'] : 1; 
+    $offset = ($cur_page - 1) * $per_page; 
+
     // Ambil data properti yang dimiliki oleh pengguna yang sedang login
     $query_ruko = "SELECT ruko.*, pengguna.nama_pengguna FROM ruko 
                 JOIN pengguna ON ruko.nama_pengguna = pengguna.nama_pengguna 
                 WHERE ruko.nama_pengguna = '$nama_pengguna'
-                ORDER BY ruko.id_ruko DESC";
+                ORDER BY ruko.id_ruko DESC
+                LIMIT $per_page OFFSET $offset"; 
     $ruko_result = mysqli_query($conn, $query_ruko);
 
+    // Query untuk menghitung total jumlah ruko
+    $count_query = "SELECT COUNT(*) AS count FROM ruko WHERE nama_pengguna = '$nama_pengguna'";
+    $count_result = mysqli_query($conn, $count_query);
+    $count_total_ruko = mysqli_fetch_assoc($count_result)['count']; 
+
+    // Debug: Periksa apakah query berhasil
     if (!$ruko_result) {
         echo "Error: " . mysqli_error($conn);
     }
@@ -46,6 +61,39 @@
                 margin-bottom: 20px; 
             }
             
+            /* Tambahkan CSS pagination dari pencarian.php */
+            .pagination {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px 0;
+            }
+
+            .pagination a, .pagination button {
+                width: 30px;
+                height: 30px;
+                background-color: white;
+                margin: 0 5px;
+                border-radius: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                text-decoration: none;
+            }
+
+            .pagination button.active {
+                color: white;
+                background-color: #703BF7;
+            }
+
+            .pagination a:hover, .pagination button:hover {
+                background-color: #703BF7;
+                color: white;
+                transition: 0.3s;
+            }
         </style>
     </head>
 
@@ -140,12 +188,22 @@
 
             <!-- Pagination -->
             <div class="pagination">
-                <button>&lt;</button>
-                <button class="active">1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>999</button>
-                <button>&gt;</button>
+                <?php
+                $total_page = ceil($count_total_ruko / $per_page); // Total halaman
+                if ($cur_page > 1) {
+                    echo '<a href="kelola.php?cur_page=' . ($cur_page - 1) . '">&lt;</a>';
+                }
+                for ($i = 1; $i <= $total_page; $i++) {
+                    if ($i == $cur_page) {
+                        echo '<button class="active">' . $i . '</button>';
+                    } else {
+                        echo '<a href="kelola.php?cur_page=' . $i . '">' . $i . '</a>';
+                    }
+                }
+                if ($cur_page < $total_page) {
+                    echo '<a href="kelola.php?cur_page=' . ($cur_page + 1) . '">&gt;</a>';
+                }
+                ?>
             </div>
         </main>
 
