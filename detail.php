@@ -671,10 +671,7 @@ function formatPropertySalePrice($price)
 </head>
 
 <body>
-    <?php
-
-    include "navbar.php";
-    ?>
+    <?php include "navbar.php";?>
     <main class="container-main">
         <div class="button-back">
             <a href="index.php">
@@ -939,6 +936,8 @@ function formatPropertySalePrice($price)
         </div>
         </div>
     </main>
+    <?php include "footer.php";?>
+
 </body>
 
 </html>

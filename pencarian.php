@@ -520,6 +520,7 @@ function formatSubvalue($value)
     <footer>
         <?php include "footer.php"; ?>
     </footer>
+    
     <script>
         // Dropdown Lokasi
         let lokasiSearchBox = document.querySelector(".main-lokasi-search-box");

@@ -6,7 +6,7 @@
     }
 
     // Ambil data website
-    $sql = "SELECT telepon, alamat, email, instagram, facebook, youtube, twitter, judul, deskripsi_tentang FROM website";
+    $sql = "SELECT telepon, alamat, email, instagram, facebook, youtube, twitter, judul, deskripsi_footer FROM website";
     $result = mysqli_query($conn, $sql);
     $footer = mysqli_fetch_assoc($result);
 ?>
@@ -153,7 +153,7 @@
                     <?php echo $footer['judul']; ?>
                 </div>
                 <div class="footer-description">
-                    <?php echo $footer['deskripsi_tentang']; ?>
+                    <?php echo $footer['deskripsi_footer']; ?>
                 </div>
             </div>
 

@@ -25,39 +25,46 @@ if (isset($_POST['register-submit'])) {
     if (mysqli_num_rows($result) > 0) {
         echo "<script>alert('Nama pengguna sudah digunakan')</script>";
     } else {
-        // Cek apakah data nama pengguna sudah ada
-        $sql = "SELECT nama_pengguna FROM pengguna WHERE  nama_pengguna = '$inp_nama_pengguna' limit 1";
+        // Cek apakah data nama lengkap sudah ada
+        $sql = "SELECT nama_lengkap FROM pengguna WHERE nama_lengkap = '$inp_nama_lengkap' limit 1";
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
-            echo "<script>alert('Nama pengguna sudah digunakan')</script>";
-        }
-        // Cek apakah data email sudah ada
-        else {
-            $sql = "SELECT email FROM pengguna WHERE email = '$inp_email' limit 1";
+            echo "<script>alert('Nama lengkap sudah digunakan')</script>";
+        } else {
+            // Cek apakah data nama pengguna sudah ada
+            $sql = "SELECT nama_pengguna FROM pengguna WHERE  nama_pengguna = '$inp_nama_pengguna' limit 1";
             $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) > 0) {
-                echo "<script>alert('Nama lengkap sudah digunakan')</script>";
+                echo "<script>alert('Nama pengguna sudah digunakan')</script>";
             }
-            // Cek apakah data telepon sudah ada
+            // Cek apakah data email sudah ada
             else {
-                $sql = "SELECT telepon FROM pengguna WHERE telepon = '$inp_telepon' limit 1";
+                $sql = "SELECT email FROM pengguna WHERE email = '$inp_email' limit 1";
                 $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
-                    echo "<script>alert('Nomor telepon sudah digunakan')</script>";
+                    echo "<script>alert('Nama lengkap sudah digunakan')</script>";
                 }
-                // Data sudah valid
+                // Cek apakah data telepon sudah ada
                 else {
-                    $sql = "INSERT INTO pengguna (nama_pengguna, nama_lengkap, email, telepon, sandi)
-            VALUES ('$inp_nama_pengguna', '$inp_nama_lengkap', '$inp_email', '$inp_telepon', '$inp_sandi')";
-                    if (mysqli_query($conn, $sql)) {
-                        echo "
-                        <script>
-                        alert('Pendaftaran berhasil!')
-                        window.location.href = 'masuk.php';
-                        </script>";
-                        exit;
-                    } else {
-                        echo "<script>alert('Pendaftaran gagal!')</script>";
+                    $sql = "SELECT telepon FROM pengguna WHERE telepon = '$inp_telepon' limit 1";
+                    $result = mysqli_query($conn, $sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        echo "<script>alert('Nomor telepon sudah digunakan')</script>";
+                    }
+                    // Data sudah valid
+                    else {
+                        $sql = "INSERT INTO pengguna (nama_pengguna, nama_lengkap, email, telepon, sandi)
+                    VALUES ('$inp_nama_pengguna', '$inp_nama_lengkap', '$inp_email', '$inp_telepon', '$inp_sandi')";
+                        if (mysqli_query($conn, $sql)) {
+                            echo "
+                                <script>
+                                alert('Pendaftaran berhasil!')
+                                window.location.href = 'masuk.php';
+                                </script>";
+                            exit;
+                        } else {
+                            echo "<script>alert('Pendaftaran gagal!')</script>";
+                        }
                     }
                 }
             }
@@ -184,10 +191,10 @@ if (isset($_POST['register-submit'])) {
             </div>
             <form class="form-group" action="daftar.php" method="POST">
                 <input type="text" name="full-name" id="full-name" class="form-control"
-                    placeholder="Nama Lengkap" minlength="1" maxlength="30" pattern="[A-Za-z\s'-]+" required>
+                    placeholder="Nama Lengkap" minlength="1" maxlength="30" required>
 
                 <input type="text" name="username" id="username" class="form-control"
-                    placeholder="Nama Pengguna" minlength="5" maxlength="20" pattern="[A-Za-z0-9@._]+" required>
+                    placeholder="Nama Pengguna" minlength="5" maxlength="20" required>
 
                 <input type="email" name="email" id="email" class="form-control"
                     placeholder="Email" minlength="1" maxlength="50" required>
