@@ -1,3 +1,4 @@
+
     <?php
     require "koneksi.php";
     session_start();
@@ -5,23 +6,23 @@
     // Ambil nama pengguna dari sesi
     $nama_pengguna = $_SESSION['username'];    
 
-    // Tambahkan variabel untuk pagination
-    $per_page = 5; // Jumlah item per halaman
-    $cur_page = isset($_GET['cur_page']) ? (int)$_GET['cur_page'] : 1; // Halaman saat ini
-    $offset = ($cur_page - 1) * $per_page; // Offset untuk query
+    // variabel untuk pagination
+    $per_page = 5; // 
+    $cur_page = isset($_GET['cur_page']) ? (int)$_GET['cur_page'] : 1; 
+    $offset = ($cur_page - 1) * $per_page; 
 
     // Ambil data properti yang dimiliki oleh pengguna yang sedang login
     $query_ruko = "SELECT ruko.*, pengguna.nama_pengguna FROM ruko 
                 JOIN pengguna ON ruko.nama_pengguna = pengguna.nama_pengguna 
                 WHERE ruko.nama_pengguna = '$nama_pengguna'
                 ORDER BY ruko.id_ruko DESC
-                LIMIT $per_page OFFSET $offset"; // Tambahkan LIMIT dan OFFSET
+                LIMIT $per_page OFFSET $offset"; 
     $ruko_result = mysqli_query($conn, $query_ruko);
 
     // Query untuk menghitung total jumlah ruko
     $count_query = "SELECT COUNT(*) AS count FROM ruko WHERE nama_pengguna = '$nama_pengguna'";
     $count_result = mysqli_query($conn, $count_query);
-    $count_total_ruko = mysqli_fetch_assoc($count_result)['count']; // Total jumlah ruko
+    $count_total_ruko = mysqli_fetch_assoc($count_result)['count']; 
 
     // Debug: Periksa apakah query berhasil
     if (!$ruko_result) {
@@ -32,6 +33,14 @@
         $id_ruko = $_POST['delete_id'];
         $delete_query = "DELETE FROM ruko WHERE id_ruko = '$id_ruko' AND nama_pengguna = '$nama_pengguna'";
         mysqli_query($conn, $delete_query);
+        header("Location: kelola.php");
+        exit;
+    }
+
+    if (isset($_POST['sold_id'])) {
+        $id_ruko = $_POST['sold_id'];
+        $update_query = "UPDATE ruko SET status = 2 WHERE id_ruko = '$id_ruko' AND nama_pengguna = '$nama_pengguna'";
+        mysqli_query($conn, $update_query);
         header("Location: kelola.php");
         exit;
     }
@@ -112,7 +121,7 @@
             <!-- Tambah Properti Button -->
             <div class="add-property-container">
                 <a href="tambah_ruko.php">
-                    <button class="btn-verifikasi">Tambah Properti +</button>
+                    <button class="btn-terjual">Tambah Properti +</button>
                 </a>
             </div>
 
@@ -178,6 +187,12 @@
                                         <input type="hidden" name="delete_id" value="<?php echo $row['id_ruko']; ?>">
                                         <button type="submit" class="btn-hapus" onclick="return confirm('Apakah Anda yakin ingin menghapus properti ini?')">Hapus</button>
                                     </form>
+                                    <?php if ($row['status'] == 1 || $row['status'] == 2) { ?>
+                                        <form method="POST" style="display:inline;">
+                                            <input type="hidden" name="sold_id" value="<?php echo $row['id_ruko']; ?>">
+                                            <button type="submit" class="btn-terjual" onclick="return confirm('Apakah Anda yakin ingin menandai properti ini sebagai terjual?')">Terjual</button>
+                                        </form>
+                                    <?php } ?>
                                 </td>
                             </tr>
                         <?php } ?>
