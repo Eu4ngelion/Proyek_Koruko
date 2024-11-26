@@ -33,7 +33,6 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
     }
 }
 
-
 // Default User Kosong
 $profil_user = null;
 if (!isset($_SESSION["username"])) {
@@ -201,6 +200,7 @@ if (isset($_SESSION["username"])) {
             box-shadow: 0 0 30px #703BF7;
         }
 
+
         .navbar-link {
             text-decoration: none;
             color: white;
@@ -209,22 +209,7 @@ if (isset($_SESSION["username"])) {
         .navbar-right {
             display: flex;
             align-items: center;
-        }
-
-        .navbar-right .navbar-item {
-            display: flex;
-            font-family: "Poppins";
-            font-size: 16px;
-            font-weight: bold;
-            list-style: none;
-            margin: 0 10px;
-            background-color: white;
-            border: 1px solid black;
-            padding: 2px 15px;
-            border-radius: 15px;
-            transition: all 0.3s;
-            justify-content: center;
-            align-items: center;
+            gap: 10px;
         }
 
         .navbar-right .navbar-item-current {
@@ -251,21 +236,60 @@ if (isset($_SESSION["username"])) {
             text-shadow: none;
             transition: all 0.3s;
             box-shadow: 0 0 30px #703BF7;
-        }
-
-        .navbar-right .navbar-item:hover {
-            background-color: #BBA0FF;
-            border: 1px solid white;
-            border-radius: 15px;
-            text-shadow: none;
-            padding: 2px 15px;
-            transition: all 0.3s;
-            box-shadow: 0 0 30px #703BF7;
+            scale: 1.1;
         }
 
         .navbar-right .navbar-link {
             text-decoration: none;
             color: black;
+            font-weight: bold;
+            
+        }
+
+        .navbar-item-hijau{
+            background-color: #00FF00;
+            border: 1px solid white;
+            border-radius: 15px;
+            padding: 2px 15px;
+            transition: all 0.3s;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        .navbar-item-hijau:hover{
+            background-color: #00FF00;
+            border: 1px solid white;
+            border-radius: 15px;
+            padding: 2px 15px;
+            text-shadow: none;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px #00FF00;
+            scale: 1.1;
+        }
+
+        .navbar-item-kuning{
+            background-color: #FFD700;
+            border: 1px solid white;
+            border-radius: 15px;
+            padding: 2px 15px;
+            transition: all 0.3s;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        .navbar-item-kuning:hover{
+            background-color: #FFD700;
+            border: 1px solid white;
+            border-radius: 15px;
+            padding: 2px 15px;
+            text-shadow: none;
+            scale: 1.1;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px #FFD700;
         }
 
         .profil-admin {
@@ -338,10 +362,10 @@ if (isset($_SESSION["username"])) {
             <ul class="navbar-right">
                 <!-- Signed Out -->
                 <?php if (($_SESSION["login"] == false) || $_SESSION["username"] == ""): ?>
-                    <li class="<?php echo ($current_page == 'masuk') ? 'navbar-item-current' : 'navbar-item'; ?>">
+                    <li class="<?php echo ($current_page == 'masuk') ? 'navbar-item-current' : 'navbar-item-hijau'; ?>">
                         <a href="masuk.php" class="navbar-link">Masuk</a>
                     </li>
-                    <li class="<?php echo ($current_page == 'daftar') ? 'navbar-item-current' : 'navbar-item'; ?>">
+                    <li class="<?php echo ($current_page == 'daftar') ? 'navbar-item-current' : 'navbar-item-kuning'; ?>">
                         <a href="daftar.php" class="navbar-link">Daftar</a>
                     </li>
                 <?php else: ?>
