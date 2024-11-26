@@ -201,10 +201,16 @@ function formatSubvalue($value)
             border-radius: 10px;
             padding: 10px 15px;
             cursor: pointer;
-            font-size: 24px;
+            font-size: 30px;
             font-weight: bold;
             width: 180px;
             height: 100%;
+        }
+
+        .main-search-submit:hover{
+            background-color: #BBA0FF;
+            scale: 1.05;
+            transition: all 0.5s;
         }
 
         .main-input-lokasi {
@@ -532,7 +538,7 @@ function formatSubvalue($value)
 
         .main-mengapa-card-title:hover {
             transform: scale(1.05);
-            
+
             transition: all 0.5s;
         }
 
@@ -759,8 +765,8 @@ function formatSubvalue($value)
                                     <!-- deskripsi bawah -->
                                     <div class="rekomendasi-card-deskripsi-bawah">
                                         <div class="rekomendasi-card-fasilitas-luas">
-                                            <div class="fasilitas-luas">LT : <?php echo $ruko["luas_tanah"] ?> </div>
-                                            <div class="fasilitas-luas">LB : <?php echo $ruko["luas_tanah"] ?> </div>
+                                            <div class="fasilitas-luas">LT : <?php echo $ruko["luas_tanah"] ?> m2 </div>
+                                            <div class="fasilitas-luas">LB : <?php echo $ruko["luas_tanah"] ?> m2</div>
                                         </div>
 
                                         <div class="rekomendasi-card-fasilitas-icon">
@@ -870,8 +876,8 @@ function formatSubvalue($value)
                                     <!-- Deskripsi Bawah -->
                                     <div class="rekomendasi-card-deskripsi-bawah">
                                         <div class="rekomendasi-card-fasilitas-luas">
-                                            <div class="fasilitas-luas">LT : <?php echo $ruko["luas_tanah"] ?> </div>
-                                            <div class="fasilitas-luas">LB : <?php echo $ruko["luas_tanah"] ?> </div>
+                                            <div class="fasilitas-luas">LT : <?php echo $ruko["luas_tanah"] ?> m2</div>
+                                            <div class="fasilitas-luas">LB : <?php echo $ruko["luas_tanah"] ?> m2</div>
                                         </div>
 
                                         <div class="rekomendasi-card-fasilitas-icon">
