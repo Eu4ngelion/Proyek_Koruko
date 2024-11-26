@@ -212,19 +212,19 @@ if (isset($_POST['edit'])) {
                     </div>
 
                     <div class="form-input">
+                        <label class="label-form">Status</label>
+                        <input name="status_palsu" type="text" value="Belum Diverifikasi" disabled>
+                        <input name="status" type="hidden" value="0" disabled>
+                    </div>
+
+                    <div class="form-input">
                         <label class="label-form">Nama Ruko</label>
                         <input name="namaRuko" type="text" value="<?php echo $ruko['nama_ruko'] ?>" required>
                     </div>
 
                     <div class="form-input">
                         <label class="label-form">Harga Jual</label>
-                        <input name="hargaJual" type="number" value="<?php echo $ruko['harga_jual'] ?>" required>
-                    </div>
-
-                    <div class="form-input">
-                        <label class="label-form">Status</label>
-                        <input name="status_palsu" type="text" value="Belum Diverifikasi" disabled>
-                        <input name="status" type="hidden" value="0" disabled>
+                        <input name="hargaJual" type="number" value="<?php echo $ruko['harga_jual'] ?>">
                     </div>
 
                     <div class="form-input">
@@ -232,15 +232,15 @@ if (isset($_POST['edit'])) {
                         <input name="luasBangunan" type="text" value="<?php echo $ruko['luas_bangunan'] ?>" required>
                     </div>
 
-                    <div class="form-input price-group">
-                        <label class="label-form">Harga Sewa</label>
-                        <input name="hargaSewa" type="number" value="<?php echo $ruko['harga_sewa'] ?>" required>
-                        <span class="price-suffix">per tahun</span>
-                    </div>
-
                     <div class="form-input">
                         <label class="label-form">Kota</label>
                         <input name="kota" type="text" value="<?php echo $ruko['kota'] ?>" required>
+                    </div>
+
+                    <div class="form-input price-group">
+                        <label class="label-form">Harga Sewa</label>
+                        <input name="hargaSewa" type="number" value="<?php echo $ruko['harga_sewa'] ?>">
+                        <span class="price-suffix">per tahun</span>
                     </div>
 
                     <div class="form-input">
@@ -282,7 +282,7 @@ if (isset($_POST['edit'])) {
                         </div>
                         <div class="form-input full-width">
                             <label class="label-form">Deskripsi</label>
-                            <textarea name="deskripsi" class="input-textarea" value="<?php echo $ruko['deskripsi'] ?>" required></textarea>
+                            <textarea name="deskripsi" class="input-textarea" required><?php echo $ruko['deskripsi'] ?>"</textarea>
                         </div>
                     </div>
 

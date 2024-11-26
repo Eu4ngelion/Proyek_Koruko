@@ -102,7 +102,7 @@
                 color: white;
                 transition: 0.3s;
             }
-
+          
             .btn-terjual,
             .btn-verifikasi,
             .btn-hapus {

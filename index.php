@@ -17,6 +17,11 @@ $sql_terbaru = "SELECT * FROM ruko WHERE status = '1' ORDER BY tanggal DESC LIMI
 $result = mysqli_query($conn, $sql_terbaru);
 $ruko_terbaru = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+$sql_website = "SELECT judul FROM website";
+$result = mysqli_query($conn, $sql_website);
+$website = mysqli_fetch_assoc($result);
+$judul = $website['judul'];
+
 // Function format subvalue
 function formatSubvalue($value)
 {
@@ -51,7 +56,7 @@ function formatSubvalue($value)
         .main-index {
             height: auto;
             min-height: 100vh;
-            padding: 60px 0 200px 0;
+            padding: 60px 0 50px 0;
             font-family: 'Poppins', sans-serif;
             z-index: -2;
             width: 100%;
@@ -59,7 +64,7 @@ function formatSubvalue($value)
 
         /* Hero */
         .main-hero-image {
-            height: 500px;
+            height: 95vh;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -83,14 +88,14 @@ function formatSubvalue($value)
         }
 
         .main-hero-title {
-            font-size: 64px;
+            font-size: 80px;
             font-weight: bolder;
             letter-spacing: -2px;
             color: white;
         }
 
         .main-hero-subtitle {
-            font-size: 32px;
+            font-size: 42px;
             font-weight: bold;
             color: white;
         }
@@ -196,10 +201,16 @@ function formatSubvalue($value)
             border-radius: 10px;
             padding: 10px 15px;
             cursor: pointer;
-            font-size: 24px;
+            font-size: 30px;
             font-weight: bold;
             width: 180px;
             height: 100%;
+        }
+
+        .main-search-submit:hover{
+            background-color: #BBA0FF;
+            scale: 1.05;
+            transition: all 0.5s;
         }
 
         .main-input-lokasi {
@@ -321,33 +332,38 @@ function formatSubvalue($value)
         }
 
         .card-pop-sewa {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background-color: #703BF7;
             color: white;
-            width: 50px;
-            height: 20px;
+            width: 40px;
+            height: 15px;
             padding: 3px 12px;
             margin-left: 5px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             border-radius: 10px;
             font-family: "Poppins", sans-serif;
             font-weight: bold;
             font-size: 12px;
-            box-shadow: 0px 2px 4px black;
+            box-shadow: 0px 2px px black;
         }
 
         .card-pop-jual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background-color: #EFAE2D;
             color: white;
-            width: 50px;
-            height: 20px;
+            width: 40px;
+            height: 15px;
             padding: 3px 12px;
             margin-left: 5px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             border-radius: 10px;
             font-family: "Poppins", sans-serif;
-            font-size: 12px;
             font-weight: bold;
-            box-shadow: 0px 2px 4px black;
+            font-size: 12px;
         }
 
         .rekomendasi-card-bottom {
@@ -412,10 +428,37 @@ function formatSubvalue($value)
         }
 
         .rekomendasi-card-deskripsi-bawah {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            display: flex;
+            flex-direction: column;
             width: 100%;
+            margin-top: 10px;
             border-top: 1px solid black;
+        }
+
+        .rekomendasi-card-fasilitas-luas {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .fasilitas-luas {
+            font-size: 12px;
+            font-weight: bold;
+            width: auto;
+            text-align: left;
+            margin: 0 10px 0 0;
+        }
+
+        .rekomendasi-card-fasilitas-icon {
+            display: flex;
+            flex-direction: row;
+            margin-top: 5px;
+        }
+
+        .fasilitas-icon {
+            font-size: 12px;
+            font-weight: bold;
+            width: 50px;
+            text-align: left;
         }
 
         .rekomendasi-card-fasilitas {
@@ -424,14 +467,14 @@ function formatSubvalue($value)
         }
 
         .fasilitas-title {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
             width: 60px;
             text-align: left;
         }
 
         .fasilitas-title-luas {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
             width: 25px;
             text-align: left;
@@ -453,6 +496,69 @@ function formatSubvalue($value)
             width: 290px;
             text-decoration: none;
         }
+
+
+        /* Mengapa Koruko */
+        .main-section-mengapa {
+            padding: 50px 10%;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .main-mengapa-title {
+            font-size: 40px;
+            font-weight: bold;
+            color: #703BF7;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .main-mengapa-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+
+        .main-mengapa-card {
+            background-color: #320276;
+            border-radius: 10px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            margin: 20px;
+        }
+
+        .main-mengapa-card-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FECE0E;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .main-mengapa-card-title:hover {
+            transform: scale(1.05);
+
+            transition: all 0.5s;
+        }
+
+
+        .main-mengapa-card-content {
+            display: none;
+            font-size: 16px;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .main-mengapa-card-content-shown {
+            display: block;
+            font-size: 16px;
+            color: white;
+            margin-top: 10px;
+        }
+
+
+
     </style>
 </head>
 
@@ -608,14 +714,14 @@ function formatSubvalue($value)
                             <button class="main-rekomendasi-card">
                                 <div class="rekomendasi-card-image" style="background-image: url('images/ruko/<?php echo $gambar['gambar_properti']; ?>')">
                                     <!-- Jika Disewa -->
-                                    <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
+                                    <?php if ($ruko['harga_sewa'] > 0) : ?>
                                         <div class="card-pop-sewa">
                                             Disewa
                                         </div>
                                     <?php endif; ?>
 
                                     <!-- Jika Dijual -->
-                                    <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                    <?php if ($ruko['harga_jual'] > 0) : ?>
                                         <div class="card-pop-jual">
                                             Dijual
                                         </div>
@@ -624,18 +730,18 @@ function formatSubvalue($value)
                                 <div class="rekomendasi-card-bottom">
                                     <div class="rekomendasi-card-harga">
                                         <!-- Harga Jual, Harga Sewa -->
-                                        <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
+                                        <?php if ($ruko['harga_jual'] > 0) : ?>
                                             <div class="rekomendasi-card-harga-kiri">
                                                 <!-- function format subvalue harga -->
                                                 IDR <?php echo formatSubvalue($ruko['harga_jual']); ?>
                                             </div>
-                                            <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                            <?php if ($ruko['harga_sewa'] > 0) : ?>
                                                 <div class="rekomendasi-card-harga-kanan">
                                                     IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / Tahun
                                                 </div>
                                             <?php endif; ?>
 
-                                        <?php elseif ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                        <?php elseif ($ruko['harga_sewa'] > 0) : ?>
                                             <div class="rekomendasi-card-harga-kiri">
                                                 <!-- per bulan -->
                                                 IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / Tahun
@@ -658,33 +764,28 @@ function formatSubvalue($value)
 
                                     <!-- deskripsi bawah -->
                                     <div class="rekomendasi-card-deskripsi-bawah">
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title-luas">LT : </div>
-                                            <div class="fasilitas-value"><?php echo $ruko['luas_tanah']; ?> m2</div>
+                                        <div class="rekomendasi-card-fasilitas-luas">
+                                            <div class="fasilitas-luas">LT : <?php echo $ruko["luas_tanah"] ?> m2 </div>
+                                            <div class="fasilitas-luas">LB : <?php echo $ruko["luas_tanah"] ?> m2</div>
                                         </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title-luas">LB :</div>
-                                            <div class="fasilitas-value"><?php echo $ruko['luas_bangunan']; ?> m2</div>
-                                        </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">Kamar</div>
-                                            :
-                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_tdr']; ?></div>
-                                        </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">Toilet</div>
-                                            :
-                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_mandi']; ?></div>
-                                        </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">Garasi</div>
-                                            :
-                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_lantai']; ?></div>
-                                        </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">Lantai</div>
-                                            :
-                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_garasi']; ?></div>
+
+                                        <div class="rekomendasi-card-fasilitas-icon">
+                                            <div class="fasilitas-icon">
+                                                <image src="images/assets/bed_icon.png" alt="bed" style="width: 17px; height: auto;"> :
+                                                    <?php echo $ruko['jmlh_kmr_tdr']; ?>
+                                            </div>
+                                            <div class="fasilitas-icon">
+                                                <image src="images/assets/bath_icon.png" alt="bath" style="width: 20px; height: auto;"> :
+                                                    <?php echo $ruko['jmlh_kmr_mandi']; ?>
+                                            </div>
+                                            <div class="fasilitas-icon">
+                                                <image src="images/assets/garage_icon.png" alt="garage" style="width: 20px; height: auto;"> :
+                                                    <?php echo $ruko['jmlh_garasi']; ?>
+                                            </div>
+                                            <div class="fasilitas-icon">
+                                                <image src="images/assets/floor_icon.png" alt="floor" style="width: 20px; height: auto;"> :
+                                                    <?php echo $ruko['jmlh_lantai']; ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -724,14 +825,14 @@ function formatSubvalue($value)
                             <button class="main-rekomendasi-card">
                                 <div class="rekomendasi-card-image" style="background-image: url('images/ruko/<?php echo $gambar['gambar_properti']; ?>')">
                                     <!-- Jika Disewa -->
-                                    <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
+                                    <?php if ($ruko['harga_sewa'] > 0) : ?>
                                         <div class="card-pop-sewa">
                                             Disewa
                                         </div>
                                     <?php endif; ?>
 
                                     <!-- Jika Dijual -->
-                                    <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                    <?php if ($ruko['harga_jual'] > 0) : ?>
                                         <div class="card-pop-jual">
                                             Dijual
                                         </div>
@@ -740,18 +841,18 @@ function formatSubvalue($value)
                                 <div class="rekomendasi-card-bottom">
                                     <div class="rekomendasi-card-harga">
                                         <!-- Harga Jual, Harga Sewa -->
-                                        <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
+                                        <?php if ($ruko['harga_jual'] > 0) : ?>
                                             <div class="rekomendasi-card-harga-kiri">
                                                 <!-- function format subvalue harga -->
                                                 IDR <?php echo formatSubvalue($ruko['harga_jual']); ?>
                                             </div>
-                                            <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                            <?php if ($ruko['harga_sewa'] > 0) : ?>
                                                 <div class="rekomendasi-card-harga-kanan">
                                                     IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?>
                                                 </div>
                                             <?php endif; ?>
 
-                                        <?php elseif ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                        <?php elseif ($ruko['harga_sewa'] > 0) : ?>
                                             <div class="rekomendasi-card-harga-kiri">
                                                 <!-- per bulan -->
                                                 IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / bulan
@@ -774,42 +875,78 @@ function formatSubvalue($value)
 
                                     <!-- Deskripsi Bawah -->
                                     <div class="rekomendasi-card-deskripsi-bawah">
+                                        <div class="rekomendasi-card-fasilitas-luas">
+                                            <div class="fasilitas-luas">LT : <?php echo $ruko["luas_tanah"] ?> m2</div>
+                                            <div class="fasilitas-luas">LB : <?php echo $ruko["luas_tanah"] ?> m2</div>
+                                        </div>
 
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title-luas">LT : </div>
-                                            <div class="fasilitas-value"><?php echo $ruko['luas_tanah']; ?> m2</div>
+                                        <div class="rekomendasi-card-fasilitas-icon">
+                                            <div class="fasilitas-icon">
+                                                <image src="images/assets/bed_icon.png" alt="bed" style="width: 17px; height: auto;"> :
+                                                    <?php echo $ruko['jmlh_kmr_tdr']; ?>
+                                            </div>
+                                            <div class="fasilitas-icon">
+                                                <image src="images/assets/bath_icon.png" alt="bath" style="width: 20px; height: auto;"> :
+                                                    <?php echo $ruko['jmlh_kmr_mandi']; ?>
+                                            </div>
+                                            <div class="fasilitas-icon">
+                                                <image src="images/assets/garage_icon.png" alt="garage" style="width: 20px; height: auto;"> :
+                                                    <?php echo $ruko['jmlh_garasi']; ?>
+                                            </div>
+                                            <div class="fasilitas-icon">
+                                                <image src="images/assets/floor_icon.png" alt="floor" style="width: 20px; height: auto;"> :
+                                                    <?php echo $ruko['jmlh_lantai']; ?>
+                                            </div>
                                         </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title-luas">LB :</div>
-                                            <div class="fasilitas-value"><?php echo $ruko['luas_bangunan']; ?> m2</div>
-                                        </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">Kamar</div>
-                                            :
-                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_tdr']; ?></div>
-                                        </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">Toilet</div>
-                                            :
-                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_mandi']; ?></div>
-                                        </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">Garasi</div>
-                                            :
-                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_garasi']; ?></div>
-                                        </div>
-                                        <div class="rekomendasi-card-fasilitas">
-                                            <div class="fasilitas-title">Lantai</div>
-                                            :
-                                            <div class="fasilitas-value"><?php echo $ruko['jmlh_lantai']; ?></div>
-                                        </div>
+
+
                                     </div>
-
-
                                 </div>
                             </button>
                         </a>
                     <?php endforeach ?>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mengapa Koruko -->
+        <section class="main-section-mengapa">
+            <div class="main-mengapa">
+                <div class="main-mengapa-title">
+                    Mengapa <?php echo $judul?>?
+                </div>
+                <div class="main-mengapa-content">
+                    <div class="main-mengapa-card">
+                        <img src="images/assets/mengapa_icon1.png" alt="icon" style="width: 100px; height: auto;">
+                        <div id="title-mengapa1" class="main-mengapa-card-title">
+                            Pilihan Terbaik
+                            <img src="images/assets/arrow_down_icon.png" alt="arrow down" style="width: 20px; height: auto;">
+                        </div>
+                        <div id="mengapa1" class="main-mengapa-card-content">
+                            Kami menyediakan berbagai pilihan ruko yang sesuai dengan kebutuhan Anda, mulai dari ruko untuk disewa hingga ruko untuk dijual.
+                        </div>  
+                    </div>
+                    <div class="main-mengapa-card">
+                        <img src="images/assets/mengapa_icon2.png" alt="icon" style="width: 100px; height: auto;">
+                        <div id="title-mengapa2" class="main-mengapa-card-title">
+                            Informasi Lengkap
+                            <img src="images/assets/arrow_down_icon.png" alt="arrow down" style="width: 20px; height: auto;">
+                        </div>
+                        <div id="mengapa2" class="main-mengapa-card-content">
+                            Kami menyediakan detil lengkap mengenai setiap properti, termasuk spesifikasi, foto, dan rincian lokasi.
+                        </div>  
+                    </div>
+                    <div class="main-mengapa-card">
+                        <img src="images/assets/mengapa_icon3.png" alt="icon" style="width: 100px; height: auto;">
+                        <div id="title-mengapa3" class="main-mengapa-card-title">
+                            Sudah Terverifikasi
+                            <img src="images/assets/arrow_down_icon.png" alt="arrow down" style="width: 20px; height: auto;">
+                        </div>
+                        <div id="mengapa3" class="main-mengapa-card-content">
+                            Semua properti yang kami tampilkan sudah terverifikasi oleh tim kami, sehingga Anda tidak perlu khawatir.
+                        </div>  
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -1029,6 +1166,37 @@ function formatSubvalue($value)
                 return num;
             }
         }
+
+        // Mengapa Koruko
+        let mengapa1 = document.querySelector("#mengapa1");
+        let mengapa2 = document.querySelector("#mengapa2");
+        let mengapa3 = document.querySelector("#mengapa3");
+
+        let mainMengapaCard1 = document.querySelector("#title-mengapa1");
+        let mainMengapaCard2 = document.querySelector("#title-mengapa2");
+        let mainMengapaCard3 = document.querySelector("#title-mengapa3");
+
+        let arrow1 = mainMengapaCard1.querySelector("img");
+        let arrow2 = mainMengapaCard2.querySelector("img");
+        let arrow3 = mainMengapaCard3.querySelector("img");
+
+        mainMengapaCard1.addEventListener("click", function() {
+            mengapa1.classList.toggle("main-mengapa-card-content-shown");
+            arrow1.style.transform = arrow1.style.transform === "rotate(180deg)" ? "rotate(0deg)" : "rotate(180deg)";
+        });
+
+        mainMengapaCard2.addEventListener("click", function() {
+            mengapa2.classList.toggle("main-mengapa-card-content-shown");
+            arrow2.style.transform = arrow2.style.transform === "rotate(180deg)" ? "rotate(0deg)" : "rotate(180deg)";
+        });
+
+        mainMengapaCard3.addEventListener("click", function() {
+            mengapa3.classList.toggle("main-mengapa-card-content-shown");
+            arrow3.style.transform = arrow3.style.transform === "rotate(180deg)" ? "rotate(0deg)" : "rotate(180deg)";
+        });
+        
+        
+
     </script>
 </body>
 

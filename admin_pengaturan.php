@@ -1,6 +1,10 @@
 <?php
 require "koneksi.php";
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 $sql_admin = "SELECT * FROM admin LIMIT 1";
 $result_admin = mysqli_query($conn, $sql_admin);
 if (!$result_admin) {
@@ -73,13 +77,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!mysqli_query(mysql: $conn, query: $query_admin)) {
         die("Query error: " . mysqli_error($conn));
     }
+    // Update session admin
+    $_SESSION['username'] = $nama_admin;
 
     $query_website = "UPDATE website SET judul='$judul', deskripsi_footer='$deskripsi_footer', alamat='$alamat', email='$email', telepon='$telepon', instagram='$instagram', twitter='$twitter', facebook='$facebook', youtube='$youtube', logo_web='$old_logo_web' WHERE judul = '$judul_current'";
     if (!mysqli_query(mysql: $conn, query: $query_website)) {
         die("Query error: " . mysqli_error($conn));
     }
 
-    echo "Data berhasil diperbarui!";
+
+    echo "<script>
+        alert('Data berhasil diperbarui!');
+    </script>";
+
+
+    header("Refresh:0");
+
 }
 ?>
 
@@ -256,6 +269,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <footer>
         <?php include "footer.php"; ?>
     </footer>
+
+    <script>
+        // Preview image Profil Admin Dan Logo Website
+        document.getElementById('gambar_admin').addEventListener('change', function (e) {
+            var img = document.querySelector('.form-group-picture img');
+            img.src = URL.createObjectURL(e.target.files[0]);
+        });
+
+        document.getElementById('logo_web').addEventListener('change', function (e) {
+            var img = document.querySelectorAll('.form-group-picture img')[1];
+            img.src = URL.createObjectURL(e.target.files[0]);
+        });
+
+        // jika tekan batal, refresh halaman
+        document.querySelector('.btn-batal').addEventListener('click', function () {
+            location.reload();
+        });
+
+    </script>
 
 </body>
 

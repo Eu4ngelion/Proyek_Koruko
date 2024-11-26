@@ -34,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     echo "<script>alert('Data berhasil diperbarui!');</script>";
+    header("Refresh:0");
 }
 ?>
 
@@ -46,9 +47,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Admin Tentang</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        html{
+            height: 100%;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
         }
+
     </style>
     <link rel="stylesheet" href="styles/admin.css">
 </head>
@@ -60,13 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <main>
         <div class="container-hero">
-            <h1>Edit Tentang Kami</h1>
+            <div class="main-title" >Edit Tentang Kami</div>
         </div>
 
         <form action="" method="POST" enctype="multipart/form-data">
             <div class="container-pengaturan">
                 <div class="form-row-1">
-                    <div class="form-group-1">
+                    <div class="form-group-1_1">
                         <?php if ($row_website['gambar_tentang']) { ?>
                             <img src="images/website/<?php echo $row_website['gambar_tentang']; ?>" alt="Gambar Tentang" class="gambar_tentang">
                         <?php } ?>
@@ -76,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <br>
                         <input type="file" id="gambar" name="gambar" accept="image/*" style="display: none;">
                     </div>
-                    <div class="form-group-1" style="width: 200%;">
+                    <div class="form-group-1_2">
                         <textarea id="deskripsi" name="deskripsi"><?php echo $row_website['deskripsi_tentang']; ?></textarea>
                     </div>
                 </div>
@@ -106,6 +114,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <footer>
         <?php include "footer.php" ?>
     </footer>
+
+    <script>
+        // update preview image
+        document.getElementById('gambar').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    document.querySelector('.gambar_tentang').src = reader.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 
 </body>
 
