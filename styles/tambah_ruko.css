@@ -301,7 +301,7 @@ textarea {
 }
 
 .btn-tambah {
-    background: white;
+    background: #00FF00;
     color: black;
 }
 
@@ -318,7 +318,7 @@ textarea {
 }
 
 .btn-hapus {
-    background: white;
+    background: red;
     color: black;
 }
 
