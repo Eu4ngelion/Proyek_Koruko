@@ -1,3 +1,4 @@
+
     <?php
     require "koneksi.php";
     session_start();
@@ -32,6 +33,14 @@
         $id_ruko = $_POST['delete_id'];
         $delete_query = "DELETE FROM ruko WHERE id_ruko = '$id_ruko' AND nama_pengguna = '$nama_pengguna'";
         mysqli_query($conn, $delete_query);
+        header("Location: kelola.php");
+        exit;
+    }
+
+    if (isset($_POST['sold_id'])) {
+        $id_ruko = $_POST['sold_id'];
+        $update_query = "UPDATE ruko SET status = 2 WHERE id_ruko = '$id_ruko' AND nama_pengguna = '$nama_pengguna'";
+        mysqli_query($conn, $update_query);
         header("Location: kelola.php");
         exit;
     }
@@ -93,6 +102,39 @@
                 color: white;
                 transition: 0.3s;
             }
+
+            .btn-terjual,
+            .btn-verifikasi,
+            .btn-hapus {
+                padding: 0.4rem 0.8rem;
+                border-radius: 4px;
+                font-size: 0.8rem;
+                font-weight: 500;
+                cursor: pointer;
+                border: none;
+                transition: opacity 0.2s;
+            }
+
+            .btn-terjual {
+                background-color: #28a745;
+                color: white;
+            }
+
+            .btn-verifikasi {
+                background-color: #7C3AED;
+                color: white;
+            }
+
+            .btn-hapus {
+                background-color: #EF4444;
+                color: white;
+            }
+
+            .btn-terjual:hover,
+            .btn-verifikasi:hover,
+            .btn-hapus:hover {
+                opacity: 0.9;
+            }
         </style>
     </head>
 
@@ -112,7 +154,7 @@
             <!-- Tambah Properti Button -->
             <div class="add-property-container">
                 <a href="tambah_ruko.php">
-                    <button class="btn-verifikasi">Tambah Properti +</button>
+                    <button class="btn-terjual">Tambah Properti +</button>
                 </a>
             </div>
 
@@ -178,6 +220,12 @@
                                         <input type="hidden" name="delete_id" value="<?php echo $row['id_ruko']; ?>">
                                         <button type="submit" class="btn-hapus" onclick="return confirm('Apakah Anda yakin ingin menghapus properti ini?')">Hapus</button>
                                     </form>
+                                    <?php if ($row['status'] == 1 || $row['status'] == 2) { ?>
+                                        <form method="POST" style="display:inline;">
+                                            <input type="hidden" name="sold_id" value="<?php echo $row['id_ruko']; ?>">
+                                            <button type="submit" class="btn-terjual" onclick="return confirm('Apakah Anda yakin ingin menandai properti ini sebagai terjual?')">Terjual</button>
+                                        </form>
+                                    <?php } ?>
                                 </td>
                             </tr>
                         <?php } ?>
