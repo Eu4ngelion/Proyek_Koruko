@@ -102,6 +102,39 @@
                 color: white;
                 transition: 0.3s;
             }
+
+            .btn-terjual,
+            .btn-verifikasi,
+            .btn-hapus {
+                padding: 0.4rem 0.8rem;
+                border-radius: 4px;
+                font-size: 0.8rem;
+                font-weight: 500;
+                cursor: pointer;
+                border: none;
+                transition: opacity 0.2s;
+            }
+
+            .btn-terjual {
+                background-color: #28a745;
+                color: white;
+            }
+
+            .btn-verifikasi {
+                background-color: #7C3AED;
+                color: white;
+            }
+
+            .btn-hapus {
+                background-color: #EF4444;
+                color: white;
+            }
+
+            .btn-terjual:hover,
+            .btn-verifikasi:hover,
+            .btn-hapus:hover {
+                opacity: 0.9;
+            }
         </style>
     </head>
 
