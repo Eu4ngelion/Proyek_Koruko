@@ -218,14 +218,18 @@ if (isset($_SESSION["username"])) {
             font-size: 16px;
             font-weight: bold;
             list-style: none;
-            margin: 0 10px;
             background-color: #703BF7;
             border: 1px solid white;
             border-radius: 15px;
-            padding: 2px 15px;
+            margin: 0;
             transition: all 0.3s;
             justify-content: center;
             align-items: center;
+        }
+
+        .navbar-right .navbar-item-current .navbar-link {
+            text-decoration: none;
+            color: white;
         }
 
         .navbar-right .navbar-item-current:hover{
@@ -243,7 +247,6 @@ if (isset($_SESSION["username"])) {
             text-decoration: none;
             color: black;
             font-weight: bold;
-            
         }
 
         .navbar-item-hijau{
@@ -290,6 +293,53 @@ if (isset($_SESSION["username"])) {
             scale: 1.1;
             transition: all 0.3s;
             box-shadow: 0 0 30px #FFD700;
+        }
+
+        .navbar-item-profil{
+            display:flex;
+            background-color: white;
+            border: 1px solid white;
+            border-radius: 15px;
+            padding: 2px 15px;
+            transition: all 0.3s;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        .navbar-item-profil:hover{
+            background-color: #BBA0FF;
+            border: 1px solid white;
+            border-radius: 15px;
+            padding: 2px 15px;
+            text-shadow: none;
+            scale: 1.1;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px #703BF7;
+        }
+
+        .navbar-item-keluar{
+            background-color: #FF0000;
+            border: 1px solid white;
+            border-radius: 15px;
+            padding: 2px 15px;
+            transition: all 0.3s;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        .navbar-item-keluar:hover{
+            background-color: #FF0000;
+            border: 1px solid white;
+            border-radius: 15px;
+            padding: 2px 15px;
+            text-shadow: none;
+            scale: 1.1;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px #FF0000;
         }
 
         .profil-admin {
@@ -370,7 +420,7 @@ if (isset($_SESSION["username"])) {
                     </li>
                 <?php else: ?>
                     <!-- Signed In -->
-                    <li class="<?php echo ($current_page == 'profil') ? 'navbar-item-current' : 'navbar-item'; ?>">
+                    <li class="<?php echo ($current_page == 'profil') ? 'navbar-item-current' : 'navbar-item-profil'; ?>">
                         <?php if ($user == $nama_admin): ?>
                             <a href="admin_pengaturan.php" class="navbar-link"><?php echo $nama_admin ?></a>
                             <img class="profil-admin" src="images/admin/<?php echo $profil_admin; ?>" alt="admin">
@@ -382,7 +432,7 @@ if (isset($_SESSION["username"])) {
                         <?php endif; ?>
 
                     </li>
-                    <li class="navbar-item">
+                    <li class="navbar-item-keluar">
                         <a href="keluar.php" class="navbar-link">Keluar</a>
                     </li>
                 <?php endif; ?>

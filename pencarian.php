@@ -133,15 +133,17 @@ function formatSubvalue($value)
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <style>
+        html{
+            height: 100%;
+        }
+
+
         .paginasi-container {
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px 0
         }
-
-
-
         .paginasi-arrow-left {
             display: flex;
             justify-content: center;

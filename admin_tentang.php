@@ -47,9 +47,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Admin Tentang</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        html{
+            height: 100%;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
         }
+
     </style>
     <link rel="stylesheet" href="styles/admin.css">
 </head>
@@ -121,10 +128,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         });
     </script>
-
-    <footer>
-        <?php include"footer.php"?>
-    </footer>
 
 </body>
 

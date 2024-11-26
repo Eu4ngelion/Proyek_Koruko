@@ -23,6 +23,10 @@ $footer = mysqli_fetch_assoc($result);
             font-family: "Poppins";
         }
 
+        html{
+           height: 100%;
+        }
+
         .footer {
             background-color: #320276;
             color: white;

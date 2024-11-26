@@ -181,6 +181,11 @@ body{
 
 }
 
+#deskripsi_footer{
+    resize: vertical;
+
+}
+
 .form-group-2 {
     flex: 2;
     font-weight: bold;

@@ -12,5 +12,8 @@ session_destroy();
 // start lagi session
 session_start();
 $_SESSION["login"] = false;
-header("Location: index.php");
-exit();
+
+echo "<script>
+alert('Berhasil keluar')
+window.location.href = 'index.php';
+</script>";
