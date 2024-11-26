@@ -156,7 +156,7 @@ if (isset($_POST['edit'])) {
 
         echo "<script>
         alert('Ruko berhasil diupdate!');
-        window.location.href = 'admin_properti.php';
+        window.location.href = 'kelola.php';
         </script>";
     } catch (Exception $e) {
         // If anything went wrong, roll back the transaction
@@ -192,7 +192,7 @@ if (isset($_POST['edit'])) {
             <div class="header-content">
                 <div class="title-header">Edit Ruko</div>
                 <div class="action-buttons">
-                    <a href="admin_properti.php">
+                    <a href="kelola.php">
                         <button class="btn btn-kembali-utama">Kembali</button>
                     </a>
                     <button type="submit" class="btn btn-edit-utama" name="edit" value="edit">Edit</button>
