@@ -1,6 +1,12 @@
 <?php
 require "koneksi.php";
 
+$sql_tim = "SELECT * FROM tim";
+$result_tim = mysqli_query($conn, $sql_tim);
+if (!$result_tim) {
+    die("Query error: " . mysqli_error($conn));
+}
+
 $sql_website = "SELECT * FROM website LIMIT 1";
 $result_website = mysqli_query($conn, $sql_website);
 if (!$result_website) {
@@ -17,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gambar_tentang = $_FILES['gambar'];
 
     $gambar_tentang_dir = "images/website/";
-    $gambar_tentang_name = "gambar_tentang.jpg"; 
+    $gambar_tentang_name = "gambar_tentang.jpg";
 
     if ($gambar_tentang['tmp_name']) {
         if (file_exists($gambar_tentang_dir . $gambar_tentang_name)) {
@@ -61,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <main>
         <div class="container-hero">
-            <div class="main-title" >Edit Tentang Kami</div>
+            <div class="main-title">Edit Tentang Kami</div>
         </div>
 
         <form action="" method="POST" enctype="multipart/form-data">
@@ -71,7 +77,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <?php if ($row_website['gambar_tentang']) { ?>
                             <img src="images/website/<?php echo $row_website['gambar_tentang']; ?>" alt="Gambar Tentang" class="gambar_tentang">
                         <?php } ?>
-                        <br>
                         <br>
                         <label class="gambar-section" for="gambar">Upload Gambar</label>
                         <br>
@@ -99,6 +104,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input class="btn-simpan" type="submit" value="Simpan">
                     <input class="btn-batal" type="reset" value="Batal">
                 </div>
+            </div>
+        </form>
+
+        <div class="container-hero-2">
+            <div class="main-title-2">Anggota Tim</div>
+        </div>
+
+        <div class="container-tambah">
+            <a href="form_anggota.php">
+                <button class="perbarui">
+                    Tambah
+                </button>
+            </a>
+        </div>
+
+        <form action="" method="POST">
+            <div class="container-anggota">
+                <table class="table-anggota">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Peran</th>
+                            <th>Gambar</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php while ($row = mysqli_fetch_assoc($result_tim)) { ?>
+                            <tr>
+                                <td><?php echo $row['nama_anggota']; ?></td>
+                                <td><?php echo $row['peran']; ?></td>
+                                <td>
+                                    <?php
+                                    $image_path = "images/anggota/" . $row['foto'];
+                                    if (file_exists($image_path)) {
+                                        echo '<img src="' . $image_path . '" alt="Gambar Anggota" class="gambar_anggota">';
+                                    } else {
+                                        echo 'Gambar tidak ditemukan' . $image_path;
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <a href="perbarui_anggota.php?id=<?php echo $row['id_anggota']; ?>">
+                                        <button type="button" class="perbarui">Perbarui</button>
+                                    </a>
+                                    <a href="hapus_anggota.php?id=<?php echo $row['id_anggota']; ?>">
+                                        <button type="button" class="hapus">Hapus</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
             </div>
         </form>
 
