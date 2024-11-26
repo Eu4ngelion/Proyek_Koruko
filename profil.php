@@ -59,7 +59,32 @@ if (isset($_POST['update'])) {
         }
 
         if (mysqli_query($conn, $sql)) {
-            echo "<script>alert('Profil berhasil diperbarui');</script>";
+            // Ubah pesan alert untuk mencakup perubahan yang dilakukan
+            $updated_fields = [];
+            if ($nama_lengkap != $user_data['nama_lengkap']) {
+                $updated_fields[] = "Nama Lengkap";
+            }
+            if ($nama_pengguna != $user_data['nama_pengguna']) {
+                $updated_fields[] = "Nama Pengguna";
+            }
+            if ($telepon != $user_data['telepon']) {
+                $updated_fields[] = "No Telepon";
+            }
+            if ($email != $user_data['email']) {
+                $updated_fields[] = "Email";
+            }
+            if (!empty($sandi)) {
+                $updated_fields[] = "Kata Sandi";
+            }
+            // Cek apakah gambar profil diperbarui
+            if (isset($_FILES['uploadFoto']) && $_FILES['uploadFoto']['error'] == 0) {
+                $updated_fields[] = "Foto Profil";
+            }
+            
+            // Buat pesan alert berdasarkan field yang diperbarui
+            if (!empty($updated_fields)) {
+                echo "<script>alert('" . implode(", ", $updated_fields) . " berhasil diperbarui');</script>";
+            }
             $_SESSION['username'] = $nama_pengguna;
         } else {
             echo "<script>alert('Error: " . mysqli_error($conn) . "');</script>";
@@ -143,7 +168,7 @@ if (isset($_POST['upload'])) {
         }
 
         .profile-item {
-            margin: 15px 0;
+            margin: 0px 0;
             width: 100%;
             max-width: 400px;
             text-align: left;
@@ -193,28 +218,28 @@ if (isset($_POST['upload'])) {
             <div class="profile-item">
                 <label>Nama Lengkap:</label>
                 <div style="display: flex; align-items: center;">
-                    <input type="text" name="nama_lengkap" value="<?php echo $user_data['nama_lengkap']; ?>" required>
+                    <input type="text" name="nama_lengkap" value="<?php echo $user_data['nama_lengkap']; ?>" minlength="1" maxlength="30" required>
                     <button class="button-ganti" style="margin-left: 10px;" type="submit" name="update">Ganti</button>
                 </div>
             </div>
             <div class="profile-item">
                 <label>Nama Pengguna:</label>
                 <div style="display: flex; align-items: center;">
-                    <input type="text" name="nama_pengguna" value="<?php echo $user_data['nama_pengguna']; ?>" required>
+                    <input type="text" name="nama_pengguna" value="<?php echo $user_data['nama_pengguna']; ?>" minlength="5" maxlength="20" required>
                     <button class="button-ganti" style="margin-left: 10px;" type="submit" name="update">Ganti</button>
                 </div>
             </div>
             <div class="profile-item">
                 <label>No Telepon:</label>
                 <div style="display: flex; align-items: center;">
-                    <input type="text" name="telepon" value="<?php echo $user_data['telepon']; ?>" required>
+                    <input type="text" name="telepon" value="<?php echo $user_data['telepon']; ?>" minlength="10" maxlength="15" pattern="[0-9]+" required>
                     <button class="button-ganti" style="margin-left: 10px;" type="submit" name="update">Ganti</button>
                 </div>
             </div>
             <div class="profile-item">
                 <label>Email:</label>
                 <div style="display: flex; align-items: center;">
-                    <input type="email" name="email" value="<?php echo $user_data['email']; ?>" required>
+                    <input type="email" name="email" value="<?php echo $user_data['email']; ?>" minlength="1" maxlength="50" required>
                     <button class="button-ganti" style="margin-left: 10px;" type="submit" name="update">Ganti</button>
                 </div>
             </div>
@@ -222,8 +247,9 @@ if (isset($_POST['upload'])) {
                 <label>Kata Sandi:</label>
                 <div style="display: flex; align-items: center;">
                     <input type="password" name="sandi" placeholder="Enter new password"
-                        pattern="(?=.*[A-Z]).{8,}"
-                        title="Password harus memiliki minimal 8 karakter dan satu huruf kapital.">
+                    minlength="8" maxlength="20"
+                    pattern="^(?=.*[A-Z])([A-Za-z\d!@#\$%\^&\*\(\)]+)" 
+                    title="Password harus memiliki minimal 8 karakter dan satu huruf kapital.">
                     <button class="button-ganti" style="margin-left: 10px;" type="submit" name="update">Ganti</button>
                 </div>
             </div>
