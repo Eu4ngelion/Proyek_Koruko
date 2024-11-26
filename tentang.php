@@ -214,8 +214,6 @@ while ($data = mysqli_fetch_assoc($result)) {
             margin-top: 5px;
             text-align: center;
         }
-
-
     </style>
 </head>
 
@@ -261,8 +259,8 @@ while ($data = mysqli_fetch_assoc($result)) {
         <div class="tentang-container-tim">
             <div class="tentang-tim-title">
                 Tim Kami
-                <img 
-                src="images/website/<?php echo $website["logo_web"]; ?>" alt="logo">
+                <img
+                    src="images/website/<?php echo $website["logo_web"]; ?>" alt="logo">
             </div>
             <div class="tentang-container-tim-card">
                 <?php foreach ($tim as $data) : ?>

@@ -4,36 +4,44 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-.container-main{
+.container-main {
     background-color: black;
     min-height: 100vh;
 }
 
 .main-pencarian {
     height: auto;
-    padding-top: 80px; /* Jarak lebih kecil dari atas */
+    padding-top: 80px;
+    /* Jarak lebih kecil dari atas */
     display: flex;
     justify-content: center;
-    align-items: center; /* Posisi lebih ke atas */
+    align-items: center;
+    /* Posisi lebih ke atas */
     background: black;
     flex-direction: column;
 }
 
 .search-bar {
     position: relative;
-    width: 40%; /* Lebar search bar lebih kecil */
-    max-width: 400px; /* Batas maksimal lebih kecil */
-    margin-top: 30px; /* Sesuaikan jarak dari atas */
-    
+    width: 40%;
+    /* Lebar search bar lebih kecil */
+    max-width: 400px;
+    /* Batas maksimal lebih kecil */
+    margin-top: 30px;
+    /* Sesuaikan jarak dari atas */
+
 }
 
 .search-bar input[type="text"] {
     width: 100%;
-    padding: 10px 15px; /* Padding lebih kecil */
+    padding: 10px 15px;
+    /* Padding lebih kecil */
     border: none;
-    border-radius: 30px; /* Radius lebih kecil untuk bentuk */
+    border-radius: 30px;
+    /* Radius lebih kecil untuk bentuk */
     outline: none;
-    font-size: 14px; /* Font lebih kecil */
+    font-size: 14px;
+    /* Font lebih kecil */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     font-family: 'Poppins', sans-serif;
     color: #333;
@@ -46,13 +54,15 @@ body {
 
 .search-bar .search-button {
     position: absolute;
-    right: 8px; /* Sesuaikan jarak tombol ke kanan */
+    right: 8px;
+    /* Sesuaikan jarak tombol ke kanan */
     top: 50%;
     transform: translateY(-50%);
     background: transparent;
     border: none;
     color: #666;
-    font-size: 16px; /* Ukuran ikon lebih kecil */
+    font-size: 16px;
+    /* Ukuran ikon lebih kecil */
     cursor: default;
 }
 
@@ -61,11 +71,12 @@ body {
 }
 
 .search-bar .search-button i {
-    font-size: 18px; /* Ikon lebih kecil */
+    font-size: 18px;
+    /* Ikon lebih kecil */
 }
 
- /* Hero */
- .main-hero-image {
+/* Hero */
+.main-hero-image {
     height: 500px;
     width: 100%;
     display: flex;
@@ -247,8 +258,8 @@ body {
 .main-rekomendasi-content {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     margin: 0px auto;
-    justify-content: center;
     flex-wrap: wrap;
     overflow: hidden;
     height: auto;
@@ -288,33 +299,38 @@ body {
 }
 
 .card-pop-sewa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #703BF7;
     color: white;
-    width: 50px;
-    height: 20px;
+    width: 40px;
+    height: 15px;
     padding: 3px 12px;
     margin-left: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     border-radius: 10px;
     font-family: "Poppins", sans-serif;
     font-weight: bold;
     font-size: 12px;
-    box-shadow: 0px 2px 4px black;
+    box-shadow: 0px 2px px black;
 }
 
 .card-pop-jual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #EFAE2D;
     color: white;
-    width: 50px;
-    height: 20px;
+    width: 40px;
+    height: 15px;
     padding: 3px 12px;
     margin-left: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     border-radius: 10px;
     font-family: "Poppins", sans-serif;
-    font-size: 12px;
     font-weight: bold;
-    box-shadow: 0px 2px 4px black;
+    font-size: 12px;
 }
 
 .rekomendasi-card-bottom {
@@ -383,6 +399,40 @@ body {
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
     border-top: 1px solid black;
+}
+
+.rekomendasi-card-deskripsi-bawah {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    border-top: 1px solid black;
+}
+
+.rekomendasi-card-fasilitas-luas {
+    display: flex;
+    flex-direction: row;
+}
+
+.fasilitas-luas {
+    font-size: 12px;
+    font-weight: bold;
+    width: auto;
+    text-align: left;
+    margin: 0 10px 0 0;
+}
+
+.rekomendasi-card-fasilitas-icon {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+}
+
+.fasilitas-icon {
+    font-size: 12px;
+    font-weight: bold;
+    width: 50px;
+    text-align: left;
 }
 
 .rekomendasi-card-fasilitas {
