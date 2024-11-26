@@ -338,10 +338,10 @@ if (isset($_SESSION["username"])) {
             <ul class="navbar-right">
                 <!-- Signed Out -->
                 <?php if (($_SESSION["login"] == false) || $_SESSION["username"] == ""): ?>
-                    <li class="<?php echo ($current_page == 'masuk') ? 'navbar-item-current' : 'navbar-item'; ?>">
+                    <li class="<?php echo ($current_page == 'masuk') ? 'navbar-item-current' : 'navbar-item-hijau'; ?>">
                         <a href="masuk.php" class="navbar-link">Masuk</a>
                     </li>
-                    <li class="<?php echo ($current_page == 'daftar') ? 'navbar-item-current' : 'navbar-item'; ?>">
+                    <li class="<?php echo ($current_page == 'daftar') ? 'navbar-item-current' : 'navbar-item-'; ?>">
                         <a href="daftar.php" class="navbar-link">Daftar</a>
                     </li>
                 <?php else: ?>
