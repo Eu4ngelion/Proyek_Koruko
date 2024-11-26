@@ -192,10 +192,9 @@ function formatPropertySalePrice($price)
         .image-content {
             width: 100%;
             display: flex;
-            margin-bottom: 30px;
             justify-content: space-between;
             gap: 10px;
-        }   
+        }
 
         .image-left {
             display: flex;
@@ -271,25 +270,6 @@ function formatPropertySalePrice($price)
             margin-bottom: 10px;
             border-bottom: 1px solid #fff;
             padding-bottom: 10px;
-        }
-
-        .rekomendasi-card-harga {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-
-        .rekomendasi-card-harga-kiri {
-            font-size: 36px;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .rekomendasi-card-harga-kanan {
-            font-size: 36px;
-            font-weight: 600;
-            color: #9CA3AF;
         }
 
         /* Property Info Section */
@@ -415,13 +395,11 @@ function formatPropertySalePrice($price)
             width: 100px;
             height: 100px;
             border-radius: 100%;
-            background-color: white; 
+            background-color: white;
             background-image: url(images/assets/default_user.png);
             background-size: 90%;
             background-position: center;
         }
-
-
 
         .nama-pengguna {
             font-size: 24px;
@@ -562,19 +540,31 @@ function formatPropertySalePrice($price)
         }
 
         .rekomendasi-card-harga-kiri {
-            font-size: 15px;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .rekomendasi-card-harga-kanan {
+            font-size: 36px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .rekomendasi-card-harga-kiri-rekomendasi {
+            font-size: 14px;
             font-weight: bold;
             color: #703BF7;
         }
 
-        .rekomendasi-card-harga-kanan {
-            font-size: 15px;
+        .rekomendasi-card-harga-kanan-rekomendasi {
+            font-size: 14px;
             color: #703BF7;
+            font-weight: bold;
         }
 
         .rekomendasi-card-deskripsi-atas {
             display: flex;
-            margin: 10px 0 0 0;
             flex-direction: column;
             width: 100%;
         }
@@ -585,7 +575,6 @@ function formatPropertySalePrice($price)
             color: #703BF7;
             /* align kiri */
             text-align: left;
-            margin: 3px 0px;
         }
 
         .rekomendasi-card-nama {
@@ -637,7 +626,67 @@ function formatPropertySalePrice($price)
             margin: 0;
         }
 
-        .fasilitas-values {
+        .card-rekomendasi {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+        .rekomendasi-card-deskripsi-bawah {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-top: 10px;
+            border-top: 1px solid black;
+        }
+
+        .rekomendasi-card-fasilitas-luas {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .fasilitas-luas {
+            font-size: 12px;
+            font-weight: bold;
+            width: auto;
+            text-align: left;
+            margin: 0 10px 0 0;
+        }
+
+        .rekomendasi-card-fasilitas-icon {
+            display: flex;
+            flex-direction: row;
+            margin-top: 5px;
+        }
+
+        .fasilitas-icon {
+            font-size: 12px;
+            font-weight: bold;
+            width: 50px;
+            text-align: left;
+        }
+
+        .rekomendasi-card-fasilitas {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .fasilitas-title {
+            font-size: 12px;
+            font-weight: bold;
+            width: 60px;
+            text-align: left;
+        }
+
+        .fasilitas-title-luas {
+            font-size: 12px;
+            font-weight: bold;
+            width: 25px;
+            text-align: left;
+        }
+
+        .fasilitas-value {
             font-size: 14px;
             font-weight: bold;
             padding-left: 5px;
@@ -645,33 +694,19 @@ function formatPropertySalePrice($price)
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            color: white;
         }
 
         .main-link-card {
-            display: flex;
-            /* Mengatur kartu ke samping */
+            display: block;
             margin: 0;
-            gap: 20px;
-            /* Menambahkan jarak antar kartu */
-            width: 100%;
-            justify-content: center;
+            width: 290px;
             text-decoration: none;
-            flex-wrap: wrap;
-            /* Agar bisa pindah baris jika tidak cukup ruang */
-        }
-
-        .card-rekomendasi {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-direction: row;
         }
     </style>
 </head>
 
 <body>
-    <?php include "navbar.php";?>
+    <?php include "navbar.php"; ?>
     <main class="container-main">
         <div class="button-back">
             <a href="index.php">
@@ -720,12 +755,12 @@ function formatPropertySalePrice($price)
                         <?php endif; ?>
                     </div>
                     <div class="image-bawah">
-                    <?php if ($num_rows > 3) : ?>
-                        <?php $gambar = mysqli_fetch_assoc($hasil); ?>
-                        <img src="images/ruko/<?php echo $gambar['gambar_properti'] ?>" alt="gambar ruko">
-                    <?php else: ?>
-                        <img src="images/assets/imgnotfound.jpg" alt="Image Gk Ada">
-                    <?php endif; ?>
+                        <?php if ($num_rows > 3) : ?>
+                            <?php $gambar = mysqli_fetch_assoc($hasil); ?>
+                            <img src="images/ruko/<?php echo $gambar['gambar_properti'] ?>" alt="gambar ruko">
+                        <?php else: ?>
+                            <img src="images/assets/imgnotfound.jpg" alt="Image Gk Ada">
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -796,7 +831,7 @@ function formatPropertySalePrice($price)
                         <!-- menampilkan data pengguna -->
                         <div class="data-pengguna">
                             <div class="foto-pengguna">
-                                <img class="img-foto-pengguna" src="images/user/<?php echo $pengguna['gambar_user'] ?>"alt="">
+                                <img class="img-foto-pengguna" src="images/user/<?php echo $pengguna['gambar_user'] ?>" alt="">
                             </div>
                             <div class="nama-pengguna">
                                 <?php echo $pengguna['nama_pengguna'] ?>
@@ -862,18 +897,18 @@ function formatPropertySalePrice($price)
                                 <div class="rekomendasi-card-harga">
                                     <!-- Harga Jual, Harga Sewa -->
                                     <?php if ($row['harga_jual'] != 0 || $row['harga_jual'] != NULL) : ?>
-                                        <div class="rekomendasi-card-harga-kiri">
+                                        <div class="rekomendasi-card-harga-kiri-rekomendasi">
                                             <!-- function format subvalue harga -->
                                             <?php echo formatPropertySalePrice($row['harga_jual']); ?>
                                         </div>
                                         <?php if ($row['harga_sewa'] != 0 || $row['harga_sewa'] != NULL) : ?>
-                                            <div class="rekomendasi-card-harga-kanan">
+                                            <div class="rekomendasi-card-harga-kanan-rekomendasi">
                                                 <?php echo formatPropertyPrice($row['harga_sewa']); ?>
                                             </div>
                                         <?php endif; ?>
 
                                     <?php elseif ($row['harga_sewa'] != 0 || $row['harga_sewa'] != NULL) : ?>
-                                        <div class="rekomendasi-card-harga-kiri">
+                                        <div class="rekomendasi-card-harga-kiri-rekomendasi">
                                             <!-- per bulan -->
                                             <?php echo formatPropertyPrice($row['harga_sewa']); ?>
                                         </div>
@@ -893,36 +928,30 @@ function formatPropertySalePrice($price)
                                     </div>
                                 </div>
 
-                                <!-- Deskripsi Bawah -->
+                                <!-- deskripsi bawah -->
                                 <div class="rekomendasi-card-deskripsi-bawah">
+                                    <div class="rekomendasi-card-fasilitas-luas">
+                                        <div class="fasilitas-luas">LT : <?php echo $ruko["luas_tanah"] ?> m2 </div>
+                                        <div class="fasilitas-luas">LB : <?php echo $ruko["luas_tanah"] ?> m2</div>
+                                    </div>
 
-                                    <div class="rekomendasi-card-fasilitas">
-                                        <div class="fasilitas-title-luas">LT : </div>
-                                        <div class="fasilitas-value"><?php echo $row['luas_tanah']; ?> m2</div>
-                                    </div>
-                                    <div class="rekomendasi-card-fasilitas">
-                                        <div class="fasilitas-title-luas">LB :</div>
-                                        <div class="fasilitas-value"><?php echo $row['luas_bangunan']; ?> m2</div>
-                                    </div>
-                                    <div class="rekomendasi-card-fasilitas">
-                                        <div class="fasilitas-title">Kamar</div>
-                                        :
-                                        <div class="fasilitas-value"><?php echo $row['jmlh_kmr_tdr']; ?></div>
-                                    </div>
-                                    <div class="rekomendasi-card-fasilitas">
-                                        <div class="fasilitas-title">Toilet</div>
-                                        :
-                                        <div class="fasilitas-value"><?php echo $row['jmlh_kmr_mandi']; ?></div>
-                                    </div>
-                                    <div class="rekomendasi-card-fasilitas">
-                                        <div class="fasilitas-title">Garasi</div>
-                                        :
-                                        <div class="fasilitas-value"><?php echo $row['jmlh_garasi']; ?></div>
-                                    </div>
-                                    <div class="rekomendasi-card-fasilitas">
-                                        <div class="fasilitas-title">Lantai</div>
-                                        :
-                                        <div class="fasilitas-value"><?php echo $row['jmlh_lantai']; ?></div>
+                                    <div class="rekomendasi-card-fasilitas-icon">
+                                        <div class="fasilitas-icon">
+                                            <image src="images/assets/bed_icon.png" alt="bed" style="width: 17px; height: auto;"> :
+                                                <?php echo $ruko['jmlh_kmr_tdr']; ?>
+                                        </div>
+                                        <div class="fasilitas-icon">
+                                            <image src="images/assets/bath_icon.png" alt="bath" style="width: 20px; height: auto;"> :
+                                                <?php echo $ruko['jmlh_kmr_mandi']; ?>
+                                        </div>
+                                        <div class="fasilitas-icon">
+                                            <image src="images/assets/garage_icon.png" alt="garage" style="width: 20px; height: auto;"> :
+                                                <?php echo $ruko['jmlh_garasi']; ?>
+                                        </div>
+                                        <div class="fasilitas-icon">
+                                            <image src="images/assets/floor_icon.png" alt="floor" style="width: 20px; height: auto;"> :
+                                                <?php echo $ruko['jmlh_lantai']; ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -936,7 +965,7 @@ function formatPropertySalePrice($price)
         </div>
         </div>
     </main>
-    <?php include "footer.php";?>
+    <?php include "footer.php"; ?>
 
 </body>
 
