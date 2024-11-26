@@ -301,8 +301,8 @@ textarea {
 }
 
 .btn-tambah {
-    background: white;
-    color: black;
+    background: #08b208;
+    color: white;
 }
 
 .btn-tambah-utama {
@@ -317,11 +317,38 @@ textarea {
     border-radius: 5px;
 }
 
-.btn-hapus {
-    background: white;
-    color: black;
+.btn-tambah-utama:hover {
+    transform: scale(1.1); /* Sedikit memperbesar tombol */
+    background: linear-gradient(45deg, #7044FF, #9b74ff); /* Gradasi ungu lebih terang */
+    box-shadow: 0 6px 12px rgba(112, 68, 255, 0.4); /* Bayangan dengan rona ungu */
+    transition: all 0.3s ease; /* Transisi halus */
 }
 
+.btn-kembali-utama:hover {
+    transform: scale(1.1); /* Sedikit memperbesar tombol */
+    background: linear-gradient(45deg, #FF4D4D, #ff7a7a); /* Gradasi merah terang */
+    box-shadow: 0 6px 12px rgba(255, 77, 77, 0.4); /* Bayangan dengan rona merah */
+    transition: all 0.3s ease; /* Transisi halus */
+}
+
+.btn-hapus {
+    background: #FF4D4D;
+    color: white;
+}
+
+.btn-tambah:hover {
+    transform: scale(1.1); /* Membuat tombol sedikit lebih besar */
+    background: linear-gradient(45deg, #4caf50, #66bb6a); /* Gradasi hijau terang */
+    box-shadow: 0 6px 12px rgba(0, 255, 0, 0.3); /* Bayangan hijau terang */
+    transition: all 0.3s ease; /* Transisi halus */
+}
+
+.btn-hapus:hover {
+    transform: scale(1.1); /* Membuat tombol sedikit lebih besar */
+    background: linear-gradient(45deg, #e53935, #ff6f61); /* Gradasi merah terang */
+    box-shadow: 0 6px 12px rgba(255, 0, 0, 0.3); /* Bayangan merah terang */
+    transition: all 0.3s ease; /* Transisi halus */
+}
 .image-counter {
     text-align: center;
     margin-top: 10px;
