@@ -193,7 +193,7 @@ if (isset($_POST['edit'])) {
                 <div class="title-header">Edit Ruko</div>
                 <div class="action-buttons">
                     <a href="kelola.php">
-                        <div type="button" class="btn btn-kembali-utama">Kembali</div>
+                        <button class="btn btn-kembali-utama">Kembali</button>
                     </a>
                     <button type="submit" class="btn btn-edit-utama" name="edit" value="edit">Edit</button>
                 </div>
