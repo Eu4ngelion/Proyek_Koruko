@@ -171,7 +171,7 @@ if (isset($_POST['upload'])) {
             color: white;
             text-align: left;
         }
-        img {
+        #fotoProfil {
             border-radius: 50%;
             width: 100px;
             height: 100px;

@@ -144,7 +144,7 @@
                                     <?php } ?>
                                     <?php if ($row['harga_sewa']) { ?>
                                         <?php echo $row['harga_jual'] ? '<br>' : ''; ?>
-                                        (<?php echo number_format($row['harga_sewa'], 0, ',', '.'); ?> juta/tahun)
+                                        (<?php echo number_format($row['harga_sewa'], 0, ',', '.'); ?>/tahun)
                                     <?php } ?>
                                 </td>
                                 <td>

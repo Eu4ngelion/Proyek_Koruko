@@ -75,11 +75,14 @@ while ($data = mysqli_fetch_assoc($result)) {
             height: 250px;
             background-color: white;
             border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .tentang-gambar img {
             width: 250px;
-            height: 250px;
+            height: auto;
             object-fit: cover;
             border-radius: 15px;
         }
