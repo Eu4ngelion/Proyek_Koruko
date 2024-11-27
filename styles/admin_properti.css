@@ -43,6 +43,9 @@ body{
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .stat-card:hover {
@@ -53,12 +56,21 @@ body{
     font-size: 1.5rem;
     font-weight: bold;
     margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
 }
 
 .stat-label {
     font-size: 0.9rem;
     opacity: 0.9;
 }
+
+.stat-icon {
+    width: 72px; /* Ukuran ikon gambar */
+    height: 72px; /* Sesuaikan dengan ukuran gambar */
+    margin-left: 10px; /* Jarak antara angka dan ikon */
+}
+
 
 /* Search Container */
 .search-container {
@@ -205,6 +217,51 @@ td {
 
 .page-btn:hover {
     background-color: #f0f0f0;
+}
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    color: #333;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.pagination a.active {
+    background-color: #8257E5;
+    color: #fff;
+    border-color: #8257E5;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #f2f2f2;
+}
+
+.pagination a.prev-link,
+.pagination a.next-link {
+    background-color: transparent;
+    color: #8257E5;
+    border-color: transparent;
+}
+
+.pagination a.prev-link:hover,
+.pagination a.next-link:hover {
+    background-color: #f2f2f2;
+}
+
+.pagination a.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* Notification Styles */
