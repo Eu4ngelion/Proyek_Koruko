@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="icon" href="images/assets/icon_navbar.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        html{
+        html {
             height: 100%;
         }
 
@@ -63,7 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 0;
             padding: 0;
         }
-
     </style>
     <link rel="stylesheet" href="styles/admin.css">
 </head>
@@ -113,8 +112,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input class="btn-batal" type="reset" value="Batal">
                 </div>
             </div>
-        </form>
 
+            </form>
         <div class="container-hero-2">
             <div class="main-title-2">Anggota Tim</div>
         </div>
