@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Nov 20, 2024 at 10:37 PM
+-- Generation Time: Nov 24, 2024 at 06:12 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -64,11 +64,19 @@ INSERT INTO `gambar_ruko` (`id_gambar`, `id_ruko`, `gambar_properti`) VALUES
 (30, 4, 'ruko_4_673e4e015b6fc.jpeg'),
 (31, 4, 'ruko_4_673e4e015b920.webp'),
 (32, 4, 'ruko_4_673e4e015c550.webp'),
-(33, 3, 'ruko_3_673e4e3c57695.webp'),
-(34, 3, 'ruko_3_673e4e3c5803f.webp'),
-(35, 3, 'ruko_3_673e4e3c581ee.jpeg'),
-(36, 21, 'ruko_21_673e5666aab18.webp'),
-(37, 21, 'ruko_21_673e5666aaf42.webp');
+(38, 20, 'ruko_20_673ebe9839c1f.webp'),
+(39, 20, 'ruko_20_673ebe9839f71.webp'),
+(40, 18, 'ruko_18_673ecc8d8baec.webp'),
+(41, 18, 'ruko_18_673ecc8d8c420.webp'),
+(42, 17, 'ruko_17_673ecca1dcea5.webp'),
+(43, 17, 'ruko_17_673ecca1dd25d.webp'),
+(44, 16, 'ruko_16_673eccd19a384.webp'),
+(45, 15, 'ruko_15_673eccda822ae.webp'),
+(46, 14, 'ruko_14_673ecce34b4a5.webp'),
+(50, 25, 'ruko_25_673ed207a4782.webp'),
+(54, 3, 'ruko_3_67405ffc36ff8.webp'),
+(55, 3, 'ruko_3_67405ffc3785c.webp'),
+(56, 3, 'ruko_3_67405ffc37a2e.jpeg');
 
 -- --------------------------------------------------------
 
@@ -90,7 +98,6 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`nama_pengguna`, `nama_lengkap`, `sandi`, `email`, `telepon`, `gambar_user`) VALUES
-('injil35', 'Injil Karepowan', '$2y$10$mUwxU6Lz4RW4nqma/FU1MOAtQ.EsxWtHbFwy5G5IBmHlipucnw9.6', 'injil@gmail.com', '089988887777', NULL),
 ('Koruko', 'Koruko', '$2y$10$9O2Tq83ZpXmOplMkD1/K3OyNG8dp1ZK1ZIx1c63mZSXdJHZ2Qb1KS', 'Koruko@gmail.com', '08111122223', 'Koruko_1732133017.jpeg');
 
 -- --------------------------------------------------------
@@ -125,7 +132,7 @@ CREATE TABLE `ruko` (
 INSERT INTO `ruko` (`id_ruko`, `nama_pengguna`, `nama_ruko`, `harga_jual`, `harga_sewa`, `kota`, `alamat`, `luas_bangunan`, `luas_tanah`, `jmlh_kmr_tdr`, `jmlh_kmr_mandi`, `jmlh_lantai`, `jmlh_garasi`, `tanggal`, `status`, `deskripsi`) VALUES
 (1, 'Koruko', 'Ruko Koruko', 100000, 10000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250000, 0, 0, 0, 0, '2024-11-14', 1, 'Ini Rumah Keren\"'),
 (2, 'Koruko', 'Ruko Koruko 2', 0, 200000, 'Sangatta', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren\"'),
-(3, 'Koruko', 'Ruko Koruko 3', 0, 200000, 'Bontang', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren\"\"'),
+(3, 'Koruko', 'Ruko Koruko 3', 0, 200000, 'Bontang', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 0, '.'),
 (4, 'Koruko', 'Ruko Koruko 4', 0, 200000, 'Balikpapan', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren\"'),
 (5, 'Koruko', 'Ruko Koruko 5', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
 (6, 'Koruko', 'Ruko Koruko 6', NULL, 200000, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-13', 1, 'Ini Rumah Keren'),
@@ -134,14 +141,13 @@ INSERT INTO `ruko` (`id_ruko`, `nama_pengguna`, `nama_ruko`, `harga_jual`, `harg
 (9, 'Koruko', 'Ruko Koruko 9', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, ''),
 (12, 'Koruko', 'Ruko Koruko 12', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, ''),
 (13, 'Koruko', 'Ruko Koruko 13', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, ''),
-(14, 'Koruko', 'Ruko Koruko 14', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, ''),
-(15, 'Koruko', 'Ruko Koruko 15', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, ''),
-(16, 'Koruko', 'Ruko Koruko 16', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, ''),
-(17, 'Koruko', 'Ruko Koruko 17', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, ''),
-(18, 'Koruko', 'Ruko Koruko 18', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, ''),
-(19, 'Koruko', 'Ruko Koruko 19', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, ''),
-(20, 'Koruko', 'Ruko Koruko 20', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, ''),
-(21, 'Koruko', 'Ruko Koruko 21', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, '\"');
+(14, 'Koruko', 'Ruko Koruko 14', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, '\"'),
+(15, 'Koruko', 'Ruko Koruko 15', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, '\"'),
+(16, 'Koruko', 'Ruko Koruko 16', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, '\"'),
+(17, 'Koruko', 'Ruko Koruko 17', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, '\"'),
+(18, 'Koruko', 'Ruko Koruko 18', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, '\"'),
+(20, 'Koruko', 'Ruko Koruko 20', 255, 0, 'Samarinda', 'Jalan Sempaja Gg Sempaja', 200, 250, 0, 0, 0, 0, '2024-11-19', 1, '\"'),
+(25, 'Koruko', 'Terbaru Baru ', 1, 0, '1', '1', 1, 1, 1, 1, 1, 1, '2024-11-21', 1, '1');
 
 -- --------------------------------------------------------
 
@@ -151,7 +157,7 @@ INSERT INTO `ruko` (`id_ruko`, `nama_pengguna`, `nama_ruko`, `harga_jual`, `harg
 
 CREATE TABLE `website` (
   `judul` varchar(20) NOT NULL,
-  `email` varchar(30) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `telepon` varchar(15) NOT NULL,
   `alamat` varchar(100) DEFAULT NULL,
   `deskripsi_tentang` text NOT NULL,
@@ -171,7 +177,7 @@ CREATE TABLE `website` (
 --
 
 INSERT INTO `website` (`judul`, `email`, `telepon`, `alamat`, `deskripsi_tentang`, `visi`, `misi`, `instagram`, `facebook`, `youtube`, `twitter`, `deskripsi_footer`, `logo_web`, `gambar_tentang`) VALUES
-('Koruko', 'Koruko@gmail.com', '081122223333', 'Jalan wahid hasyim 2 Kos sempaja', 'Koruko adalah platform digital yang menyediakan informasi terpercaya mengenai ruko  di Samarinda. Kami hadir untuk membantu Anda dalam menemukan hunian atau ruang usaha yang sesuai dengan kebutuhan dan anggaran Anda, dengan berbagai pilihan properti yang terletak di lokasi strategis. Melalui layanan kami, Anda dapat menemukan deskripsi lengkap, foto, serta informasi kontak yang memudahkan proses pencarian tempat tinggal atau ruang usaha di Samarinda. Kami berkomitmen untuk memberikan pengalaman terbaik dengan informasi yang selalu diperbarui dan akurat, menjadikan pencarian properti menjadi lebih mudah dan efisien.', 'Menjadi platform digital terdepan di Samarinda yang menyediakan informasi lengkap, akurat, dan terpercaya tentang properti, khususnya ruko , sehingga memudahkan masyarakat untuk menemukan hunian yang aman, nyaman, dan sesuai dengan kebutuhan. Kami bercita-cita untuk mendukung pertumbuhan ekonomi lokal dengan menghadirkan ekosistem properti yang transparan, inovatif, dan ramah pengguna, sehingga setiap orang dapat dengan mudah mendapatkan tempat tinggal atau ruang usaha yang ideal.', 'Kami berkomitmen untuk menyediakan informasi properti yang lengkap, akurat, dan terpercaya, agar para pengguna dapat membuat keputusan terbaik dalam memilih hunian atau ruang usaha. Dengan menjalin kerja sama yang erat bersama pemilik properti, kami memastikan setiap tempat yang ditawarkan memenuhi standar kualitas dan keamanan yang tinggi. Selain itu, kami terus mengembangkan teknologi dan fitur inovatif untuk memberikan pengalaman pencarian yang cepat, mudah, dan nyaman, sehingga pengguna dapat menemukan properti yang sesuai dengan kebutuhan mereka tanpa kesulitan.', 'https://www.instagram.com/rjiansyahh/', 'https://www.instagram.com/rjiansyahh/', 'https://www.instagram.com/rjiansyahh/', 'https://www.instagram.com/rjiansyahh/', 'Koruko adalah platform  yang bertujuan untuk membantu  menemukan ruko idaman untuk disewa atau dibeli. Kami menyediakan informasi lengkap dan terkini tentang harga, lokasi, dan fitur-fitur lainnya untuk membantu Anda dalam proses pencarian.', 'koruko_purple.png', 'gambar_tentang.jpg');
+('Koruko', 'Koruko@gmail.com', '081122223333', 'Jalan wahid hasyim 2 Kos sempaja', 'Koruko Koruko adalah platform digital yang menyediakan informasi terpercaya mengenai ruko  di Samarinda. Kami hadir untuk membantu Anda dalam menemukan hunian atau ruang usaha yang sesuai dengan kebutuhan dan anggaran Anda, dengan berbagai pilihan properti yang terletak di lokasi strategis. Melalui layanan kami, Anda dapat menemukan deskripsi lengkap, foto, serta informasi kontak yang memudahkan proses pencarian tempat tinggal atau ruang usaha di Samarinda. Kami berkomitmen untuk memberikan pengalaman terbaik dengan informasi yang selalu diperbarui dan akurat, menjadikan pencarian properti menjadi lebih mudah dan efisien.', 'Menjadi platform digital terdepan di Samarinda yang menyediakan informasi lengkap, akurat, dan terpercaya tentang properti, khususnya ruko , sehingga memudahkan masyarakat untuk menemukan hunian yang aman, nyaman, dan sesuai dengan kebutuhan. Kami bercita-cita untuk mendukung pertumbuhan ekonomi lokal dengan menghadirkan ekosistem properti yang transparan, inovatif, dan ramah pengguna, sehingga setiap orang dapat dengan mudah mendapatkan tempat tinggal atau ruang usaha yang ideal.', 'Kami berkomitmen untuk menyediakan informasi properti yang lengkap, akurat, dan terpercaya, agar para pengguna dapat membuat keputusan terbaik dalam memilih hunian atau ruang usaha. Dengan menjalin kerja sama yang erat bersama pemilik properti, kami memastikan setiap tempat yang ditawarkan memenuhi standar kualitas dan keamanan yang tinggi. Selain itu, kami terus mengembangkan teknologi dan fitur inovatif untuk memberikan pengalaman pencarian yang cepat, mudah, dan nyaman, sehingga pengguna dapat menemukan properti yang sesuai dengan kebutuhan mereka tanpa kesulitan.', 'https://www.instagram.com/rjiansyahh/', 'https://www.instagram.com/rjiansyahh/', 'https://www.instagram.com/rjiansyahh/', 'https://www.instagram.com/rjiansyahh/', 'Koruko adalah platform  yang bertujuan untuk membantu  menemukan ruko idaman untuk disewa atau dibeli. Kami menyediakan informasi lengkap dan terkini tentang harga, lokasi, dan fitur-fitur lainnya untuk membantu Anda dalam proses pencarian.', 'koruko_purple.png', 'gambar_tentang.jpg');
 
 --
 -- Indexes for dumped tables
@@ -219,13 +225,13 @@ ALTER TABLE `website`
 -- AUTO_INCREMENT for table `gambar_ruko`
 --
 ALTER TABLE `gambar_ruko`
-  MODIFY `id_gambar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_gambar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `ruko`
 --
 ALTER TABLE `ruko`
-  MODIFY `id_ruko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_ruko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables

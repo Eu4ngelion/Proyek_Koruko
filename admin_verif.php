@@ -66,6 +66,7 @@ if (isset($_POST['tolak'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verifikasi Ruko</title>
+    <link rel="icon" href="images/assets/icon_navbar.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/admin_verif.css">
@@ -123,17 +124,11 @@ if (isset($_POST['tolak'])) {
                         <input name="luasBangunan" type="text" value="<?php echo $ruko[0]['luas_bangunan'] ?>" disabled>
                     </div>
 
-                    <div class="form-input">
-                        <label class="label-form">Kota</label>
-                        <input name="kota" type="text" value="<?php echo $ruko[0]['kota'] ?>" disabled>
-                    </div>
-                    
                     <div class="form-input price-group">
                         <label class="label-form">Harga Sewa</label>
                         <input name="hargaSewa" type="number" value="<?php echo $ruko[0]['harga_sewa'] ?>" disabled>
                         <span class="price-suffix">per tahun</span>
                     </div>
-
 
                     <div class="form-input">
                         <label class="label-form">Luas Tanah</label>

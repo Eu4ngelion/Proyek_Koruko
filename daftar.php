@@ -25,39 +25,46 @@ if (isset($_POST['register-submit'])) {
     if (mysqli_num_rows($result) > 0) {
         echo "<script>alert('Nama pengguna sudah digunakan')</script>";
     } else {
-        // Cek apakah data nama pengguna sudah ada
-        $sql = "SELECT nama_pengguna FROM pengguna WHERE  nama_pengguna = '$inp_nama_pengguna' limit 1";
+        // Cek apakah data nama lengkap sudah ada
+        $sql = "SELECT nama_lengkap FROM pengguna WHERE nama_lengkap = '$inp_nama_lengkap' limit 1";
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
-            echo "<script>alert('Nama pengguna sudah digunakan')</script>";
-        }
-        // Cek apakah data email sudah ada
-        else {
-            $sql = "SELECT email FROM pengguna WHERE email = '$inp_email' limit 1";
+            echo "<script>alert('Nama lengkap sudah digunakan')</script>";
+        } else {
+            // Cek apakah data nama pengguna sudah ada
+            $sql = "SELECT nama_pengguna FROM pengguna WHERE  nama_pengguna = '$inp_nama_pengguna' limit 1";
             $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) > 0) {
-                echo "<script>alert('Nama lengkap sudah digunakan')</script>";
+                echo "<script>alert('Nama pengguna sudah digunakan')</script>";
             }
-            // Cek apakah data telepon sudah ada
+            // Cek apakah data email sudah ada
             else {
-                $sql = "SELECT telepon FROM pengguna WHERE telepon = '$inp_telepon' limit 1";
+                $sql = "SELECT email FROM pengguna WHERE email = '$inp_email' limit 1";
                 $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
-                    echo "<script>alert('Nomor telepon sudah digunakan')</script>";
+                    echo "<script>alert('Nama lengkap sudah digunakan')</script>";
                 }
-                // Data sudah valid
+                // Cek apakah data telepon sudah ada
                 else {
-                    $sql = "INSERT INTO pengguna (nama_pengguna, nama_lengkap, email, telepon, sandi)
-            VALUES ('$inp_nama_pengguna', '$inp_nama_lengkap', '$inp_email', '$inp_telepon', '$inp_sandi')";
-                    if (mysqli_query($conn, $sql)) {
-                        echo "
-                        <script>
-                        alert('Pendaftaran berhasil!')
-                        window.location.href = 'masuk.php';
-                        </script>";
-                        exit;
-                    } else {
-                        echo "<script>alert('Pendaftaran gagal!')</script>";
+                    $sql = "SELECT telepon FROM pengguna WHERE telepon = '$inp_telepon' limit 1";
+                    $result = mysqli_query($conn, $sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        echo "<script>alert('Nomor telepon sudah digunakan')</script>";
+                    }
+                    // Data sudah valid
+                    else {
+                        $sql = "INSERT INTO pengguna (nama_pengguna, nama_lengkap, email, telepon, sandi)
+                    VALUES ('$inp_nama_pengguna', '$inp_nama_lengkap', '$inp_email', '$inp_telepon', '$inp_sandi')";
+                        if (mysqli_query($conn, $sql)) {
+                            echo "
+                                <script>
+                                alert('Pendaftaran berhasil!')
+                                window.location.href = 'masuk.php';
+                                </script>";
+                            exit;
+                        } else {
+                            echo "<script>alert('Pendaftaran gagal!')</script>";
+                        }
                     }
                 }
             }
@@ -74,6 +81,7 @@ if (isset($_POST['register-submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar</title>
+    <link rel="icon" href="images/assets/icon_navbar.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -123,7 +131,7 @@ if (isset($_POST['register-submit'])) {
         }
 
         .redirect-register {
-            color: #703BF7;
+            color: white;
             width: 60%;
 
             font-family: "Poppins", sans-serif;
@@ -133,6 +141,12 @@ if (isset($_POST['register-submit'])) {
 
         .redirect-register a {
             color: #703BF7;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .redirect-register a:hover {
+            text-decoration: underline;
         }
 
         .form-control {
@@ -158,12 +172,19 @@ if (isset($_POST['register-submit'])) {
             padding: 10px;
             margin: 5px 0;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             background-color: #703BF7;
             color: white;
             font-family: 'Poppins', sans-serif;
             font-weight: bold;
             cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .button-ungu:hover {
+            background-color: #BBA0FF;
+            scale: 1.1;
+            transition: all 0.3s;
         }
 
         .copyright {
@@ -184,10 +205,10 @@ if (isset($_POST['register-submit'])) {
             </div>
             <form class="form-group" action="daftar.php" method="POST">
                 <input type="text" name="full-name" id="full-name" class="form-control"
-                    placeholder="Nama Lengkap" minlength="1" maxlength="30" pattern="[A-Za-z\s'-]+" required>
+                    placeholder="Nama Lengkap" minlength="1" maxlength="30" required>
 
                 <input type="text" name="username" id="username" class="form-control"
-                    placeholder="Nama Pengguna" minlength="5" maxlength="20" pattern="[A-Za-z0-9@._]+" required>
+                    placeholder="Nama Pengguna" minlength="5" maxlength="20" required>
 
                 <input type="email" name="email" id="email" class="form-control"
                     placeholder="Email" minlength="1" maxlength="50" required>

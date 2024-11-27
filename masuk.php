@@ -73,6 +73,7 @@ if (isset($_POST["login-submit"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk</title>
+    <link rel="icon" href="images/assets/icon_navbar.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -122,7 +123,7 @@ if (isset($_POST["login-submit"])) {
         }
 
         .redirect-register {
-            color: #703BF7;
+            color: white;
             width: 60%;
 
             font-family: "Poppins", sans-serif;
@@ -132,6 +133,12 @@ if (isset($_POST["login-submit"])) {
 
         .redirect-register a {
             color: #703BF7;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .redirect-register a:hover {
+            text-decoration: underline;
         }
 
         .form-control {
@@ -150,12 +157,19 @@ if (isset($_POST["login-submit"])) {
             padding: 10px;
             margin: 5px 0;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             background-color: #703BF7;
             color: white;
             font-family: 'Poppins', sans-serif;
             font-weight: bold;
             cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .button-ungu:hover {
+            background-color: #BBA0FF;
+            scale: 1.1;
+            transition: 0.3s;
         }
 
         .copyright {

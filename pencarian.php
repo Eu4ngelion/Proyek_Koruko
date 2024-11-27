@@ -52,30 +52,38 @@ if (isset($_GET["cur_page"])) {
 
 // Algoritma Searching 
 $search_where_algoritma = "WHERE (
- nama_ruko LIKE '%$cari_keyword%'
- OR kota LIKE '%$cari_keyword%'
- OR alamat LIKE '%$cari_keyword%'
- OR harga_sewa LIKE '%$cari_keyword%'
- OR harga_jual LIKE '%$cari_keyword%'
- )";
-
+    nama_ruko LIKE '%$cari_keyword%'
+    OR kota LIKE '%$cari_keyword%'
+    OR alamat LIKE '%$cari_keyword%'
+    OR harga_sewa LIKE '%$cari_keyword%'
+    OR harga_jual LIKE '%$cari_keyword%'
+    )";
 
 if ($cari_lokasi != "") {
-    $search_where_algoritma .= " AND kota LIKE '%$cari_lokasi%'";
+    $search_where_algoritma .= " AND kota LIKE '%$cari_lokasi%' ";
 }
+
 if ($cari_tipe != "" && $cari_tipe != "Semua") {
     if ($cari_tipe == "Dijual") {
-        $search_where_algoritma .= " AND (harga_jual != 0 OR harga_jual != NULL) ";
+        $search_where_algoritma .= " AND harga_jual > 0 ";
     }
     if ($cari_tipe == "Disewa") {
-        $search_where_algoritma .= " AND (harga_sewa != 0 OR harga_sewa != NULL)";
+        $search_where_algoritma .= " AND harga_sewa > 0 ";
     }
 }
+
 if ($cari_harga_min != "") {
-    $search_where_algoritma .= " AND (harga_sewa >= $cari_harga_min OR harga_jual >= $cari_harga_min)";
+    $search_where_algoritma .= " AND (
+           (harga_sewa > 0 AND harga_sewa >= $cari_harga_min) OR 
+           (harga_jual > 0 AND harga_jual >= $cari_harga_min)
+       ) ";
 }
+
 if ($cari_harga_max != "") {
-    $search_where_algoritma .= " AND (harga_sewa <= $cari_harga_max OR harga_jual <= $cari_harga_max)";
+    $search_where_algoritma .= " AND (
+           (harga_sewa > 0 AND harga_sewa <= $cari_harga_max) OR 
+           (harga_jual > 0 AND harga_jual <= $cari_harga_max)
+       ) ";
 }
 
 // Query Pencarian
@@ -120,19 +128,23 @@ function formatSubvalue($value)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pencarian</title>
+    <link rel="icon" href="images/assets/icon_navbar.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/searching.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <style>
+        html {
+            height: 100%;
+        }
+
+
         .paginasi-container {
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px 0
         }
-
-
 
         .paginasi-arrow-left {
             display: flex;
@@ -176,7 +188,7 @@ function formatSubvalue($value)
             font-size: 15px;
             font-weight: bold;
             border-radius: 100%;
-            transition:all 0.3s;
+            transition: all 0.3s;
             text-decoration: none;
         }
 
@@ -193,14 +205,15 @@ function formatSubvalue($value)
             font-size: 15px;
             font-weight: bold;
             border-radius: 100%;
-            transition:all 0.3s;
+            transition: all 0.3s;
             text-decoration: none;
         }
+
         .paginasi-page-number:hover {
             background-color: #703BF7;
             color: white;
             transition: 0.3s;
-        }   
+        }
     </style>
 
 </head>
@@ -362,17 +375,17 @@ function formatSubvalue($value)
                     $gambar = mysqli_fetch_assoc($result);
                     ?>
                     <a class="main-link-card" href="detail.php?id_ruko=<?php echo $ruko['id_ruko']; ?>">
-                        <button class="main-rekomendasi-card">
-                            <div class="rekomendasi-card-image" style="background-image: url(' images/ruko/<?php echo $gambar['gambar_properti']; ?>')">
-                        <!-- Jika Disewa -->
-                        <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                    <button class="main-rekomendasi-card">
+                    <div class="rekomendasi-card-image" style="background-image: url(' images/ruko/<?php echo $gambar['gambar_properti']; ?>')">
+                        <!-- Tampilkan label Disewa hanya jika harga sewa memiliki nilai -->
+                        <?php if ($ruko['harga_sewa'] > 0) : ?>
                             <div class="card-pop-sewa">
                                 Disewa
                             </div>
                         <?php endif; ?>
 
-                        <!-- Jika Dijual -->
-                        <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
+                        <!-- Tampilkan label Dijual hanya jika harga jual memiliki nilai -->
+                        <?php if ($ruko['harga_jual'] > 0) : ?>
                             <div class="card-pop-jual">
                                 Dijual
                             </div>
@@ -380,25 +393,23 @@ function formatSubvalue($value)
                     </div>
                     <div class="rekomendasi-card-bottom">
                         <div class="rekomendasi-card-harga">
-                            <!-- Harga Jual, Harga Sewa -->
-                            <?php if ($ruko['harga_jual'] != 0 || $ruko['harga_jual'] != NULL) : ?>
+                            <!-- Jika ada harga jual -->
+                            <?php if ($ruko['harga_jual'] > 0) : ?>
                                 <div class="rekomendasi-card-harga-kiri">
-                                    <!-- function format subvalue harga -->
                                     IDR <?php echo formatSubvalue($ruko['harga_jual']); ?>
                                 </div>
-                                <?php if ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                                <!--  Jika ada harga sewa juga -->
+                                <?php if ($ruko['harga_sewa'] > 0) : ?>
                                     <div class="rekomendasi-card-harga-kanan">
                                         IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / Tahun
                                     </div>
                                 <?php endif; ?>
-
-                            <?php elseif ($ruko['harga_sewa'] != 0 || $ruko['harga_sewa'] != NULL) : ?>
+                            <?php elseif($ruko['harga_sewa'] > 0) : ?>
+                                <!-- Jika ada harga sewa saja -->
                                 <div class="rekomendasi-card-harga-kiri">
-                                    <!-- per bulan -->
                                     IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / Tahun
                                 </div>
                             <?php endif; ?>
-
                         </div>
                         <!-- deskripsi atas -->
                         <div class="rekomendasi-card-deskripsi-atas">
@@ -409,39 +420,34 @@ function formatSubvalue($value)
                                 <?php echo $ruko['nama_ruko']; ?>
                             </div>
                             <div class="rekomendasi-card-alamat">
-
+                                <?php echo $ruko['alamat']; ?>
                             </div>
                         </div>
 
                         <!-- deskripsi bawah -->
                         <div class="rekomendasi-card-deskripsi-bawah">
-                            <div class="rekomendasi-card-fasilitas">
-                                <div class="fasilitas-title-luas">LT : </div>
-                                <div class="fasilitas-value"><?php echo $ruko['luas_tanah']; ?> m2</div>
+                            <div class="rekomendasi-card-fasilitas-luas">
+                                <div class="fasilitas-luas">LT : <?php echo $ruko["luas_tanah"] ?> m2 </div>
+                                <div class="fasilitas-luas">LB : <?php echo $ruko["luas_tanah"] ?> m2</div>
                             </div>
-                            <div class="rekomendasi-card-fasilitas">
-                                <div class="fasilitas-title-luas">LB :</div>
-                                <div class="fasilitas-value"><?php echo $ruko['luas_bangunan']; ?> m2</div>
-                            </div>
-                            <div class="rekomendasi-card-fasilitas">
-                                <div class="fasilitas-title">Kamar</div>
-                                :
-                                <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_tdr']; ?></div>
-                            </div>
-                            <div class="rekomendasi-card-fasilitas">
-                                <div class="fasilitas-title">Toilet</div>
-                                :
-                                <div class="fasilitas-value"><?php echo $ruko['jmlh_kmr_mandi']; ?></div>
-                            </div>
-                            <div class="rekomendasi-card-fasilitas">
-                                <div class="fasilitas-title">Garasi</div>
-                                :
-                                <div class="fasilitas-value"><?php echo $ruko['jmlh_lantai']; ?></div>
-                            </div>
-                            <div class="rekomendasi-card-fasilitas">
-                                <div class="fasilitas-title">Lantai</div>
-                                :
-                                <div class="fasilitas-value"><?php echo $ruko['jmlh_garasi']; ?></div>
+
+                            <div class="rekomendasi-card-fasilitas-icon">
+                                <div class="fasilitas-icon">
+                                    <image src="images/assets/bed_icon.png" alt="bed" style="width: 17px; height: auto;"> :
+                                        <?php echo $ruko['jmlh_kmr_tdr']; ?>
+                                </div>
+                                <div class="fasilitas-icon">
+                                    <image src="images/assets/bath_icon.png" alt="bath" style="width: 20px; height: auto;"> :
+                                        <?php echo $ruko['jmlh_kmr_mandi']; ?>
+                                </div>
+                                <div class="fasilitas-icon">
+                                    <image src="images/assets/garage_icon.png" alt="garage" style="width: 20px; height: auto;"> :
+                                        <?php echo $ruko['jmlh_garasi']; ?>
+                                </div>
+                                <div class="fasilitas-icon">
+                                    <image src="images/assets/floor_icon.png" alt="floor" style="width: 20px; height: auto;"> :
+                                        <?php echo $ruko['jmlh_lantai']; ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -517,6 +523,7 @@ function formatSubvalue($value)
     <footer>
         <?php include "footer.php"; ?>
     </footer>
+
     <script>
         // Dropdown Lokasi
         let lokasiSearchBox = document.querySelector(".main-lokasi-search-box");

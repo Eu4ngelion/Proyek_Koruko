@@ -42,8 +42,8 @@ if (isset($_POST['tambah'])) {
 
     try {
         // First insert the ruko data
-        $sql = "INSERT INTO ruko (nama_pengguna, nama_ruko, harga_jual, luas_bangunan, harga_sewa, kota, luas_tanah, jmlh_kmr_tdr, jmlh_kmr_mandi, alamat, jmlh_lantai, jmlh_garasi, deskripsi, status) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+        $sql = "INSERT INTO ruko (nama_pengguna, nama_ruko, harga_jual, luas_bangunan, harga_sewa, kota, luas_tanah, jmlh_kmr_tdr, jmlh_kmr_mandi, alamat, jmlh_lantai, jmlh_garasi, deskripsi, status, tanggal) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, NOW())";
 
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param(
@@ -143,7 +143,8 @@ if (isset($_POST['tambah'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifikasi Ruko</title>
+    <title>Tambah Ruko</title>
+    <link rel="icon" href="images/assets/icon_navbar.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/tambah_ruko.css">
@@ -193,43 +194,43 @@ if (isset($_POST['tambah'])) {
 
                     <div class="form-input">
                         <label class="label-form">Nama Ruko</label>
-                        <input name="namaRuko" type="text" required>
+                        <input name="namaRuko" type="text" required minlength="1" maxlength="30">
                     </div>
 
                     <div class="form-input">
                         <label class="label-form">Harga Jual</label>
-                        <input name="hargaJual" type="number">
+                        <input name="hargaJual" type="number" min="0" step="1" required>
                     </div>
 
                     <div class="form-input">
                         <label class="label-form">Luas Bangunan</label>
-                        <input name="luasBangunan" type="text" required>
+                        <input name="luasBangunan" type="text" min="0" step="1" required>
                     </div>
 
                     <div class="form-input">
                         <label class="label-form">Kota</label>
-                        <input name="kota" type="text" required>
+                        <input name="kota" type="text" minlength="1" maxlength="30" required>
                     </div>
 
                     <div class="form-input price-group">
                         <label class="label-form">Harga Sewa</label>
-                        <input name="hargaSewa" type="number">
+                        <input name="hargaSewa" type="number" min="0" step="1">
                         <span class="price-suffix">per tahun</span>
                     </div>
 
                     <div class="form-input">
                         <label class="label-form">Luas Tanah</label>
-                        <input name="luasTanah" type="text" required>
+                        <input name="luasTanah" type="text" min="0" step="1" required>
                     </div>
 
                     <div class="form-input">
                         <label class="label-form">Kamar Tidur</label>
-                        <input name="kamarTidur" type="number" required>
+                        <input name="kamarTidur" type="number" min="0" step="1" required>
                     </div>
 
                     <div class="form-input">
                         <label class="label-form">Kamar Mandi</label>
-                        <input name="kamarMandi" type="number" required>
+                        <input name="kamarMandi" type="number" min="0" step="1" required>
                     </div>
 
                     <div class="form-input">
@@ -243,20 +244,20 @@ if (isset($_POST['tambah'])) {
                         <div class="lower-form-kiri-atas">
                             <div class="form-input">
                                 <label class="label-form">Jumlah Lantai</label>
-                                <input name="jumlahLantai" type="text" required>
+                                <input name="jumlahLantai" type="text" min="0" step="1" required>
                             </div>
                             <div class="form-input">
                                 <label class="label-form">Garasi</label>
-                                <input name="garasi" type="number" required>
+                                <input name="garasi" type="number" min="0" step="1" required>
                             </div>
                         </div>
                         <div class="form-input full-width">
                             <label class="label-form">Alamat</label>
-                            <input name="alamat" type="text" required>
+                            <input name="alamat" type="text" minlength="1" maxlength="100" required>
                         </div>
                         <div class="form-input full-width">
                             <label class="label-form">Deskripsi</label>
-                            <textarea name="deskripsi" class="input-textarea" required></textarea>
+                            <textarea name="deskripsi" class="input-textarea" minlength="1" maxlength="500" required></textarea>
                         </div>
                     </div>
 
@@ -282,7 +283,6 @@ if (isset($_POST['tambah'])) {
                         <!-- Hidden input to store image data for form submission -->
                         <input type="hidden" name="imageData" id="imageData">
                     </div>
-
                 </div>
             </div>
         </main>
