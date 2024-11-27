@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="icon" href="images/assets/icon_navbar.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        html{
+        html {
             height: 100%;
         }
 
@@ -57,7 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 0;
             padding: 0;
         }
-
     </style>
     <link rel="stylesheet" href="styles/admin.css">
 </head>
@@ -107,6 +106,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input class="btn-simpan" type="submit" value="Simpan">
                     <input class="btn-batal" type="reset" value="Batal">
                 </div>
+            </div>
+
+            </form>
+        <div class="container-hero-2">
+            <div class="main-title-2">Anggota Tim</div>
+        </div>
+
+        <div class="container-tambah">
+            <a href="form_anggota.php">
+                <button class="perbarui">
+                    Tambah
+                </button>
+            </a>
+        </div>
+
+        <form action="" method="POST">
+            <div class="container-anggota">
+                <table class="table-anggota">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Peran</th>
+                            <th>Gambar</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php while ($row = mysqli_fetch_assoc($result_tim)) { ?>
+                            <tr>
+                                <td><?php echo $row['nama_anggota']; ?></td>
+                                <td><?php echo $row['peran']; ?></td>
+                                <td>
+                                    <?php
+                                    $image_path = "images/anggota/" . $row['foto'];
+                                    if (file_exists($image_path)) {
+                                        echo '<img src="' . $image_path . '" alt="Gambar Anggota" class="gambar_anggota">';
+                                    } else {
+                                        echo 'Gambar tidak ditemukan' . $image_path;
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <a href="perbarui_anggota.php?id=<?php echo $row['id_anggota']; ?>">
+                                        <button type="button" class="perbarui">Perbarui</button>
+                                    </a>
+                                    <a href="hapus_anggota.php?id=<?php echo $row['id_anggota']; ?>">
+                                        <button type="button" class="hapus">Hapus</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
             </div>
         </form>
 
