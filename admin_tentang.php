@@ -1,12 +1,6 @@
 <?php
 require "koneksi.php";
 
-$sql_tim = "SELECT * FROM tim";
-$result_tim = mysqli_query($conn, $sql_tim);
-if (!$result_tim) {
-    die("Query error: " . mysqli_error($conn));
-}
-
 $sql_website = "SELECT * FROM website LIMIT 1";
 $result_website = mysqli_query($conn, $sql_website);
 if (!$result_website) {
@@ -23,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gambar_tentang = $_FILES['gambar'];
 
     $gambar_tentang_dir = "images/website/";
-    $gambar_tentang_name = "gambar_tentang.jpg";
+    $gambar_tentang_name = "gambar_tentang.jpg"; 
 
     if ($gambar_tentang['tmp_name']) {
         if (file_exists($gambar_tentang_dir . $gambar_tentang_name)) {
@@ -74,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <main>
         <div class="container-hero">
-            <div class="main-title">Edit Tentang Kami</div>
+            <div class="main-title" >Edit Tentang Kami</div>
         </div>
 
         <form action="" method="POST" enctype="multipart/form-data">
@@ -84,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <?php if ($row_website['gambar_tentang']) { ?>
                             <img src="images/website/<?php echo $row_website['gambar_tentang']; ?>" alt="Gambar Tentang" class="gambar_tentang">
                         <?php } ?>
+                        <br>
                         <br>
                         <label class="gambar-section" for="gambar">Upload Gambar</label>
                         <br>
