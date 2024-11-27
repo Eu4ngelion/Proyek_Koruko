@@ -301,8 +301,8 @@ textarea {
 }
 
 .btn-tambah {
-    background: white;
-    color: black;
+    background: #08B208;
+    color: white;
 }
 
 .btn-edit-utama {
@@ -318,8 +318,8 @@ textarea {
 }
 
 .btn-hapus {
-    background: white;
-    color: black;
+    background: #FF4d4d;
+    color: white;
 }
 
 .image-counter {
