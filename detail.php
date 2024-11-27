@@ -141,13 +141,14 @@ function formatPropertySalePrice($price)
         .header-detail {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: end;
             margin-bottom: 24px;
+            margin-top: 70px;
         }
 
         .header-kota {
             color: #8B5CF6;
-            font-size: 26px;
+            font-size: 36px;
             font-weight: 800;
         }
 
@@ -160,6 +161,12 @@ function formatPropertySalePrice($price)
         .header-alamat {
             font-size: 16px;
             color: #9CA3AF;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            height: 100%;
         }
 
         .button-sewa-jual {
@@ -702,6 +709,103 @@ function formatPropertySalePrice($price)
             margin: 0;
             width: 290px;
             text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .container-main {
+            padding: 10px 20px;
+            margin: 0 5%;
+            }
+
+            .header-detail {
+            flex-direction: column;
+            align-items: flex-start;
+            }
+
+            .header-kota {
+            font-size: 20px;
+            }
+
+            .header-nama {
+            font-size: 28px;
+            }
+
+            .header-alamat {
+            font-size: 14px;
+            }
+
+            .button-sewa-jual {
+            margin-top: 10px;
+            }
+
+            .image-content {
+            flex-direction: column;
+            }
+
+            .image-left img {
+            height: auto;
+            width: 100%;
+            }
+
+            .image-right {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 10px;
+            }
+
+            .image-right>div {
+            height: auto;
+            width: 48%;
+            margin-bottom: 10px;
+            }
+
+            .properti-upper {
+            flex-direction: column;
+            }
+
+            .deskripsi-kiri,
+            .deskripsi-kanan {
+            width: 100%;
+            }
+
+            .data-pengguna {
+            height: auto;
+            }
+
+            .rekomendasi-card-bottom {
+            padding: 10px;
+            }
+
+            .rekomendasi-card-harga-kiri-rekomendasi,
+            .rekomendasi-card-harga-kanan-rekomendasi {
+            font-size: 18px;
+            }
+
+            .rekomendasi-card-kota,
+            .rekomendasi-card-nama,
+            .rekomendasi-card-alamat {
+            font-size: 14px;
+            }
+
+            .rekomendasi-card-fasilitas-icon {
+            flex-direction: column;
+            }
+
+            .fasilitas-icon {
+            font-size: 12px;
+            }
+
+            .card-rekomendasi {
+            overflow-x: scroll;
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 10px;
+            }
+
+            .main-rekomendasi-card {
+            flex: 0 0 auto;
+            width: 80%;
+            }
         }
     </style>
 </head>
