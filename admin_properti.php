@@ -13,8 +13,8 @@ $total_data = mysqli_fetch_assoc($total_result)['total'];
 $total_halaman = ceil($total_data / $baris_per_halaman);
 $query_stats = "SELECT 
     COUNT(*) as jumlah_ruko,
-    SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) as disewakan,
-    SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) as dijual,
+    SUM(CASE WHEN status = 1 AND harga_sewa > 0 THEN 1 ELSE 0 END) as disewakan,
+    SUM(CASE WHEN status = 1 AND harga_jual > 0 THEN 1 ELSE 0 END) as dijual,
     SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) as belum_verifikasi,
     SUM(CASE WHEN status = 2 THEN 1 ELSE 0 END) as terjual
 FROM ruko";
