@@ -5,6 +5,24 @@ require "koneksi.php";
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+// Default User Kosong
+$profil_user = null;
+if (!isset($_SESSION["username"])) {
+    $user = "";
+} else {
+    $user = $_SESSION["username"];
+}
+
+// Mengambil data admin, dan profil admin
+$sql = "SELECT nama_admin, gambar_admin FROM admin";
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $nama_admin = $row['nama_admin'];
+    $profil_admin = $row['gambar_admin'];
+}
+
 // Nama halaman saat ini
 $current_page = basename($_SERVER['PHP_SELF'], ".php");
 
@@ -12,9 +30,9 @@ if (!isset($_SESSION["login"])) {
     $_SESSION["login"] = false;
 }
 
-// Jika belum login dan ada di halaman tertentu
+// Jika belum login dan ada di halaman harus login
 if ($_SESSION["login"] == false) {
-    if ($current_page == 'profil' || $current_page == 'kelola' || $current_page== 'tambah_ruko' || $current_page == 'admin_properti' || $current_page == 'admin_akun' || $current_page == 'admin_tentang' || $current_page == 'admin_pengaturan' || $current_page == 'admin_verif') {
+    if ($current_page == 'profil' || $current_page == 'kelola' || $current_page== 'tambah_ruko' || $current_page == 'admin_properti' || $current_page == 'admin_akun' || $current_page == 'admin_tentang' || $current_page == 'admin_pengaturan' || $current_page == 'admin_verif' || $current_page == 'delete_pengguna' || $current_page == 'delete_properti' || $current_page == 'edit_ruko') {
         echo "
         <script>
         alert('Anda harus login terlebih dahulu!')
@@ -22,6 +40,29 @@ if ($_SESSION["login"] == false) {
         </script>";
     }
 }
+
+// Jika Login sebagai user
+if (isset($_SESSION["login"]) && $_SESSION["login"] == true && $user != $nama_admin) {
+    if ($current_page == 'admin_properti' || $current_page == 'admin_akun' || $current_page == 'admin_tentang' || $current_page == 'admin_pengaturan' || $current_page == 'admin_verif') {
+        echo "
+        <script>
+        alert('Anda tidak memiliki akses Admin!')
+        window.location.href = 'index.php'
+        </script>";
+    }
+}
+
+// Jika Login sebagai Admin
+if (isset($_SESSION["login"]) && $_SESSION["login"] == true && $user == $nama_admin) {
+    if ($current_page == 'index' || $current_page == 'tentang' || $current_page == 'pencarian' || $current_page == 'profil' || $current_page == 'kelola' || $current_page == 'tambah_ruko') {
+        echo "
+        <script>
+        alert('Anda merupakan Admin')
+        window.location.href = 'admin_properti.php'
+        </script>";
+    }
+}
+
 // jika sudah login dan memilih masuk atau daftar
 if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
     if ($current_page == 'masuk' || $current_page == 'daftar') {
@@ -33,24 +74,11 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
     }
 }
 
-// Default User Kosong
-$profil_user = null;
-if (!isset($_SESSION["username"])) {
-    $user = "";
-} else {
-    $user = $_SESSION["username"];
-}
 
 
 
-// Mengambil data admin, dan profil admin
-$sql = "SELECT nama_admin, gambar_admin FROM admin";
-$result = mysqli_query($conn, $sql);
-if (mysqli_num_rows($result) > 0) {
-    $row = mysqli_fetch_assoc($result);
-    $nama_admin = $row['nama_admin'];
-    $profil_admin = $row['gambar_admin'];
-}
+
+
 
 // Jika yang sedang login adalah admin
 if (isset($_SESSION['username'])) {
