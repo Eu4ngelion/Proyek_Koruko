@@ -197,7 +197,8 @@ while ($data = mysqli_fetch_assoc($result)) {
             width: 200px;
             height: 200px;
             object-fit: cover;
-            border-radius: 50%;
+            border-radius: 100%;
+            border: 4px solid black;
             margin-top: 5px;
         }
 
@@ -266,7 +267,7 @@ while ($data = mysqli_fetch_assoc($result)) {
             <div class="tentang-container-tim-card">
                 <?php foreach ($tim as $data) : ?>
                     <div class="tim-card">
-                        <img src="images/tim/<?= $data["foto"]; ?>" alt="foto_<?= $data["nama_anggota"]; ?>">
+                        <img src="images/anggota/<?= $data["foto"]; ?>" alt="foto_<?= $data["nama_anggota"]; ?>">
                         <div class="tim-nama"><?= $data["nama_anggota"]; ?></div>
                         <div class="tim-peran"><?= $data["peran"]; ?></div>
                     </div>
