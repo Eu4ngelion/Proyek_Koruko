@@ -8,7 +8,7 @@
 
 /* Body and Container */
 body {
-    background: linear-gradient(135deg, #f3e7ff 0%, #e9d6ff 100%);
+    background: black;
     min-height: 100vh;
     color: #333;
 }
@@ -33,7 +33,7 @@ body {
     margin-top: 50px;
     font-size: 2.5rem;
     font-weight: bolder; /* Use numeric value for font weight */
-    color: #000;
+    color: #FFF;
 }
 
 /* Button Styles */
@@ -76,7 +76,7 @@ body {
     background: #1a1a1a;
     padding: 2rem 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 100px 10px #7044FF;
     margin-bottom: 80px;
 }
 

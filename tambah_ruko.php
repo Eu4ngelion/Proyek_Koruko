@@ -279,7 +279,7 @@ if (isset($_POST['tambah'])) {
                             <input type="file" id="image" name="image[]" accept="image/*" multiple style="display: none;" required>
                             <label class="btn-hapus" id="btn-hapus">Hapus</label>
                         </div>
-                        <div class="image-counter">0/3 gambar</div>
+                        <div class="image-counter">0/4 gambar</div>
                         <!-- Hidden input to store image data for form submission -->
                         <input type="hidden" name="imageData" id="imageData">
                     </div>
@@ -304,7 +304,7 @@ if (isset($_POST['tambah'])) {
             let fileList = new DataTransfer(); // Create a new DataTransfer object to manage files
 
             function updateImageCounter() {
-                imageCounter.textContent = `${images.length}/3 gambar`;
+                imageCounter.textContent = `${images.length}/4 gambar`;
             }
 
             function updateNavigationButtons() {
@@ -336,13 +336,13 @@ if (isset($_POST['tambah'])) {
             imageInput.addEventListener('change', (e) => {
                 const files = Array.from(e.target.files);
 
-                if (images.length + files.length > 3) {
-                    alert('Maksimal 3 gambar yang diperbolehkan!');
+                if (images.length + files.length > 4) {
+                    alert('Maksimal 4 gambar yang diperbolehkan!');
                     return;
                 }
 
                 files.forEach(file => {
-                    if (images.length < 3) {
+                    if (images.length < 4) {
                         const reader = new FileReader();
                         reader.onload = (e) => {
                             images.push({
