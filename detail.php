@@ -180,10 +180,8 @@
                     <div class="properti-upper">
                         <div class="deskripsi-kiri">
                             <div class="rekomendasi-card-harga">
-                                <!-- Harga Jual, Harga Sewa -->
                                 <?php if ($ruko['harga_jual'] > 0) : ?>
                                     <div class="rekomendasi-card-harga-kiri">
-                                        <!-- function format subvalue harga -->
                                         <?php echo formatPropertySalePrice($ruko['harga_jual']); ?>
                                     </div>
                                     <?php if ($ruko['harga_sewa'] > 0) : ?>
@@ -194,7 +192,6 @@
 
                                 <?php elseif ($ruko['harga_sewa'] > 0) : ?>
                                     <div class="rekomendasi-card-harga-kiri">
-                                        <!-- per bulan -->
                                         <?php echo formatPropertyPrice($ruko['harga_sewa']); ?>
                                     </div>
                                 <?php endif; ?>
@@ -240,7 +237,6 @@
 
                         </div>
                         <div class="deskripsi-kanan">
-                            <!-- menampilkan data pengguna -->
                             <div class="data-pengguna">
                                 <div class="foto-pengguna">
                                     <img class="img-foto-pengguna" src="images/user/<?php echo $pengguna['gambar_user'] ?>" alt="">
