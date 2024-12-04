@@ -49,7 +49,6 @@ $pengguna_result = mysqli_query($conn, $query_pengguna);
 <body>
    <header> <?php include "navbar.php"; ?>
 </header>
-    <h1>Admin Properti</h1>
     <main class="main-content">
         <h1>Lihat akun</h1>
    

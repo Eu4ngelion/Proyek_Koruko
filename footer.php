@@ -171,7 +171,55 @@ $footer = mysqli_fetch_assoc($result);
             padding: 20px 0;
             border-top: 1px solid #FECE0E;
             color: #FECE0E;
+        }
 
+        @media screen and (max-width: 900px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-kiri {
+                padding: 0;
+            }
+
+            .footer-kanan {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .link-section {
+                margin-bottom: 0;
+            }
+
+            .link-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .footer-title {
+                font-size: 20px;
+            }
+
+            .link-list li a {
+                font-size: 12px;
+            }
+
+            .contact-info {
+                font-size: 12px;
+            }
+
+            .social-icons {
+                display: flex;
+                gap: 10px;
+                justify-content: left;
+                align-items: start;
+            }
+
+            .footer-description {
+                max-width: 100%;
+            }
         }
     </style>
 </head>

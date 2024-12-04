@@ -216,6 +216,78 @@ while ($data = mysqli_fetch_assoc($result)) {
             margin-top: 5px;
             text-align: center;
         }
+
+        @media screen and (max-width: 900px) {
+            .main-index {
+                padding: 80px 5% 200px 5%;
+            }
+
+            .tentang-big-title {
+                font-size: 40px;
+            }
+
+            .tentang-big-title img {
+                width: 70px;
+            }
+
+            .tentang-container-deskripsi {
+                flex-direction: column;
+            }
+
+            .tentang-gambar {
+                width: 100%;
+                height: 300px;
+            }
+
+            .tentang-gambar img {
+                width: 100%;
+                height: 100%;
+                border-radius: 15px;
+            }
+
+            .tentang-deskripsi {
+                font-size: 16px;
+                padding: 20px 0;
+            }
+
+            .tentang-visi-misi-title {
+                font-size: 30px;
+            }
+
+            .tentang-visi-misi-title img {
+                width: 30px;
+            }
+
+            .tentang-visi-misi-text {
+                font-size: 16px;
+            }
+
+            .tentang-tim-title {
+                font-size: 40px;
+            }
+
+            .tentang-tim-title img {
+                width: 70px;
+            }
+
+            .tim-card {
+                width: 200px;
+                height: 250px;
+            }
+
+            .tim-card img {
+                width: 150px;
+                height: 150px;
+            }
+
+            .tim-nama {
+                font-size: 16px;
+            }
+
+            .tim-peran {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 

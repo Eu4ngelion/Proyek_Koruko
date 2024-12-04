@@ -465,6 +465,98 @@ if (isset($_SESSION["username"])) {
                     </li>
                 <?php endif; ?>
             </ul>
+
+            <div class="navbar-hamburger">
+                <input type="checkbox" id="menu-toggle">
+                <label for="menu-toggle" class="menu-icon">&#9776;</label>
+                <div class="menu">
+                    <ul>
+                        <?php if ($user != $nama_admin): ?>
+                            <li><a href="index.php">Beranda</a></li>
+                            <li><a href="tentang.php">Tentang</a></li>
+                            <li><a href="pencarian.php">Cari</a></li>
+                            <?php if ($_SESSION["login"] == true): ?>
+                                <li><a href="kelola.php">Kelola</a></li>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php if ($_SESSION["login"] == true && $user == $nama_admin): ?>
+                            <li><a href="admin_properti.php">Properti</a></li>
+                            <li><a href="admin_akun.php">Pengguna</a></li>
+                            <li><a href="admin_tentang.php">Tentang</a></li>
+                            <li><a href="admin_pengaturan.php">Pengaturan</a></li>
+                        <?php endif; ?>
+                        <?php if ($_SESSION["login"] == false || $_SESSION["username"] == ""): ?>
+                            <li><a href="masuk.php">Masuk</a></li>
+                            <li><a href="daftar.php">Daftar</a></li>
+                        <?php else: ?>
+                            <li><a href="profil.php"><?php echo $user ?></a></li>
+                            <li><a href="keluar.php">Keluar</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+
+            <style>
+                .navbar-hamburger {
+                    display: none;
+                }
+
+                @media (max-width: 900px) {
+                    .navbar-hamburger {
+                        display: block;
+                    }
+
+                    .navbar-middle,
+                    .navbar-right {
+                        display: none;
+                    }
+
+                    .menu-icon {
+                        font-size: 24px;
+                        cursor: pointer;
+                        color: white;
+                    }
+
+                    .menu {
+                        display: none;
+                        position: absolute;
+                        right: 1%;
+                        top: 50px;
+                        background-color: black;
+                        border-radius: 5px;
+                        box-shadow: 0 4px 8px #703BF7;
+                        width: 30%;
+                        border: 1px solid #703BF7
+                    }
+
+                    .menu ul {
+                        list-style: none;
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    .menu ul li {
+                        padding: 10px;
+                        text-align: center;
+                    }
+
+                    .menu ul li a {
+                        text-decoration: none;
+                        color: white;
+                        font-family: "Poppins";
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+
+                    #menu-toggle:checked + .menu-icon + .menu {
+                        display: block;
+                    }
+
+                    #menu-toggle {
+                        display: none;
+                    }
+                }
+            </style>
         </div>
     </nav>
 

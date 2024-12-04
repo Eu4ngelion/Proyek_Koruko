@@ -58,7 +58,6 @@ $ruko_result = $conn->query($query_ruko);
 <body>
    <header> <?php include "navbar.php"; ?>
 </header>
-    <h1>Admin Properti</h1>
     <main class="main-content">
         <h1>Lihat Properti</h1>
 

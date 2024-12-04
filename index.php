@@ -558,6 +558,216 @@ function formatSubvalue($value)
             margin-top: 10px;
         }
 
+        /* Media Queries */
+        @media (max-width: 900px) {
+
+            .main-hero-image{
+                height: 350px;
+                width: 100%;
+            }
+            .hero-image{
+                height: 350px;
+                width: 100%;
+            }
+
+            .main-hero-search {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+            .main-search-lokasi,
+            .main-search-tipe,
+            .main-search-harga{
+                width: 25%;
+                margin-bottom: 10px;
+            }
+
+            .main-search-lokasi{
+                margin-left: 2%;
+            }
+
+            .main-search-harga{
+                margin-right: 2%;
+            }
+
+            .main-lokasi-search-box,
+            .main-tipe-search-box,
+            .main-harga-search-box {
+                width: 100%;
+            }
+
+            .main-lokasi-search-category-title,
+            .main-tipe-search-category-title,
+            .main-harga-search-category-title {
+                font-size: 14px;
+            }
+
+            .main-lokasi-search-category-value,
+            .main-tipe-search-category-value,
+            .main-harga-search-category-value {
+                font-size: 12px;
+            }
+
+            .main-search-submit {
+                font-size: 14px;
+                width: 30vh;
+                margin: 0 5vh;
+            }
+
+            .main-hero-title {
+                font-size: 40px;
+            }
+
+            .main-hero-subtitle {
+                font-size: 24px;
+            }
+
+            .main-rekomendasi-content {
+                height: 580px;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .main-link-card{
+                width: 200px;
+            }
+
+            .main-rekomendasi-card {
+                width: 180px;
+                height: 250px;
+            }
+
+            .rekomendasi-card-image {
+                height: 200px;
+            }
+
+            .rekomendasi-card-bottom {
+                padding: 10px;
+            }
+
+            .rekomendasi-card-harga-kiri,
+            .rekomendasi-card-harga-kanan {
+                font-size: 12px;
+            }
+
+            .rekomendasi-card-kota,
+            .rekomendasi-card-nama,
+            .rekomendasi-card-alamat {
+                font-size: 14px;
+            }
+
+            .rekomendasi-card-fasilitas-icon {
+                margin-top: 10px;
+            }
+
+            .rekomendasi-card-fasilitas-icon img {
+                width: 15px;
+            }
+
+            .main-mengapa-title{
+                font-size: 30px;
+            }
+
+            .main-mengapa-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .main-mengapa-card {
+                width: 90%;
+                margin: 10px 0;
+            }
+
+            .main-rekomendasi-title{
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 0;
+            }
+
+            .main-rekomendasi-title-left{
+                font-size: 30px;
+            }
+
+            .lihat-semua button {
+                background-color: #703BF7;
+                color: white;
+                border: none;
+                border-radius: 20px;
+                cursor: pointer;
+                font-size: 12px;
+                font-weight: bold;
+                transition: all 0.2s;
+                width: 120px;
+            }
+
+            .lihat-semua button:hover {
+                background-color: #BBA0FF;
+                transition: all 0.5s;
+            }
+
+
+            .main-rekomendasi-title-left img{
+                display: none;
+            }
+            
+            .main-dropdown-lokasi-box,
+            .main-dropdown-tipe-box,
+            .main-dropdown-harga-box {
+                width: 100%;
+                min-width: 0;
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+            }
+
+            .main-dropdown-lokasi-search,
+            .main-dropdown-harga-min,
+            .main-dropdown-harga-max {
+                width: 80%;
+                padding: 10px 0 10px 5px;
+                font-size: 14px;
+            }
+
+            .main-dropdown-tipe-radio {
+                
+                padding: 10px 5%;
+            }
+
+            .main-dropdown-tipe-radio label {
+                margin-right: 5px;
+            }
+
+            .main-dropdown-lokasi-terapkan,
+            .main-dropdown-tipe-terapkan,
+            .main-dropdown-harga-terapkan {
+                width: 90%;
+                margin: 10px;
+            }
+
+            .main-dropdown-lokasi-terapkan-button,
+            .main-dropdown-tipe-terapkan-button,
+            .main-dropdown-harga-terapkan-button {
+                width: 100%;
+            }
+
+            .main-dropdown-lokasi-terapkan-button{
+                font-size: 14px;
+            }
+
+            .main-dropdown-tipe-terapkan-button{
+                font-size: 14px;
+            }
+
+            .main-dropdown-harga-terapkan-button{
+                font-size: 14px;
+            }
+
+
+        }
+
 
 
     </style>
