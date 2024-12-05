@@ -132,90 +132,6 @@ function formatSubvalue($value)
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/searching.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
-    <style>
-        html {
-            height: 100%;
-        }
-
-
-        .paginasi-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px 0
-        }
-
-        .paginasi-arrow-left {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .paginasi-arrow {
-            width: 40px;
-            height: 40px;
-            background-color: white;
-            margin: 0 10px;
-            border-radius: 100%;
-            /* align center the arrow */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 22px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .paginasi-page-number-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .paginasi-page-number {
-            color: black;
-            background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 50px;
-            height: 50px;
-            margin: 0 5px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: bold;
-            border-radius: 100%;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .paginasi-page-number-active {
-            color: white;
-            background-color: #703BF7;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 50px;
-            height: 50px;
-            margin: 0 5px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: bold;
-            border-radius: 100%;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .paginasi-page-number:hover {
-            background-color: #703BF7;
-            color: white;
-            transition: 0.3s;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -404,7 +320,7 @@ function formatSubvalue($value)
                                         IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / Tahun
                                     </div>
                                 <?php endif; ?>
-                            <?php elseif($ruko['harga_sewa'] > 0) : ?>
+                            <?php elseif ($ruko['harga_sewa'] > 0) : ?>
                                 <!-- Jika ada harga sewa saja -->
                                 <div class="rekomendasi-card-harga-kiri">
                                     IDR <?php echo formatSubvalue($ruko['harga_sewa']); ?> / Tahun
