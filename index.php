@@ -765,7 +765,18 @@ function formatSubvalue($value)
                 font-size: 14px;
             }
 
+            .main-lokasi-search-category-title,
+            .main-tipe-search-category-title,
+            .main-harga-search-category-title {
+                font-size: 12px;
+            }
 
+
+            .main-lokasi-search-category-value,
+            .main-tipe-search-category-value,
+            .main-harga-search-category-value {
+                font-size: 10px;
+            }
         }
 
 

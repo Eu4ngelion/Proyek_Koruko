@@ -271,13 +271,13 @@ while ($data = mysqli_fetch_assoc($result)) {
             }
 
             .tim-card {
-                width: 200px;
-                height: 250px;
+                width: 150px;
+                height: 200px;
             }
 
             .tim-card img {
-                width: 150px;
-                height: 150px;
+                width: 100px;
+                height: 100px;
             }
 
             .tim-nama {
